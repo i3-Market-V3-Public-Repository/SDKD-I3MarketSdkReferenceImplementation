@@ -1,0 +1,10 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "i3Market SDK RI Generator REST API spec.",
+    "version" : "v1.0",
+    "title" : "Swagger spec for i3Market SDK RI Generator REST API"
+  },
+  "basePath" : "/SdkRiGenerator/api",
+  "schemes" : [ "http", "https" ]
+}

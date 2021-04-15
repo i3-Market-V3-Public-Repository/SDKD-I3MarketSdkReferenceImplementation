@@ -1,0 +1,11 @@
+{
+  "realm": "i3market",
+  "auth-server-url": "http://83.149.125.78:8080/auth/",
+  "ssl-required": "none",
+  "resource": "SDKGeneratorClient",
+  "credentials": {
+    "secret": "a4279d93-994d-4de4-a2d6-3b1660d07842"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}
