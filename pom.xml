@@ -184,7 +184,7 @@
 								<scheme>http</scheme>
 								<scheme>https</scheme>
 							</schemes>
-							<basePath>/SdkRiGenerator/api</basePath>
+							<basePath>/SdkRefImpl/api</basePath>
 							<info>
 								<title>Swagger spec for i3Market SDK RI Generator REST API</title>
 								<version>v1.0</version>
@@ -232,6 +232,6 @@
 			</plugin>
 		</plugins>
 
-		<finalName>SdkRiGenerator</finalName>
+		<finalName>SdkRefImpl</finalName>
 	</build>
 </project>

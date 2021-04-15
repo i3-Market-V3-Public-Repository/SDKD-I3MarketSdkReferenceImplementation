@@ -5,7 +5,7 @@
 
 
     
-<module-name>SdkRiGeneratorClient</module-name>
+<module-name>SdkRefImplGeneratorClient</module-name>
 
 <security-constraint>
         <web-resource-collection>

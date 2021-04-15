@@ -8,10 +8,10 @@ RUN chmod 700 /root/.ssh/id_rsa
 
 RUN touch /root/.ssh/known_hosts
 RUN echo "Host gitlab.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-RUN git clone git@gitlab.com:i3-market/code/wp4/i3market-sdk.git
+RUN git git@gitlab.com:i3-market/code/sdk/i3m-sdk-reference-implementation.git
 
 
-WORKDIR /i3market-sdk
+WORKDIR /i3market-sdk-ri
 RUN git checkout develop
 RUN mvn install
 
@@ -24,7 +24,7 @@ RUN tar -xzf /var/lib/jetty/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz
 USER jetty
 RUN echo $JETTY_HOME
 RUN java -jar "$JETTY_HOME/start.jar" --add-to-start=keycloak
-COPY --from=initial /i3market-sdk/target/SdkGenerator.war /var/lib/jetty/webapps/SdkGenerator.war
+COPY --from=initial /i3market-sdk-ri/target/SdkGenerator.war /var/lib/jetty/webapps/SdkRefImpl.war
 
 
 
