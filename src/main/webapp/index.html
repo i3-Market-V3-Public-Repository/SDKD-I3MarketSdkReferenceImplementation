@@ -49,10 +49,10 @@
 	
     
     window.onload = function() {
-
+    	var baseurl = window.location.origin+window.location.pathname;
       // Build a system
       const ui = SwaggerUIBundle({
-        url: "http://95.211.3.244:8181/SdkRefImpl/swagger.json",
+        url: baseurl + "/swagger.json",
     	dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
