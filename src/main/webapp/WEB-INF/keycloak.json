@@ -4,7 +4,7 @@
   "ssl-required": "none",
   "resource": "SDK-RI_Client",
   "credentials": {
-    "secret": "a4279d93-994d-4de4-a2d6-3b1660d07842"
+    "secret": "703e0db9-a646-4f1d-bdc6-2b3fe20db08a"
   },
   "use-resource-role-mappings": true,
   "confidential-port": 0
