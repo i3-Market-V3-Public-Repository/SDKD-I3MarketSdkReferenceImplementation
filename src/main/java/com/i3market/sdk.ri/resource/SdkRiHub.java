@@ -37,7 +37,6 @@ public class SdkRiHub {
 	
 	
 	private Logger LOGGER = Logger.getLogger(SdkRiHub.class.getName());
-	final static String API_SERVER = "http://api.openapi-generator.tech/";
 	
 	//#####################################################################
 	//	API REST METHODS
