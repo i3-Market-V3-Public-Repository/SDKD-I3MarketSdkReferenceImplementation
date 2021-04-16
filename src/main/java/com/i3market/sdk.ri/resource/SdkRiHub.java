@@ -33,10 +33,10 @@ import io.swagger.annotations.ApiResponses;
 @Path("sdk-ri")
 @Api(value = "/")
 @Produces({ "application/json", "application/xml" })
-public class SdkRiGenerator {
+public class SdkRiHub {
 	
 	
-	private Logger LOGGER = Logger.getLogger(SdkRiGenerator.class.getName());
+	private Logger LOGGER = Logger.getLogger(SdkRiHub.class.getName());
 	final static String API_SERVER = "http://api.openapi-generator.tech/";
 	
 	//#####################################################################
