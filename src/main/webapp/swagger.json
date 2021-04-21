@@ -5,6 +5,6 @@
     "version" : "v1.0",
     "title" : "Swagger spec for i3Market SDK RI Generator REST API"
   },
-  "basePath" : "/SdkRiGenerator/api",
+  "basePath" : "/SdkRefImpl/api",
   "schemes" : [ "http", "https" ]
 }
