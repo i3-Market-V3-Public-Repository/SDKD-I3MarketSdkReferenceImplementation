@@ -178,7 +178,7 @@
 						<apiSource>
 							<springmvc>false</springmvc>
 							<locations>
-								<location>com.i3market.sdk-ri.resource</location>
+								<location>com.i3market.sdk.ri.resource</location>
 							</locations>
 							<schemes>
 								<scheme>http</scheme>
