@@ -2,6 +2,8 @@
 
 SDK reference implementation that includes common services.
 
+WEB REOURCE: com.i3market.sdk.ri.resource.SdkRiHub
+
 ## Setup
 
 Clone the repository, and download the dependencies:
