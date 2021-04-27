@@ -47,7 +47,7 @@ SDK-RI container is built over a jetty image and deploy the SdkREfIMpl war file 
 Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API.
 
 
-## Contributing to the SDK-RI project
+# Contributing to the SDK-RI project
 
 - The developer includes the service (as a get method) in the SdkRiHUB. i.e:
 
@@ -65,10 +65,10 @@ Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API
 - The developer includes the logic behind the service in classes (each per service) in the corresponding module
 
 
-## Configuring and using SDK-RI
+# Configuring and using SDK-RI
 
 - The marketplace will have all the common services exposed in a sdk-ri/ endpoint
-- Each marketplaces making use of the SDK-RI should configure the SDK-RI by means of:
+- Each marketplace-end user, which pursues making use of the SDK-RI, should configure the SDK-RI by means of:
    - Pointing to the Backplane endpoint(s) hosted in a concrete i3-Market node (i.e: Backplane API node1, OpenID Connect Provider API node1, Verifying Credential service API node1)
    - pointing to the Wallet endpoint hosted locally.
 
