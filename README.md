@@ -71,5 +71,12 @@ Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API
 - Each marketplace-end user, which pursues making use of the SDK-RI, should configure the SDK-RI by means of:
    - Pointing to the Backplane endpoint(s) hosted in a concrete i3-Market node (i.e: Backplane API node1, OpenID Connect Provider API node1, Verifying Credential service API node1)
    - pointing to the Wallet endpoint hosted locally.
+_ This configuration should be defined in the SDK-RI properties file placed at "src/resources/sdk_ri_config.properties"
+	
+- An example of setup could be the following:
+	
+	- backplane.url =  http://95.211.3.244:3000/
+	- oidc.url =  https://identity1.i3-market.eu/
+	- verifiable_credentials.url = https://identity1.i3-market.eu/vc/api-spec/ui/
 
 
