@@ -24,6 +24,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.i3market.sdk.ri.common_services.subscription.RequestingDataItemPurchase;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,5 +45,13 @@ public class SdkRiHub {
 	//	API REST METHODS
 	//#####################################################################
 	
-	
+	@GET
+	@Path("/requestDataItemPurchase")
+	@ApiOperation(value = "")
+    @ApiResponses(value={@ApiResponse(code = 401, message = "Unauthorized")}) 
+	@Produces({ "application/json", "application/xml" })
+	public void requestDataItemPurchase() throws Exception {
+		RequestingDataItemPurchase.requestDataItemPurchase();
+	}
+
 }
