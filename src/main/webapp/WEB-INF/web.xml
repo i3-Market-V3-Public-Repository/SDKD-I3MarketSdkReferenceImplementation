@@ -5,7 +5,7 @@
 
 
     
-<module-name>SdkRefImplGeneratorClient</module-name>
+<module-name>SDK-RI_Client</module-name>
 
 <security-constraint>
         <web-resource-collection>
@@ -50,7 +50,7 @@
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>
             io.swagger.annotations;
-            com.i3market.sdk-ri.resource;
+            com.i3market.sdk.ri.resource;
         </param-value>
       </init-param>
       
