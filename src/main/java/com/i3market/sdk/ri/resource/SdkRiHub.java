@@ -1,21 +1,18 @@
 package com.i3market.sdk.ri.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import org.json.JSONObject;
 
+import com.i3market.sdk.ri.common_services.subscription.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -30,6 +27,16 @@ public class SdkRiHub {
 	//#####################################################################
 	//	API REST METHODS
 	//#####################################################################
+	
+	@GET
+	@Path("/requestDataItemPurchase")
+	@ApiOperation(value = "")
+    @ApiResponses(value={@ApiResponse(code = 401, message = "Unauthorized")}) 
+	@Produces({ "application/json", "application/xml" })
+	public void requestDataItemPurchase() throws Exception {
+		RequestingDataItemPurchase.requestDataItemPurchase();
+	}
+	
 	
 	@GET
 	@Path("/getConfigurationInfo")
