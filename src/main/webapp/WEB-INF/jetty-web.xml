@@ -2,9 +2,28 @@
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
       
-    <Get name="securityHandler">
+        <Get name="securityHandler">
         <Set name="authenticator">
             <New class="org.keycloak.adapters.jetty.KeycloakJettyAuthenticator">
+            
+               <Set name="adapterConfig">
+                <New class="org.keycloak.representations.adapters.config.AdapterConfig">
+                    <Set name="realm">i3market</Set>
+                    <Set name="resource">SDK-RI_Client</Set>
+                    <Set name="authServerUrl">http://83.149.125.78:8080/auth/</Set>
+                    <Set name="sslRequired">none</Set>
+                    <Set name="credentials">
+                        <Map>
+                            <Entry>
+                                <Item>secret</Item>
+                                <Item>703e0db9-a646-4f1d-bdc6-2b3fe20db08a</Item>
+                            </Entry>
+                        </Map>
+                    </Set>
+                    <Set name="useResourceRoleMappings">true</Set>
+                    <Set name="confidentialPort">0</Set>
+                </New>
+            	</Set>
             </New>
         </Set>
     </Get>
