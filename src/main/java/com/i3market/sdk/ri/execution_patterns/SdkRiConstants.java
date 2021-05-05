@@ -14,5 +14,11 @@ public final class SdkRiConstants {
 		
 	// Verifiable Credentials API public endpoint (URL)
 	public static final String VC_ENDPOINT = SdkRiConfiguration.getInstance().getProperty(SdkRiProperties.VC_URL);
+	
+	// Data Access API public endpoint (URL)
+	public static final String DATA_ACCESS_ENDPOINT = SdkRiConfiguration.getInstance().getProperty(SdkRiProperties.DATA_ACCESS_URL);
+	
+	// SW Wallet API public endpoint (URL)
+	public static final String SW_WALLET_ENDPOINT = SdkRiConfiguration.getInstance().getProperty(SdkRiProperties.SW_WALLET_URL);
 
 }
