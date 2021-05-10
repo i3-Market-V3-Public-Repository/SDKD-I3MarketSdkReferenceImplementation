@@ -35,12 +35,11 @@ public class PocBackplane {
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
 		
-		// Setup authentications (JWT).
+	    // Setup authentications (JWT).
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-		authentications = new HashMap<String, Authentication>();
 		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
 		jwtAuth.setBearerToken(jwt);
-		authentications.put("JWTAuth", jwtAuth);
+		authentications.put("BearerAuth", jwtAuth);
 		
 		PingControllerApi controller = new PingControllerApi();
 		return  controller.pingControllerPing();
