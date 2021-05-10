@@ -44,14 +44,13 @@ public class PocOIDC {
 		
 	    // Setup authentications (JWT).
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-		Map<String, Authentication> authenticationsModifiable = new HashMap<String, Authentication>(authentications);
 		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
 		jwtAuth.setBearerToken(jwt);
-		authenticationsModifiable.replace("BasicAuth", jwtAuth);
+		authentications.put("BearerAuth", jwtAuth);
 	    
 	    OidcCoreApi oidcController = new OidcCoreApi();
 		LOGGER.info(" ### ApiClient Base path: " + oidcController.getApiClient().getBasePath());
-		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("BasicAuth")).getBearerToken());
+		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("BearerAuth")).getBearerToken());
 		return  oidcController.oidcJwksGetWithHttpInfo();
 		
 	}
