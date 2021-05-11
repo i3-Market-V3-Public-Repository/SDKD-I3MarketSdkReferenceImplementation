@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import org.json.JSONObject;
 
@@ -63,11 +64,11 @@ public class SdkRiHub {
                     )
             }) 
 	@Produces({ "application/json", "application/xml" })
-	public PingResponse runBackplaneExample(
+	public PingResponse runBackplaneExample(@QueryParam("back_token") String jwt
 				 
 			) throws Exception {
 		
-		return new PocBackplane().ping();
+		return new PocBackplane().ping(jwt);
 	}
 	
 	@GET
@@ -79,11 +80,11 @@ public class SdkRiHub {
                     )
             }) 
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<JWKSet> runOidcExample(
+	public com.i3m.api.ApiResponse<JWKSet> runOidcExample(@QueryParam("back_token") String jwt
 				 
 			) throws Exception {
 		
-		return new PocOIDC().getJWKS();
+		return new PocOIDC().getJWKS(jwt);
 	}
 	
 }
