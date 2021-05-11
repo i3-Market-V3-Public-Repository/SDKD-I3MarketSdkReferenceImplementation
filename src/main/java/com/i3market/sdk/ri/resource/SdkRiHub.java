@@ -16,6 +16,7 @@ import com.i3m.model.oidc.OpenIDProviderMetadata;
 import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.examples.PocOIDC;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import com.i3market.sdk.ri.common_services.data.exchange.accountdatablock.AccountDataBlock;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +34,23 @@ public class SdkRiHub {
 	//#####################################################################
 	//	API REST METHODS
 	//#####################################################################
-	
+
+	@GET
+	@Path("/accountdatablock")
+	@ApiOperation(
+            value = "Data transfer using non-repudiabe protocol")
+    @ApiResponses(value={                    
+                    @ApiResponse(code = 401, message = "Unauthorized"
+                    )
+            }) 
+	@Produces({ "application/json", "application/xml" })
+	public PingResponse runBackplaneExample(@QueryParam("back_token") String jwt
+				 
+			) throws Exception {
+		
+		return new PocBackplane().ping(jwt);
+	}
+
 	@GET
 	@Path("/getConfigurationInfo")
 	@ApiOperation(
