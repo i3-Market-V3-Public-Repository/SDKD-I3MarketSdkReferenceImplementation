@@ -39,7 +39,7 @@ public class PocBackplane {
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
 		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
 		jwtAuth.setBearerToken(jwt);
-		authentications.put("BearerAuth", jwtAuth);
+		authentications.put("jwt", jwtAuth);
 		
 		PingControllerApi controller = new PingControllerApi();
 		return  controller.pingControllerPing();

@@ -46,11 +46,11 @@ public class PocOIDC {
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
 		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
 		jwtAuth.setBearerToken(jwt);
-		authentications.put("BearerAuth", jwtAuth);
+		authentications.put("jwt", jwtAuth);
 	    
 	    OidcCoreApi oidcController = new OidcCoreApi();
 		LOGGER.info(" ### ApiClient Base path: " + oidcController.getApiClient().getBasePath());
-		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("BearerAuth")).getBearerToken());
+		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("jwt")).getBearerToken());
 		return  oidcController.oidcJwksGetWithHttpInfo();
 		
 	}
