@@ -1,12 +1,17 @@
 package com.i3market.sdk.ri.examples;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
+import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBasicAuth;
+import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.HelloControllerApi;
 import com.i3m.api.oidc.OidcCoreApi;
 import com.i3m.api.oidc.OidcDiscoveryApi;
@@ -24,7 +29,7 @@ public class PocOIDC {
 		
 	}
 	
-	public ApiResponse<JWKSet> getJWKS () throws ApiException {
+	public ApiResponse<JWKSet> getJWKS (String jwt) throws ApiException {
 		
 		String basePath = SdkRiConstants.OIDC_ENDPOINT;
 		
@@ -37,13 +42,15 @@ public class PocOIDC {
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
 		
-		// Configure Authentication if it is required
-        // HttpBasicAuth BasicAuth = (HttpBasicAuth) defaultClient.getAuthentication("BasicAuth");
-        // BasicAuth.setUsername("YOUR USERNAME");
-        // BasicAuth.setPassword("YOUR PASSWORD");
-		
-		OidcCoreApi oidcController = new OidcCoreApi();
+	    // Setup authentications (JWT).
+		Map<String, Authentication> authentications = defaultClient.getAuthentications();
+		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
+		jwtAuth.setBearerToken(jwt);
+		authentications.put("BearerAuth", jwtAuth);
+	    
+	    OidcCoreApi oidcController = new OidcCoreApi();
 		LOGGER.info(" ### ApiClient Base path: " + oidcController.getApiClient().getBasePath());
+		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("BearerAuth")).getBearerToken());
 		return  oidcController.oidcJwksGetWithHttpInfo();
 		
 	}
