@@ -2,11 +2,13 @@ package com.i3market.sdk.ri.resource;
 
 import java.util.logging.Logger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 
+import com.i3m.api.ApiException;
+import com.i3m.model.backplane.DataOffering;
+import com.i3market.sdk.ri.common_services.data.discovery.CreateOffering;
 import org.json.JSONObject;
 
 import com.i3m.model.backplane.HelloResponse;
@@ -29,7 +31,7 @@ public class SdkRiHub {
 	
 	
 	private Logger LOGGER = Logger.getLogger(SdkRiHub.class.getName());
-	
+
 	//#####################################################################
 	//	API REST METHODS
 	//#####################################################################
@@ -86,5 +88,13 @@ public class SdkRiHub {
 		
 		return new PocOIDC().getJWKS(jwt);
 	}
-	
+
+
+	@POST
+	@Path("/data-offering")
+	@ApiOperation(value = "register a data offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
+	public com.i3m.api.ApiResponse<Void> dataOffering(DataOffering dataOffering) throws ApiException {
+		return new CreateOffering().createOffering(dataOffering);
+	}
 }
