@@ -1,4 +1,4 @@
-package com.i3market.sdk.ri.common_services.data.discovery;
+package com.i3market.sdk.ri.common_services.data.offering;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
