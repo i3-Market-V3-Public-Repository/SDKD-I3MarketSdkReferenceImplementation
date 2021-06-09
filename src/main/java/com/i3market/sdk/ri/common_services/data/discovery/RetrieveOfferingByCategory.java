@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class RetrieveOfferingByCategory {
 
-    public ApiResponse<List<RegistrationOfferingDTO>> getOfferingByCategory(String category, int page, int size, String sort) throws ApiException {
+    public ApiResponse<List<RegistrationOfferingDTO>> getOfferingByCategory(String category, int page, int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -30,7 +30,7 @@ public class RetrieveOfferingByCategory {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return (ApiResponse<List<RegistrationOfferingDTO>>) registrationOfferingApi.getAllRegisteredOfferingsByCategoryUsingGET(category, page, size, Collections.singletonList(sort));
+        return  registrationOfferingApi.getAllRegisteredOfferingsByCategoryUsingGETWithHttpInfo(category, page, size, sort);
 
     }
 }

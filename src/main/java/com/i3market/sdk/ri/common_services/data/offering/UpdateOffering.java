@@ -28,7 +28,7 @@ public class UpdateOffering {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        registrationOfferingApi.updateOfferingUsingPATCH(dataOffering);
+        registrationOfferingApi.updateOfferingUsingPATCHWithHttpInfo(dataOffering);
 
         return new ApiResponse(HttpStatus.SC_OK, null);
     }

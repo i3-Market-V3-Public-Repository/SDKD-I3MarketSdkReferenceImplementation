@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
@@ -14,6 +15,7 @@ import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProv
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingTemplate;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
+import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import org.json.JSONObject;
 
 import com.i3m.model.backplane.PingResponse;
@@ -26,8 +28,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Path("sdk-ri")
 @Api(value = "/")
@@ -99,63 +100,74 @@ public class SdkRiHub {
 	@Path("/data-offering")
 	@ApiOperation(value = "register a data offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
-	public com.i3m.api.ApiResponse<Void> registerDataOffering(DataOffering dataOffering) throws ApiException {
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(dataOffering);
 	}
 
-	@GET
-	@Path("/offering/{id}/offeringId")
-	@ApiOperation(value = "retrieve a data offering by id")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
-	public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingById(@PathVariable String id, @RequestParam("page") int page,
-																						   @RequestParam("size") int size,
-																						   @RequestParam("sort") String sort) throws ApiException {
-		return new RetrieveOfferingById().getDataOfferingById(id, page, size, sort);
+     @GET
+     @Path("/offering/{id}/offeringId")
+     @ApiOperation(value = "retrieve a data offering by id")
+     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	 @Produces({ "application/json", "application/xml" })
+     public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingById(@QueryParam("offering_id") String id,
+																							   @QueryParam("page") @DefaultValue("0") Integer page,
+																							   @QueryParam("size") @DefaultValue("10") Integer size,
+																							   @QueryParam("sort") List<String> sort) throws ApiException {
+        return new RetrieveOfferingById().getDataOfferingById(id, page, size, sort);
+     }
+
+     @GET
+     @Path("/offering/{id}/providerId")
+     @ApiOperation(value = "retrieve all data offerings registered with data provider id")
+     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
+	 @Produces({ "application/json", "application/xml" })
+     public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveAllDataOfferingsByProviderId(@QueryParam("provider_id") String id,
+																										@QueryParam("page") @DefaultValue("0") Integer page,
+																										@QueryParam("size") @DefaultValue("10") Integer size,
+																										@QueryParam("sort") List<String> sort) throws ApiException {
+
+        return new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort);
 	}
 
 	@GET
-	@Path("/offering/{id}/providerId")
-	@ApiOperation(value = "retrieve all data offerings registered with data provider id")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
-	public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveAllDataOfferingsByProviderId(@PathVariable String id, @RequestParam("page") int page,
-																		  @RequestParam("size") int size,
-																		  @RequestParam("sort") String sort) throws ApiException {
+    @Path("/offering/{category}")
+    @ApiOperation(value = "retrieve a data offering by category")
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+    public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingByCategory(@QueryParam("category") String category,
+																										 @QueryParam("page") @DefaultValue("0") Integer page,
+																										 @QueryParam("size") @DefaultValue("10") Integer size,
+																										 @QueryParam("sort") List<String> sort) throws ApiException {
+    	 return new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort);
+    }
 
-		return new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort);
-	}
-
-	@GET
-	@Path("/offering/{category}")
-	@ApiOperation(value = "retrieve a data offering by category")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
-	public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingByCategory(@PathVariable String category, @RequestParam("page") int page,
-																		@RequestParam("size") int size,
-																		@RequestParam("sort") String sort) throws ApiException {
-		return new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort);
-	}
-
-	@PATCH
-	@Path("/update-offering")
-	@ApiOperation(value = "update an offering")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
-	public com.i3m.api.ApiResponse updateDataOffering(DataOffering dataOffering) throws ApiException {
-		return new CreateOffering().createOffering(dataOffering);
-	}
+    @PATCH
+    @Path("/update-offering")
+    @ApiOperation(value = "update an offering")
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
+	@Produces({ "application/json", "application/xml" })
+    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
+          return new UpdateOffering().updateOffering(dataOffering);
+    }
 
 
-	@DELETE
-	@Path("/delete-offering/{id}")
-	@ApiOperation(value = "delete a data offering by id")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
-	public com.i3m.api.ApiResponse deleteDataOffering(@PathVariable String id) throws ApiException {
-		return new DeleteOfferingById().deleteOffering(id);
-	}
+    @DELETE
+    @Path("/delete-offering/{id}")
+    @ApiOperation(value = "delete a data offering by id")
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
+	@Produces({ "application/json", "application/xml" })
+    public com.i3m.api.ApiResponse deleteDataOffering(@QueryParam("offering_id") String id) throws ApiException {
+                return new DeleteOfferingById().deleteOffering(id);
+    }
 
 	@GET
 	@Path("/offering/template")
 	@ApiOperation(value = "get a template for data offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to fetch offering template")})
-	public String getDataOfferingTemplate() throws ApiException {
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<String> getDataOfferingTemplate() throws ApiException {
 		return new RetrieveOfferingTemplate().getDataOfferingTemplate();
 	}
 
