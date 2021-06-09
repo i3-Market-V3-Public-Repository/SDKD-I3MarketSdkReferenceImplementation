@@ -5,8 +5,12 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.model.backplane.DataOffering;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import org.apache.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * @author qaiser
@@ -14,6 +18,8 @@ import org.apache.http.HttpStatus;
  * @project i3-sdk-ri
  */
 public class DeleteOfferingById {
+
+    private static final Logger _log = LoggerFactory.getLogger(DeleteOfferingById.class);
 
     public ApiResponse deleteOffering(String offeringId) throws ApiException {
 
@@ -25,9 +31,10 @@ public class DeleteOfferingById {
 
         apiClient.setServerIndex(null);
 
+        _log.debug("deleting a data offering with id {} ", offeringId);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        registrationOfferingApi.deleteOfferingUsingDELETE(offeringId);
+        registrationOfferingApi.deleteOfferingUsingDELETEWithHttpInfo(offeringId);
 
         return new ApiResponse(HttpStatus.SC_OK, null);
     }

@@ -7,8 +7,9 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.RegistrationOfferingDTO;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,7 +19,10 @@ import java.util.List;
  */
 public class RetrieveOfferingById {
 
-    public ApiResponse<List<RegistrationOfferingDTO>> getDataOfferingById(String id, int page, int size, String sort) throws ApiException {
+    private static final Logger _log = LoggerFactory.getLogger(RetrieveOfferingById.class);
+
+
+    public ApiResponse<List<RegistrationOfferingDTO>> getDataOfferingById(String id, int page, int size, List<String> sort) throws ApiException {
 
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
@@ -29,9 +33,11 @@ public class RetrieveOfferingById {
 
         apiClient.setServerIndex(null);
 
+        _log.debug("parameters to get offering by id are: provider_id {} page {} size {} sort {} ", id, page, size, sort);
+
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return (ApiResponse<List<RegistrationOfferingDTO>>) registrationOfferingApi.getRegisteredOfferingUsingGET(id, page, size, Collections.singletonList(sort));
+        return registrationOfferingApi.getRegisteredOfferingUsingGETWithHttpInfo(id, page, size, sort);
 
     }
 }
