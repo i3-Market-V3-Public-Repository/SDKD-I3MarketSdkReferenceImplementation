@@ -8,6 +8,100 @@
   "basePath" : "/SdkRefImpl/api",
   "schemes" : [ "http", "https" ],
   "paths" : {
+    "/sdk-ri/data-offering" : {
+      "post" : {
+        "summary" : "register a data offering",
+        "description" : "",
+        "operationId" : "registerDataOffering",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseVoid"
+            }
+          },
+          "400" : {
+            "description" : "failed to save offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/delete-offering/{id}" : {
+      "delete" : {
+        "summary" : "delete a data offering by id",
+        "description" : "",
+        "operationId" : "deleteDataOffering",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "offering_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          },
+          "400" : {
+            "description" : "failed to delete offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/example/backplane/pingBackplane" : {
+      "get" : {
+        "summary" : "Ping backplane instance using PingController ",
+        "description" : "",
+        "operationId" : "runBackplaneExample",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "back_token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PingResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sdk-ri/example/oidc/getOidcWTKS" : {
+      "get" : {
+        "summary" : "Get OIDC Web tokek key set from OidcCoreController ",
+        "description" : "",
+        "operationId" : "runOidcExample",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "back_token",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseJWKSet"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
     "/sdk-ri/getConfigurationInfo" : {
       "get" : {
         "summary" : "Get SDK-RI configuration info ",
@@ -23,6 +117,843 @@
           },
           "401" : {
             "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/template" : {
+      "get" : {
+        "summary" : "get a template for data offering",
+        "description" : "",
+        "operationId" : "getDataOfferingTemplate",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseString"
+            }
+          },
+          "400" : {
+            "description" : "failed to fetch offering template"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{category}" : {
+      "get" : {
+        "summary" : "retrieve a data offering by category",
+        "description" : "",
+        "operationId" : "retrieveDataOfferingByCategory",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "category",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListRegistrationOfferingDTO"
+            }
+          },
+          "400" : {
+            "description" : "failed to search offering with this category "
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{id}/offeringId" : {
+      "get" : {
+        "summary" : "retrieve a data offering by id",
+        "description" : "",
+        "operationId" : "retrieveDataOfferingById",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "offering_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListRegistrationOfferingDTO"
+            }
+          },
+          "400" : {
+            "description" : "failed to retrieve this offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{id}/providerId" : {
+      "get" : {
+        "summary" : "retrieve all data offerings registered with data provider id",
+        "description" : "",
+        "operationId" : "retrieveAllDataOfferingsByProviderId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "provider_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListRegistrationOfferingDTO"
+            }
+          },
+          "400" : {
+            "description" : "failed to retrieve offerings registered by this user"
+          }
+        }
+      }
+    },
+    "/sdk-ri/update-offering" : {
+      "patch" : {
+        "summary" : "update an offering",
+        "description" : "",
+        "operationId" : "updateDataOffering",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          },
+          "400" : {
+            "description" : "failed to update offering"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AccessService" : {
+      "type" : "object",
+      "properties" : {
+        "conformsTo" : {
+          "type" : "string"
+        },
+        "endpointDescription" : {
+          "type" : "string"
+        },
+        "endpointURL" : {
+          "type" : "string"
+        },
+        "servesDataset" : {
+          "type" : "string"
+        },
+        "serviceSpecs" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ApiResponse" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "object"
+        }
+      }
+    },
+    "ApiResponseJWKSet" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "$ref" : "#/definitions/JWKSet"
+        }
+      }
+    },
+    "ApiResponseListRegistrationOfferingDTO" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RegistrationOfferingDTO"
+          }
+        }
+      }
+    },
+    "ApiResponseString" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ApiResponseVoid" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "$ref" : "#/definitions/Void"
+        }
+      }
+    },
+    "Chronology" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "calendarType" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Dataset" : {
+      "type" : "object",
+      "required" : [ "distribution" ],
+      "properties" : {
+        "accrualPeriodicity" : {
+          "type" : "string"
+        },
+        "creator" : {
+          "type" : "string"
+        },
+        "dataset" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "distribution" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Distribution"
+          }
+        },
+        "issued" : {
+          "$ref" : "#/definitions/OffsetDateTime"
+        },
+        "language" : {
+          "type" : "string"
+        },
+        "modified" : {
+          "$ref" : "#/definitions/OffsetDateTime"
+        },
+        "spatial" : {
+          "type" : "string"
+        },
+        "temporal" : {
+          "type" : "string"
+        },
+        "temporalResolution" : {
+          "type" : "string"
+        },
+        "theme" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "title" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Distribution" : {
+      "type" : "object",
+      "required" : [ "accessService" ],
+      "properties" : {
+        "accessService" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AccessService"
+          }
+        },
+        "conformsTo" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "distribution" : {
+          "type" : "string"
+        },
+        "license" : {
+          "type" : "string"
+        },
+        "mediaType" : {
+          "type" : "string"
+        },
+        "packageFormat" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Duration" : {
+      "type" : "object",
+      "properties" : {
+        "seconds" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "negative" : {
+          "type" : "boolean"
+        },
+        "zero" : {
+          "type" : "boolean"
+        },
+        "units" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TemporalUnit"
+          }
+        }
+      }
+    },
+    "Instant" : {
+      "type" : "object",
+      "properties" : {
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "epochSecond" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "JWK" : {
+      "type" : "object",
+      "properties" : {
+        "kty" : {
+          "type" : "string",
+          "description" : "The \"kty\" (key type) parameter identifies the cryptographic algorithm family used with the key, such as \"RSA\" or \"EC\""
+        },
+        "use" : {
+          "type" : "string",
+          "description" : "The \"use\" (public key use) parameter identifies the intended use of the public key"
+        },
+        "key_ops" : {
+          "type" : "string",
+          "description" : "The \"key_ops\" (key operations) parameter identifies the operation(s) for which the key is intended to be used"
+        },
+        "alg" : {
+          "type" : "string",
+          "description" : "The \"alg\" (algorithm) parameter identifies the algorithm intended for use with the key"
+        },
+        "kid" : {
+          "type" : "string",
+          "description" : "The \"kid\" (key ID) parameter is used to match a specific key"
+        },
+        "x5u" : {
+          "type" : "string",
+          "description" : "The \"x5u\" (X.509 URL) parameter is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain [RFC5280]"
+        },
+        "x5c" : {
+          "type" : "string",
+          "description" : "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]"
+        },
+        "x5t" : {
+          "type" : "string",
+          "description" : "The \"x5t\" (X.509 certificate SHA-1 thumbprint) parameter is a base64url-encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]"
+        },
+        "x5t#S256" : {
+          "type" : "string",
+          "description" : "The \"x5t#S256\" (X.509 certificate SHA-256 thumbprint) parameter is a base64url-encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]"
+        }
+      }
+    },
+    "JWKSet" : {
+      "type" : "object",
+      "properties" : {
+        "keys" : {
+          "type" : "array",
+          "description" : "The value of the \"keys\" parameter is an array of JWK values",
+          "items" : {
+            "$ref" : "#/definitions/JWK"
+          }
+        }
+      }
+    },
+    "LocalDateTime" : {
+      "type" : "object",
+      "properties" : {
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "monthValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "second" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfWeek" : {
+          "type" : "string",
+          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
+        },
+        "dayOfYear" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "string",
+          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
+        },
+        "chronology" : {
+          "$ref" : "#/definitions/Chronology"
+        }
+      }
+    },
+    "LocalTime" : {
+      "type" : "object",
+      "properties" : {
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "second" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "OffsetDateTime" : {
+      "type" : "object",
+      "properties" : {
+        "offset" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "nano" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "year" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "monthValue" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfMonth" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "minute" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "second" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dayOfWeek" : {
+          "type" : "string",
+          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
+        },
+        "dayOfYear" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "month" : {
+          "type" : "string",
+          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
+        }
+      }
+    },
+    "Payment" : {
+      "type" : "object",
+      "required" : [ "hasSubscriptionPrice" ],
+      "properties" : {
+        "fromValue" : {
+          "$ref" : "#/definitions/OffsetDateTime"
+        },
+        "hasSubscriptionPrice" : {
+          "type" : "string"
+        },
+        "paymentType" : {
+          "type" : "string"
+        },
+        "repeat" : {
+          "type" : "string"
+        },
+        "timeDuration" : {
+          "type" : "string"
+        },
+        "toValue" : {
+          "$ref" : "#/definitions/OffsetDateTime"
+        }
+      }
+    },
+    "PingResponse" : {
+      "type" : "object",
+      "properties" : {
+        "greeting" : {
+          "type" : "string"
+        },
+        "date" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        }
+      }
+    },
+    "PricingModel" : {
+      "type" : "object",
+      "properties" : {
+        "basicPrice" : {
+          "type" : "string"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "hasPaymentType" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Payment"
+          }
+        }
+      }
+    },
+    "RegistrationOfferingDTO" : {
+      "type" : "object",
+      "properties" : {
+        "active" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "dataOffering" : {
+          "type" : "string"
+        },
+        "dataOfferingId" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "hasDataset" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Dataset"
+          }
+        },
+        "hasPricingModel" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PricingModel"
+          }
+        },
+        "isProvidedBy" : {
+          "type" : "string"
+        },
+        "offering" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TemporalUnit" : {
+      "type" : "object",
+      "properties" : {
+        "dateBased" : {
+          "type" : "boolean"
+        },
+        "timeBased" : {
+          "type" : "boolean"
+        },
+        "duration" : {
+          "$ref" : "#/definitions/Duration"
+        },
+        "durationEstimated" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Void" : {
+      "type" : "object"
+    },
+    "ZoneOffset" : {
+      "type" : "object",
+      "properties" : {
+        "totalSeconds" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "rules" : {
+          "$ref" : "#/definitions/ZoneRules"
+        }
+      }
+    },
+    "ZoneOffsetTransition" : {
+      "type" : "object",
+      "properties" : {
+        "offsetBefore" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "offsetAfter" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "instant" : {
+          "$ref" : "#/definitions/Instant"
+        },
+        "overlap" : {
+          "type" : "boolean"
+        },
+        "duration" : {
+          "$ref" : "#/definitions/Duration"
+        },
+        "gap" : {
+          "type" : "boolean"
+        },
+        "dateTimeBefore" : {
+          "$ref" : "#/definitions/LocalDateTime"
+        },
+        "dateTimeAfter" : {
+          "$ref" : "#/definitions/LocalDateTime"
+        }
+      }
+    },
+    "ZoneOffsetTransitionRule" : {
+      "type" : "object",
+      "properties" : {
+        "month" : {
+          "type" : "string",
+          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
+        },
+        "timeDefinition" : {
+          "type" : "string",
+          "enum" : [ "UTC", "WALL", "STANDARD" ]
+        },
+        "standardOffset" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "offsetBefore" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "offsetAfter" : {
+          "$ref" : "#/definitions/ZoneOffset"
+        },
+        "dayOfWeek" : {
+          "type" : "string",
+          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
+        },
+        "dayOfMonthIndicator" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "localTime" : {
+          "$ref" : "#/definitions/LocalTime"
+        },
+        "midnightEndOfDay" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ZoneRules" : {
+      "type" : "object",
+      "properties" : {
+        "fixedOffset" : {
+          "type" : "boolean"
+        },
+        "transitions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ZoneOffsetTransition"
+          }
+        },
+        "transitionRules" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ZoneOffsetTransitionRule"
           }
         }
       }
