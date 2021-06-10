@@ -32,6 +32,7 @@ import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProv
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingTemplate;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
+import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import org.json.JSONObject;
 
@@ -114,7 +115,17 @@ public class SdkRiHub {
 
 
 	@POST
-	@Path("/data-offering")
+	@Path("/registration/data-provider")
+	@ApiOperation(value = "register a data provider")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> registerDataProvider(@RequestBody DataProvider dataProvider) throws ApiException {
+		return new RegisterDataProvider().saveDataProviderInfo(dataProvider);
+	}
+
+	@POST
+	@Path("/registration/data-offering")
 	@ApiOperation(value = "register a data offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
@@ -122,6 +133,7 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<Void> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(dataOffering);
 	}
+
 
      @GET
      @Path("/offering/{id}/offeringId")
