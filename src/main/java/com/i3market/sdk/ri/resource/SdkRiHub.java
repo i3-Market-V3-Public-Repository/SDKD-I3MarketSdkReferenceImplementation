@@ -126,7 +126,7 @@ public class SdkRiHub {
 
 	@POST
 	@Path("/registration/data-offering")
-	@ApiOperation(value = "register a data offering", tags="offering-services"))
+	@ApiOperation(value = "register a data offering", tags="offering-services")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
