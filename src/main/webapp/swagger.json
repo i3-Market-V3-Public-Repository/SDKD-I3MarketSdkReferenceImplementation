@@ -8,34 +8,6 @@
   "basePath" : "/SdkRefImpl/api",
   "schemes" : [ "http", "https" ],
   "paths" : {
-    "/sdk-ri/data-offering" : {
-      "post" : {
-        "summary" : "register a data offering",
-        "description" : "",
-        "operationId" : "registerDataOffering",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/DataOffering"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/ApiResponseVoid"
-            }
-          },
-          "400" : {
-            "description" : "failed to save offering"
-          }
-        }
-      }
-    },
     "/sdk-ri/delete-offering/{id}" : {
       "delete" : {
         "summary" : "delete a data offering by id",
@@ -293,6 +265,62 @@
         }
       }
     },
+    "/sdk-ri/registration/data-offering" : {
+      "post" : {
+        "summary" : "register a data offering",
+        "description" : "",
+        "operationId" : "registerDataOffering",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataOffering"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseVoid"
+            }
+          },
+          "400" : {
+            "description" : "failed to save offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/registration/data-provider" : {
+      "post" : {
+        "summary" : "register a data provider",
+        "description" : "",
+        "operationId" : "registerDataProvider",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataProvider"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseVoid"
+            }
+          },
+          "400" : {
+            "description" : "failed to save provider info"
+          }
+        }
+      }
+    },
     "/sdk-ri/update-offering" : {
       "patch" : {
         "summary" : "update an offering",
@@ -450,17 +478,6 @@
         }
       }
     },
-    "Chronology" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "string"
-        },
-        "calendarType" : {
-          "type" : "string"
-        }
-      }
-    },
     "DataOffering" : {
       "type" : "object",
       "required" : [ "active", "dataOffering" ],
@@ -504,6 +521,27 @@
         }
       }
     },
+    "DataProvider" : {
+      "type" : "object",
+      "required" : [ "name", "providerId" ],
+      "properties" : {
+        "description" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "organization" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Organization"
+          }
+        },
+        "providerId" : {
+          "type" : "string"
+        }
+      }
+    },
     "Dataset" : {
       "type" : "object",
       "required" : [ "distribution" ],
@@ -527,13 +565,15 @@
           }
         },
         "issued" : {
-          "$ref" : "#/definitions/OffsetDateTime"
+          "type" : "string",
+          "format" : "date-time"
         },
         "language" : {
           "type" : "string"
         },
         "modified" : {
-          "$ref" : "#/definitions/OffsetDateTime"
+          "type" : "string",
+          "format" : "date-time"
         },
         "spatial" : {
           "type" : "string"
@@ -585,44 +625,6 @@
         },
         "title" : {
           "type" : "string"
-        }
-      }
-    },
-    "Duration" : {
-      "type" : "object",
-      "properties" : {
-        "seconds" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "nano" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "units" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/TemporalUnit"
-          }
-        },
-        "zero" : {
-          "type" : "boolean"
-        },
-        "negative" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "Instant" : {
-      "type" : "object",
-      "properties" : {
-        "nano" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "epochSecond" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -679,120 +681,24 @@
         }
       }
     },
-    "LocalDateTime" : {
+    "Organization" : {
       "type" : "object",
+      "required" : [ "name", "organizationId" ],
       "properties" : {
-        "nano" : {
-          "type" : "integer",
-          "format" : "int32"
+        "address" : {
+          "type" : "string"
         },
-        "year" : {
-          "type" : "integer",
-          "format" : "int32"
+        "contactPoint" : {
+          "type" : "string"
         },
-        "monthValue" : {
-          "type" : "integer",
-          "format" : "int32"
+        "description" : {
+          "type" : "string"
         },
-        "dayOfMonth" : {
-          "type" : "integer",
-          "format" : "int32"
+        "name" : {
+          "type" : "string"
         },
-        "hour" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "minute" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "second" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "dayOfWeek" : {
-          "type" : "string",
-          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
-        },
-        "dayOfYear" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "month" : {
-          "type" : "string",
-          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
-        },
-        "chronology" : {
-          "$ref" : "#/definitions/Chronology"
-        }
-      }
-    },
-    "LocalTime" : {
-      "type" : "object",
-      "properties" : {
-        "hour" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "minute" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "second" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nano" : {
-          "type" : "integer",
-          "format" : "int32"
-        }
-      }
-    },
-    "OffsetDateTime" : {
-      "type" : "object",
-      "properties" : {
-        "offset" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "nano" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "year" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "monthValue" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "dayOfMonth" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "hour" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "minute" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "second" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "dayOfWeek" : {
-          "type" : "string",
-          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
-        },
-        "dayOfYear" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "month" : {
-          "type" : "string",
-          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
+        "organizationId" : {
+          "type" : "string"
         }
       }
     },
@@ -801,7 +707,8 @@
       "required" : [ "hasSubscriptionPrice" ],
       "properties" : {
         "fromValue" : {
-          "$ref" : "#/definitions/OffsetDateTime"
+          "type" : "string",
+          "format" : "date-time"
         },
         "hasSubscriptionPrice" : {
           "type" : "string"
@@ -816,7 +723,8 @@
           "type" : "string"
         },
         "toValue" : {
-          "$ref" : "#/definitions/OffsetDateTime"
+          "type" : "string",
+          "format" : "date-time"
         }
       }
     },
@@ -898,125 +806,8 @@
         }
       }
     },
-    "TemporalUnit" : {
-      "type" : "object",
-      "properties" : {
-        "dateBased" : {
-          "type" : "boolean"
-        },
-        "timeBased" : {
-          "type" : "boolean"
-        },
-        "duration" : {
-          "$ref" : "#/definitions/Duration"
-        },
-        "durationEstimated" : {
-          "type" : "boolean"
-        }
-      }
-    },
     "Void" : {
       "type" : "object"
-    },
-    "ZoneOffset" : {
-      "type" : "object",
-      "properties" : {
-        "totalSeconds" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "id" : {
-          "type" : "string"
-        },
-        "rules" : {
-          "$ref" : "#/definitions/ZoneRules"
-        }
-      }
-    },
-    "ZoneOffsetTransition" : {
-      "type" : "object",
-      "properties" : {
-        "offsetBefore" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "offsetAfter" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "duration" : {
-          "$ref" : "#/definitions/Duration"
-        },
-        "gap" : {
-          "type" : "boolean"
-        },
-        "dateTimeBefore" : {
-          "$ref" : "#/definitions/LocalDateTime"
-        },
-        "dateTimeAfter" : {
-          "$ref" : "#/definitions/LocalDateTime"
-        },
-        "instant" : {
-          "$ref" : "#/definitions/Instant"
-        },
-        "overlap" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "ZoneOffsetTransitionRule" : {
-      "type" : "object",
-      "properties" : {
-        "month" : {
-          "type" : "string",
-          "enum" : [ "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ]
-        },
-        "timeDefinition" : {
-          "type" : "string",
-          "enum" : [ "UTC", "WALL", "STANDARD" ]
-        },
-        "standardOffset" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "offsetBefore" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "offsetAfter" : {
-          "$ref" : "#/definitions/ZoneOffset"
-        },
-        "dayOfWeek" : {
-          "type" : "string",
-          "enum" : [ "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" ]
-        },
-        "dayOfMonthIndicator" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "localTime" : {
-          "$ref" : "#/definitions/LocalTime"
-        },
-        "midnightEndOfDay" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "ZoneRules" : {
-      "type" : "object",
-      "properties" : {
-        "fixedOffset" : {
-          "type" : "boolean"
-        },
-        "transitions" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ZoneOffsetTransition"
-          }
-        },
-        "transitionRules" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ZoneOffsetTransitionRule"
-          }
-        }
-      }
     }
   }
 }
