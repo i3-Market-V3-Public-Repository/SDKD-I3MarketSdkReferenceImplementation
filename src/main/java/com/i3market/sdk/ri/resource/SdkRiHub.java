@@ -50,7 +50,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Path("sdk-ri")
-@Api(value = "/")
+@Api(value = "/", tags = "common-services")
 @Produces({ "application/json", "application/xml" })
 public class SdkRiHub {
 	
@@ -82,38 +82,37 @@ public class SdkRiHub {
 		return configJson.toString();
 	}
 	
-	@GET
-	@Path("/example/backplane/pingBackplane")
-	@ApiOperation(
-            value = "Ping backplane instance using PingController ")
-    @ApiResponses(value={                    
-                    @ApiResponse(code = 401, message = "Unauthorized"
-                    )
-            }) 
-	@Produces({ "application/json", "application/xml" })
-	public PingResponse runBackplaneExample(@QueryParam("back_token") String jwt
-				 
-			) throws Exception {
-		
-		return new PocBackplane().ping(jwt);
-	}
-	
-	@GET
-	@Path("/example/oidc/getOidcWTKS")
-	@ApiOperation(
-            value = "Get OIDC Web tokek key set from OidcCoreController ")
-    @ApiResponses(value={                    
-                    @ApiResponse(code = 401, message = "Unauthorized"
-                    )
-            }) 
-	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<JWKSet> runOidcExample(@QueryParam("back_token") String jwt
-				 
-			) throws Exception {
-		
-		return new PocOIDC().getJWKS(jwt);
-	}
-
+//	@GET
+//	@Path("/example/backplane/pingBackplane")
+//	@ApiOperation(
+//            value = "Ping backplane instance using PingController ")
+//    @ApiResponses(value={                    
+//                    @ApiResponse(code = 401, message = "Unauthorized"
+//                    )
+//            }) 
+//	@Produces({ "application/json", "application/xml" })
+//	public PingResponse runBackplaneExample(@QueryParam("back_token") String jwt
+//				 
+//			) throws Exception {
+//		
+//		return new PocBackplane().ping(jwt);
+//	}
+//	
+//	@GET
+//	@Path("/example/oidc/getOidcWTKS")
+//	@ApiOperation(
+//            value = "Get OIDC Web tokek key set from OidcCoreController ")
+//    @ApiResponses(value={                    
+//                    @ApiResponse(code = 401, message = "Unauthorized"
+//                    )
+//            }) 
+//	@Produces({ "application/json", "application/xml" })
+//	public com.i3m.api.ApiResponse<JWKSet> runOidcExample(@QueryParam("back_token") String jwt
+//				 
+//			) throws Exception {
+//		
+//		return new PocOIDC().getJWKS(jwt);
+//	}
 
 	@POST
 	@Path("/registration/data-provider")
