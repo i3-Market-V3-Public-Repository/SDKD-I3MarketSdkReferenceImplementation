@@ -64,7 +64,7 @@ public class SdkRiHub {
 	@GET
 	@Path("/getConfigurationInfo")
 	@ApiOperation(
-            value = "Get SDK-RI configuration info ")
+            value = "Get SDK-RI configuration info ", tags="management-services")
     @ApiResponses(value={                    
                     @ApiResponse(code = 401, message = "Unauthorized"
                     )
@@ -116,7 +116,7 @@ public class SdkRiHub {
 
 	@POST
 	@Path("/registration/data-provider")
-	@ApiOperation(value = "register a data provider")
+	@ApiOperation(value = "register a data provider", tags="offering-services")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -126,7 +126,7 @@ public class SdkRiHub {
 
 	@POST
 	@Path("/registration/data-offering")
-	@ApiOperation(value = "register a data offering")
+	@ApiOperation(value = "register a data offering", tags="offering-services"))
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -137,7 +137,7 @@ public class SdkRiHub {
 
      @GET
      @Path("/offering/{id}/offeringId")
-     @ApiOperation(value = "retrieve a data offering by id")
+     @ApiOperation(value = "retrieve a data offering by id", tags="offering-services")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	 @Produces({ "application/json", "application/xml" })
      public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingById(@QueryParam("offering_id") String id,
@@ -149,7 +149,7 @@ public class SdkRiHub {
 
      @GET
      @Path("/offering/{id}/providerId")
-     @ApiOperation(value = "retrieve all data offerings registered with data provider id")
+     @ApiOperation(value = "retrieve all data offerings registered with data provider id", tags="offering-services")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
 	 @Produces({ "application/json", "application/xml" })
      public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveAllDataOfferingsByProviderId(@QueryParam("provider_id") String id,
@@ -162,7 +162,7 @@ public class SdkRiHub {
 
 	@GET
     @Path("/offering/{category}")
-    @ApiOperation(value = "retrieve a data offering by category")
+    @ApiOperation(value = "retrieve a data offering by category", tags="offering-services")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
     public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingByCategory(@QueryParam("category") String category,
@@ -174,7 +174,7 @@ public class SdkRiHub {
 
     @PATCH
     @Path("/update-offering")
-    @ApiOperation(value = "update an offering")
+    @ApiOperation(value = "update an offering", tags="offering-services")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
     public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
@@ -184,7 +184,7 @@ public class SdkRiHub {
 
     @DELETE
     @Path("/delete-offering/{id}")
-    @ApiOperation(value = "delete a data offering by id")
+    @ApiOperation(value = "delete a data offering by id", tags="offering-services")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
 	@Produces({ "application/json", "application/xml" })
     public com.i3m.api.ApiResponse deleteDataOffering(@QueryParam("offering_id") String id) throws ApiException {
@@ -193,7 +193,7 @@ public class SdkRiHub {
 
 	@GET
 	@Path("/offering/template")
-	@ApiOperation(value = "get a template for data offering")
+	@ApiOperation(value = "get a template for data offering", tags="offering-services")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to fetch offering template")})
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse<String> getDataOfferingTemplate() throws ApiException {
