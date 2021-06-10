@@ -13,7 +13,16 @@
         "summary" : "register a data offering",
         "description" : "",
         "operationId" : "registerDataOffering",
+        "consumes" : [ "application/json" ],
         "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataOffering"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -290,6 +299,14 @@
         "description" : "",
         "operationId" : "updateDataOffering",
         "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataOffering"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -444,6 +461,49 @@
         }
       }
     },
+    "DataOffering" : {
+      "type" : "object",
+      "required" : [ "active", "dataOffering" ],
+      "properties" : {
+        "active" : {
+          "type" : "string",
+          "example" : "yes OR no"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "dataOffering" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "hasDataset" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Dataset"
+          }
+        },
+        "hasPricingModel" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PricingModel"
+          }
+        },
+        "isProvidedBy" : {
+          "type" : "string"
+        },
+        "label" : {
+          "type" : "string"
+        },
+        "license" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        }
+      }
+    },
     "Dataset" : {
       "type" : "object",
       "required" : [ "distribution" ],
@@ -539,17 +599,17 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "negative" : {
-          "type" : "boolean"
-        },
-        "zero" : {
-          "type" : "boolean"
-        },
         "units" : {
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/TemporalUnit"
           }
+        },
+        "zero" : {
+          "type" : "boolean"
+        },
+        "negative" : {
+          "type" : "boolean"
         }
       }
     },
@@ -882,12 +942,6 @@
         "offsetAfter" : {
           "$ref" : "#/definitions/ZoneOffset"
         },
-        "instant" : {
-          "$ref" : "#/definitions/Instant"
-        },
-        "overlap" : {
-          "type" : "boolean"
-        },
         "duration" : {
           "$ref" : "#/definitions/Duration"
         },
@@ -899,6 +953,12 @@
         },
         "dateTimeAfter" : {
           "$ref" : "#/definitions/LocalDateTime"
+        },
+        "instant" : {
+          "$ref" : "#/definitions/Instant"
+        },
+        "overlap" : {
+          "type" : "boolean"
         }
       }
     },
