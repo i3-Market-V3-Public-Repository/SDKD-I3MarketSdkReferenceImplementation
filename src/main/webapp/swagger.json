@@ -6,10 +6,16 @@
     "title" : "Swagger spec for i3Market SDK RI Generator REST API"
   },
   "basePath" : "/SdkRefImpl/api",
+  "tags" : [ {
+    "name" : "common-services: management"
+  }, {
+    "name" : "common-services: offering"
+  } ],
   "schemes" : [ "http", "https" ],
   "paths" : {
     "/sdk-ri/delete-offering/{id}" : {
       "delete" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "delete a data offering by id",
         "description" : "",
         "operationId" : "deleteDataOffering",
@@ -33,58 +39,9 @@
         }
       }
     },
-    "/sdk-ri/example/backplane/pingBackplane" : {
-      "get" : {
-        "summary" : "Ping backplane instance using PingController ",
-        "description" : "",
-        "operationId" : "runBackplaneExample",
-        "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ {
-          "name" : "back_token",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/PingResponse"
-            }
-          },
-          "401" : {
-            "description" : "Unauthorized"
-          }
-        }
-      }
-    },
-    "/sdk-ri/example/oidc/getOidcWTKS" : {
-      "get" : {
-        "summary" : "Get OIDC Web tokek key set from OidcCoreController ",
-        "description" : "",
-        "operationId" : "runOidcExample",
-        "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ {
-          "name" : "back_token",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/ApiResponseJWKSet"
-            }
-          },
-          "401" : {
-            "description" : "Unauthorized"
-          }
-        }
-      }
-    },
     "/sdk-ri/getConfigurationInfo" : {
       "get" : {
+        "tags" : [ "common-services: management" ],
         "summary" : "Get SDK-RI configuration info ",
         "description" : "",
         "operationId" : "getConfigurationInfo",
@@ -104,6 +61,7 @@
     },
     "/sdk-ri/offering/template" : {
       "get" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "get a template for data offering",
         "description" : "",
         "operationId" : "getDataOfferingTemplate",
@@ -123,6 +81,7 @@
     },
     "/sdk-ri/offering/{category}" : {
       "get" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "retrieve a data offering by category",
         "description" : "",
         "operationId" : "retrieveDataOfferingByCategory",
@@ -171,6 +130,7 @@
     },
     "/sdk-ri/offering/{id}/offeringId" : {
       "get" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "retrieve a data offering by id",
         "description" : "",
         "operationId" : "retrieveDataOfferingById",
@@ -219,6 +179,7 @@
     },
     "/sdk-ri/offering/{id}/providerId" : {
       "get" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "retrieve all data offerings registered with data provider id",
         "description" : "",
         "operationId" : "retrieveAllDataOfferingsByProviderId",
@@ -267,6 +228,7 @@
     },
     "/sdk-ri/registration/data-offering" : {
       "post" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "register a data offering",
         "description" : "",
         "operationId" : "registerDataOffering",
@@ -295,6 +257,7 @@
     },
     "/sdk-ri/registration/data-provider" : {
       "post" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "register a data provider",
         "description" : "",
         "operationId" : "registerDataProvider",
@@ -323,6 +286,7 @@
     },
     "/sdk-ri/update-offering" : {
       "patch" : {
+        "tags" : [ "common-services: offering" ],
         "summary" : "update an offering",
         "description" : "",
         "operationId" : "updateDataOffering",
@@ -388,27 +352,6 @@
         },
         "data" : {
           "type" : "object"
-        }
-      }
-    },
-    "ApiResponseJWKSet" : {
-      "type" : "object",
-      "properties" : {
-        "statusCode" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "headers" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        },
-        "data" : {
-          "$ref" : "#/definitions/JWKSet"
         }
       }
     },
@@ -628,59 +571,6 @@
         }
       }
     },
-    "JWK" : {
-      "type" : "object",
-      "properties" : {
-        "kty" : {
-          "type" : "string",
-          "description" : "The \"kty\" (key type) parameter identifies the cryptographic algorithm family used with the key, such as \"RSA\" or \"EC\""
-        },
-        "use" : {
-          "type" : "string",
-          "description" : "The \"use\" (public key use) parameter identifies the intended use of the public key"
-        },
-        "key_ops" : {
-          "type" : "string",
-          "description" : "The \"key_ops\" (key operations) parameter identifies the operation(s) for which the key is intended to be used"
-        },
-        "alg" : {
-          "type" : "string",
-          "description" : "The \"alg\" (algorithm) parameter identifies the algorithm intended for use with the key"
-        },
-        "kid" : {
-          "type" : "string",
-          "description" : "The \"kid\" (key ID) parameter is used to match a specific key"
-        },
-        "x5u" : {
-          "type" : "string",
-          "description" : "The \"x5u\" (X.509 URL) parameter is a URI [RFC3986] that refers to a resource for an X.509 public key certificate or certificate chain [RFC5280]"
-        },
-        "x5c" : {
-          "type" : "string",
-          "description" : "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates [RFC5280]"
-        },
-        "x5t" : {
-          "type" : "string",
-          "description" : "The \"x5t\" (X.509 certificate SHA-1 thumbprint) parameter is a base64url-encoded SHA-1 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]"
-        },
-        "x5t#S256" : {
-          "type" : "string",
-          "description" : "The \"x5t#S256\" (X.509 certificate SHA-256 thumbprint) parameter is a base64url-encoded SHA-256 thumbprint (a.k.a. digest) of the DER encoding of an X.509 certificate [RFC5280]"
-        }
-      }
-    },
-    "JWKSet" : {
-      "type" : "object",
-      "properties" : {
-        "keys" : {
-          "type" : "array",
-          "description" : "The value of the \"keys\" parameter is an array of JWK values",
-          "items" : {
-            "$ref" : "#/definitions/JWK"
-          }
-        }
-      }
-    },
     "Organization" : {
       "type" : "object",
       "required" : [ "name", "organizationId" ],
@@ -725,26 +615,6 @@
         "toValue" : {
           "type" : "string",
           "format" : "date-time"
-        }
-      }
-    },
-    "PingResponse" : {
-      "type" : "object",
-      "properties" : {
-        "greeting" : {
-          "type" : "string"
-        },
-        "date" : {
-          "type" : "string"
-        },
-        "url" : {
-          "type" : "string"
-        },
-        "headers" : {
-          "type" : "object",
-          "additionalProperties" : {
-            "type" : "object"
-          }
         }
       }
     },

@@ -17,12 +17,20 @@
 
 package com.i3market.sdk.ri.resource;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
@@ -137,39 +145,74 @@ public class SdkRiHub {
 
      @GET
      @Path("/offering/{id}/offeringId")
+     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
      @ApiOperation(value = "retrieve a data offering by id", tags="common-services: offering")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	 @Produces({ "application/json", "application/xml" })
-     public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingById(@QueryParam("offering_id") String id,
+     public String retrieveDataOfferingById(@QueryParam("offering_id") String id,
 																							   @QueryParam("page") @DefaultValue("0") Integer page,
 																							   @QueryParam("size") @DefaultValue("10") Integer size,
 																							   @QueryParam("sort") List<String> sort) throws ApiException {
-        return new RetrieveOfferingById().getDataOfferingById(id, page, size, sort);
+			 										
+    	 String strJson = "{}";
+ 		 ObjectMapper mapper = new ObjectMapper();
+ 		 mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+ 		 try {
+ 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingById().getDataOfferingById(id, page, size, sort));
+ 		 } catch (ProcessingException | JsonProcessingException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		 }
+ 		 return strJson;
+    	 //return new RetrieveOfferingById().getDataOfferingById(id, page, size, sort);
      }
 
      @GET
      @Path("/offering/{id}/providerId")
+     @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
      @ApiOperation(value = "retrieve all data offerings registered with data provider id", tags="common-services: offering")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
 	 @Produces({ "application/json", "application/xml" })
-     public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveAllDataOfferingsByProviderId(@QueryParam("provider_id") String id,
+     public String retrieveAllDataOfferingsByProviderId(@QueryParam("provider_id") String id,
 																										@QueryParam("page") @DefaultValue("0") Integer page,
 																										@QueryParam("size") @DefaultValue("10") Integer size,
-																										@QueryParam("sort") List<String> sort) throws ApiException {
-
-        return new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort);
+																										@QueryParam("sort") List<String> sort) throws ApiException  {
+    	 String strJson = "{}";
+ 		 ObjectMapper mapper = new ObjectMapper();
+ 		 mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+ 		 try {
+ 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort));
+ 		 } catch (ProcessingException | JsonProcessingException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		 } 
+ 		 return strJson; 																								
+ 	     //	 return new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort);
 	}
 
 	@GET
     @Path("/offering/{category}")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
     @ApiOperation(value = "retrieve a data offering by category", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse<List<RegistrationOfferingDTO>> retrieveDataOfferingByCategory(@QueryParam("category") String category,
-																										 @QueryParam("page") @DefaultValue("0") Integer page,
-																										 @QueryParam("size") @DefaultValue("10") Integer size,
-																										 @QueryParam("sort") List<String> sort) throws ApiException {
-    	 return new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort);
+    public String retrieveDataOfferingByCategory(@QueryParam("category") String category,
+													 @QueryParam("page") @DefaultValue("0") Integer page,
+													 @QueryParam("size") @DefaultValue("10") Integer size,
+		 											 @QueryParam("sort") List<String> sort) throws ApiException {
+		
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return strJson;
+		//return mapper.readValue(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort).toString(), List.class);																								
+		//return new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort);
     }
 
     @PATCH
