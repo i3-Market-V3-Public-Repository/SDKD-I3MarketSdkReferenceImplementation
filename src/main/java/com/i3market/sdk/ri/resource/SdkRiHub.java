@@ -35,6 +35,7 @@ import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
 import com.i3m.model.backplane.RegistrationOfferingDTO;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
@@ -43,6 +44,8 @@ import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
+
 import org.json.JSONObject;
 
 import com.i3m.model.backplane.PingResponse;
@@ -243,4 +246,15 @@ public class SdkRiHub {
 		return new RetrieveOfferingTemplate().getDataOfferingTemplate();
 	}
 
+	@POST
+	@Path("/alerts/{user_id}/subscriptions")
+	@ApiOperation(value = "Register a user to receive alerts for a category", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete body")})
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Empty body")})
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody String category) throws ApiException {
+		return new CreateUserSubscription().createUserSubscription(user_id, category);
+	}
 }
