@@ -35,6 +35,7 @@ import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
 import com.i3m.model.backplane.RegistrationOfferingDTO;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.ActivateUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
