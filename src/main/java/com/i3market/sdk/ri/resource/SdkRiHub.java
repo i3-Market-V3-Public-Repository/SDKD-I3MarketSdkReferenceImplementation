@@ -252,7 +252,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Void> deleteUserSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
 		return new DeleteUserSubscription().deleteUserSubscription(user_id, subscription_id);
 	}
 }
