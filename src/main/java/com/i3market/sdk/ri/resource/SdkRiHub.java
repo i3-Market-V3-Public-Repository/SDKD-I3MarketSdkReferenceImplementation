@@ -35,6 +35,7 @@ import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
 import com.i3m.model.backplane.RegistrationOfferingDTO;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
@@ -243,4 +244,15 @@ public class SdkRiHub {
 		return new RetrieveOfferingTemplate().getDataOfferingTemplate();
 	}
 
+	@DELETE
+	@Path("/alerts/{user_id}/subscriptions/{subscription_id}")
+	@ApiOperation(value = "Delete a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new DeleteUserSubscription().deleteUserSubscription(user_id, subscription_id);
+	}
 }
