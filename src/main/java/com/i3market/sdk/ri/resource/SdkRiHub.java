@@ -242,5 +242,16 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<String> getDataOfferingTemplate() throws ApiException {
 		return new RetrieveOfferingTemplate().getDataOfferingTemplate();
 	}
+	@GET
+	@Path("/alerts/{user_id}/subscriptions/")
+	@ApiOperation(value = "Get user's subscriptions", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptionsByUserID().getUserSubscriptionsByUserID(user_id);
+	}
 
 }
