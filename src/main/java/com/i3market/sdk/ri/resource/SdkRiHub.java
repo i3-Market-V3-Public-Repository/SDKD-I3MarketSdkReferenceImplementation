@@ -250,11 +250,11 @@ public class SdkRiHub {
 	@Path("/alerts/{user_id}/subscriptions")
 	@ApiOperation(value = "Register a user to receive alerts for a category", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete body")})
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "Empty body")})
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
+	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody String category) throws ApiException {
+	public com.i3m.api.ApiResponse<Void> createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody String category) throws ApiException {
 		return new CreateUserSubscription().createUserSubscription(user_id, category);
 	}
 }
