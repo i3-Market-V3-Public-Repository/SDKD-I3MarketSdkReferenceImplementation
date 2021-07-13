@@ -32,9 +32,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
-import com.i3m.model.backplane.DataOffering;
-import com.i3m.model.backplane.DataProvider;
-import com.i3m.model.backplane.RegistrationOfferingDTO;
+import com.i3m.model.backplane.*;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptionByUserID;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
@@ -45,7 +44,6 @@ import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import org.json.JSONObject;
 
-import com.i3m.model.backplane.PingResponse;
 import com.i3m.model.oidc.JWKSet;
 import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.examples.PocOIDC;
@@ -250,8 +248,8 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
-		return new GetSubscriptionsByUserID().getUserSubscriptionsByUserID(user_id);
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptionByUserID().getSubscriptionByUserID(user_id);
 	}
 
 }
