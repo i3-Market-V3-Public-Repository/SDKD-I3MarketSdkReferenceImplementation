@@ -5,12 +5,11 @@ import java.util.Map;
 import java.util.Base64;
 import java.util.Date;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -365,19 +364,15 @@ public class AccountDataBlock {
 		return response;
 	}
 
-	public byte[] downloadFile (String data) {
-		byte[] response = null;
-		Charset charset = Charset.forName("ASCII");
-		File targetFile = new File(data);
-		if(!targetFile.exists()){
-				response = ("File doest exist").getBytes(charset);
-		 } else {
-			 try {
-				response = Files.readAllBytes(targetFile.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			};
-		 }
-		 return response;
+	public FileInputStream downloadFile (String data) {
+		File file = new File(data);
+		FileInputStream inputStream = null;
+    	try {
+			inputStream = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			inputStream = null;
+			e.printStackTrace();
+		}
+		 return inputStream;
 	}
 }
