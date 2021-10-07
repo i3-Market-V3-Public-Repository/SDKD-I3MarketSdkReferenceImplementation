@@ -17,6 +17,7 @@
 
 package com.i3market.sdk.ri.resource;
 
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,12 +37,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
 import com.i3m.model.backplane.PingResponse;
-import com.i3m.model.data_access.DataAccessResponse;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
@@ -55,8 +54,6 @@ import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-import com.nimbusds.jose.Payload;
-import com.nimbusds.jose.shaded.json.parser.ParseException;
 
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -323,9 +320,9 @@ public class SdkRiHub {
 	@POST
 	@Path("/download-file")
 	@ApiOperation(value = "download file", tags = "common-services: exchange")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to download file") })
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to download file")})
 	@Produces({ "application/octet-stream" })
-	public byte[] downloadFile(@QueryParam("data") String data) 
+	public FileInputStream downloadFile(@QueryParam("data") String data) 
 	throws ApiException {
 		return new AccountDataBlock().downloadFile(data);
 	}

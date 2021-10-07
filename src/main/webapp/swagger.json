@@ -155,11 +155,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string",
-                "format" : "byte"
-              }
+              "$ref" : "#/definitions/FileInputStream"
             }
           },
           "400" : {
@@ -819,6 +815,28 @@
         },
         "title" : {
           "type" : "string"
+        }
+      }
+    },
+    "FileChannel" : {
+      "type" : "object",
+      "properties" : {
+        "open" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "FileDescriptor" : {
+      "type" : "object"
+    },
+    "FileInputStream" : {
+      "type" : "object",
+      "properties" : {
+        "fd" : {
+          "$ref" : "#/definitions/FileDescriptor"
+        },
+        "channel" : {
+          "$ref" : "#/definitions/FileChannel"
         }
       }
     },
