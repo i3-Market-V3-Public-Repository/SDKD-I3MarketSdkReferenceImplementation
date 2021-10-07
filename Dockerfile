@@ -20,6 +20,5 @@ USER jetty
 RUN echo $JETTY_HOME
 RUN java -jar "$JETTY_HOME/start.jar" --add-to-start=keycloak
 COPY --from=initial /sdk-ri/target/SdkRefImpl.war /var/lib/jetty/webapps/SdkRefImpl.war
-COPY /target/SdkRefImpl.war /var/lib/jetty/webapps/SdkRefImpl.war
 
 EXPOSE 8080
