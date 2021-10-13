@@ -148,7 +148,7 @@ public class SdkRiHub {
      @ApiOperation(value = "retrieve a data offering by id", tags="common-services: offering")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	 @Produces({ "application/json", "application/xml" })
-     public String retrieveDataOfferingById(@QueryParam("offering_id") String id,
+     public String retrieveDataOfferingById(@PathParam("id") String id,
 																							   @QueryParam("page") @DefaultValue("0") Integer page,
 																							   @QueryParam("size") @DefaultValue("10") Integer size,
 																							   @QueryParam("sort") List<String> sort) throws ApiException {
@@ -172,7 +172,7 @@ public class SdkRiHub {
      @ApiOperation(value = "retrieve all data offerings registered with data provider id", tags="common-services: offering")
      @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
 	 @Produces({ "application/json", "application/xml" })
-     public String retrieveAllDataOfferingsByProviderId(@QueryParam("provider_id") String id,
+     public String retrieveAllDataOfferingsByProviderId(@PathParam("id") String id,
 																										@QueryParam("page") @DefaultValue("0") Integer page,
 																										@QueryParam("size") @DefaultValue("10") Integer size,
 																										@QueryParam("sort") List<String> sort) throws ApiException  {
@@ -195,7 +195,7 @@ public class SdkRiHub {
     @ApiOperation(value = "retrieve a data offering by category", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-    public String retrieveDataOfferingByCategory(@QueryParam("category") String category,
+    public String retrieveDataOfferingByCategory(@PathParam("category") String category,
 													 @QueryParam("page") @DefaultValue("0") Integer page,
 													 @QueryParam("size") @DefaultValue("10") Integer size,
 		 											 @QueryParam("sort") List<String> sort) throws ApiException {
@@ -203,6 +203,7 @@ public class SdkRiHub {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		System.out.println(" ----> CAT: " + category);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
@@ -229,7 +230,7 @@ public class SdkRiHub {
     @ApiOperation(value = "delete a data offering by id", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse deleteDataOffering(@QueryParam("offering_id") String id) throws ApiException {
+    public com.i3m.api.ApiResponse deleteDataOffering(@PathParam("id") String id) throws ApiException {
                 return new DeleteOfferingById().deleteOffering(id);
     }
 
