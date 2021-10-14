@@ -1,0 +1,1180 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "i3Market SDK RI Generator REST API spec.",
+    "version" : "v1.0",
+    "title" : "Swagger spec for i3Market SDK RI Generator REST API"
+  },
+  "basePath" : "/SdkRefImpl/api",
+  "tags" : [ {
+    "name" : "common-services: exchange"
+  }, {
+    "name" : "common-services: management"
+  }, {
+    "name" : "common-services: offering"
+  } ],
+  "schemes" : [ "http", "https" ],
+  "paths" : {
+    "/sdk-ri/create-invoice" : {
+      "post" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "create invoice",
+        "description" : "",
+        "operationId" : "createInvoice",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "bearerToken",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "fromDate",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "toDate",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Invoice"
+            }
+          },
+          "400" : {
+            "description" : "failed to get invoice"
+          }
+        }
+      }
+    },
+    "/sdk-ri/decrypt" : {
+      "post" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "decrypt cipherblock",
+        "description" : "",
+        "operationId" : "decrypt",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "cipherblock",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "jwk",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          },
+          "400" : {
+            "description" : "failed to decrypt cipherblock"
+          }
+        }
+      }
+    },
+    "/sdk-ri/delete-file" : {
+      "delete" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "delete file",
+        "description" : "",
+        "operationId" : "deleteFile",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "data",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to delete file"
+          }
+        }
+      }
+    },
+    "/sdk-ri/delete-offering/{id}" : {
+      "delete" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "delete a data offering by id",
+        "description" : "",
+        "operationId" : "deleteDataOffering",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          },
+          "400" : {
+            "description" : "failed to delete offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/download-file" : {
+      "post" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "download file",
+        "description" : "",
+        "operationId" : "downloadFile",
+        "produces" : [ "application/octet-stream" ],
+        "parameters" : [ {
+          "name" : "data",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/FileInputStream"
+            }
+          },
+          "400" : {
+            "description" : "failed to download file"
+          }
+        }
+      }
+    },
+    "/sdk-ri/get-block/{data}" : {
+      "post" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "get data block",
+        "description" : "",
+        "operationId" : "accountDataBlock",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "bearerToken",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "data",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "block_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "block_ack",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to get data block"
+          }
+        }
+      }
+    },
+    "/sdk-ri/get-file/{data}" : {
+      "post" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "get file",
+        "description" : "",
+        "operationId" : "accountDataFile",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "bearerToken",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "data",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to get file"
+          }
+        }
+      }
+    },
+    "/sdk-ri/get-jwk" : {
+      "get" : {
+        "tags" : [ "common-services: exchange" ],
+        "summary" : "get jwk",
+        "description" : "",
+        "operationId" : "getJwk",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to get jwk"
+          }
+        }
+      }
+    },
+    "/sdk-ri/getConfigurationInfo" : {
+      "get" : {
+        "tags" : [ "common-services: management" ],
+        "summary" : "Get SDK-RI configuration info ",
+        "description" : "",
+        "operationId" : "getConfigurationInfo",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/template" : {
+      "get" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "get a template for data offering",
+        "description" : "",
+        "operationId" : "getDataOfferingTemplate",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseString"
+            }
+          },
+          "400" : {
+            "description" : "failed to fetch offering template"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{category}" : {
+      "get" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "retrieve a data offering by category",
+        "description" : "",
+        "operationId" : "retrieveDataOfferingByCategory",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "category",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to search offering with this category "
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{id}/offeringId" : {
+      "get" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "retrieve a data offering by id",
+        "description" : "",
+        "operationId" : "retrieveDataOfferingById",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to retrieve this offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/offering/{id}/providerId" : {
+      "get" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "retrieve all data offerings registered with data provider id",
+        "description" : "",
+        "operationId" : "retrieveAllDataOfferingsByProviderId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 10,
+          "format" : "int32"
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "failed to retrieve offerings registered by this user"
+          }
+        }
+      }
+    },
+    "/sdk-ri/registration/data-offering" : {
+      "post" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "register a data offering",
+        "description" : "",
+        "operationId" : "registerDataOffering",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataOffering"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseVoid"
+            }
+          },
+          "400" : {
+            "description" : "failed to save offering"
+          }
+        }
+      }
+    },
+    "/sdk-ri/registration/data-provider" : {
+      "post" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "register a data provider",
+        "description" : "",
+        "operationId" : "registerDataProvider",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataProvider"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseVoid"
+            }
+          },
+          "400" : {
+            "description" : "failed to save provider info"
+          }
+        }
+      }
+    },
+    "/sdk-ri/update-offering" : {
+      "patch" : {
+        "tags" : [ "common-services: offering" ],
+        "summary" : "update an offering",
+        "description" : "",
+        "operationId" : "updateDataOffering",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DataOffering"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponse"
+            }
+          },
+          "400" : {
+            "description" : "failed to update offering"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AccessService" : {
+      "type" : "object",
+      "properties" : {
+        "conformsTo" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "endpointDescription" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "endpointURL" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "servesDataset" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "serviceSpecs" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "ApiResponse" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "object"
+        }
+      }
+    },
+    "ApiResponseString" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ApiResponseVoid" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "$ref" : "#/definitions/Void"
+        }
+      }
+    },
+    "ContractParameters" : {
+      "type" : "object",
+      "properties" : {
+        "interestOfProvider" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "interestDescription" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "hasGoverningJurisdiction" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "purpose" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "purposeDescription" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "hasIntendedUse" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/IntendedUse"
+          }
+        },
+        "hasLicenseGrant" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LicenseGrant"
+          }
+        }
+      }
+    },
+    "DataOffering" : {
+      "type" : "object",
+      "properties" : {
+        "provider" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "owner" : {
+          "type" : "string"
+        },
+        "dataOfferingTitle" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "dataOfferingLabel" : {
+          "type" : "string"
+        },
+        "dataOfferingDescription" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string",
+          "example" : "Other"
+        },
+        "isActivated" : {
+          "type" : "string",
+          "example" : "yes OR no"
+        },
+        "dataOfferingExpirationTime" : {
+          "type" : "string",
+          "example" : "NA"
+        },
+        "contractParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ContractParameters"
+          }
+        },
+        "hasPricingModel" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PricingModel"
+          }
+        },
+        "hasDataset" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Dataset"
+          }
+        }
+      }
+    },
+    "DataProvider" : {
+      "type" : "object",
+      "required" : [ "name", "providerId" ],
+      "properties" : {
+        "providerId" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "organization" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Organization"
+          }
+        }
+      }
+    },
+    "Dataset" : {
+      "type" : "object",
+      "required" : [ "datasetInformation", "distribution" ],
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "keyword" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "dataset" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "creator" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "issued" : {
+          "type" : "string",
+          "example" : "date-time"
+        },
+        "modified" : {
+          "type" : "string",
+          "example" : "date-time"
+        },
+        "temporal" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "language" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "spatial" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "accrualPeriodicity" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "temporalResolution" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "distribution" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Distribution"
+          }
+        },
+        "datasetInformation" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DatasetInformation"
+          }
+        },
+        "theme" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "DatasetInformation" : {
+      "type" : "object",
+      "properties" : {
+        "measurementType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "measurementChannelType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "sensorID" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "deviceID" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "cppType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "sensorType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "Distribution" : {
+      "type" : "object",
+      "required" : [ "accessService" ],
+      "properties" : {
+        "title" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "distribution" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "license" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "conformsTo" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "mediaType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "packageFormat" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "accessService" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AccessService"
+          }
+        }
+      }
+    },
+    "FileChannel" : {
+      "type" : "object",
+      "properties" : {
+        "open" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "FileDescriptor" : {
+      "type" : "object"
+    },
+    "FileInputStream" : {
+      "type" : "object",
+      "properties" : {
+        "fd" : {
+          "$ref" : "#/definitions/FileDescriptor"
+        },
+        "channel" : {
+          "$ref" : "#/definitions/FileChannel"
+        }
+      }
+    },
+    "IntendedUse" : {
+      "type" : "object",
+      "properties" : {
+        "processData" : {
+          "type" : "string",
+          "example" : "true OR false"
+        },
+        "shareDataWithThirdParty" : {
+          "type" : "string",
+          "example" : "true OR false"
+        },
+        "editData" : {
+          "type" : "string",
+          "example" : "true OR false"
+        }
+      }
+    },
+    "Invoice" : {
+      "type" : "object",
+      "properties" : {
+        "ConsumerID" : {
+          "type" : "string"
+        },
+        "CompanyName" : {
+          "type" : "string"
+        },
+        "VAT" : {
+          "type" : "string"
+        },
+        "ContractID" : {
+          "type" : "string"
+        },
+        "NumBlock" : {
+          "type" : "string"
+        },
+        "BlockSize" : {
+          "type" : "string"
+        },
+        "BlockPrice" : {
+          "type" : "string"
+        },
+        "TotalAmount" : {
+          "type" : "string"
+        }
+      }
+    },
+    "LicenseGrant" : {
+      "type" : "object",
+      "properties" : {
+        "copyData" : {
+          "type" : "string",
+          "example" : "true OR false"
+        },
+        "transferable" : {
+          "type" : "string",
+          "example" : "true OR false"
+        },
+        "exclusiveness" : {
+          "type" : "string",
+          "example" : "true OR false"
+        },
+        "revocable" : {
+          "type" : "string",
+          "example" : "true OR false"
+        }
+      }
+    },
+    "Organization" : {
+      "type" : "object",
+      "required" : [ "name", "organizationId" ],
+      "properties" : {
+        "address" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "contactPoint" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "organizationId" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PaymentOnAPI" : {
+      "type" : "object",
+      "properties" : {
+        "paymentOnAPIName" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "numberOfObject" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "hasAPIPrice" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PaymentOnFreePrice" : {
+      "type" : "object",
+      "properties" : {
+        "hasPriceFree" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PaymentOnPlan" : {
+      "type" : "object",
+      "properties" : {
+        "paymentOnPlanName" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "planDuration" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "hasPlanPrice" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PaymentOnSize" : {
+      "type" : "object",
+      "properties" : {
+        "paymentOnSizeName" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "dataSize" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "hasSizePrice" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PaymentOnSubscription" : {
+      "type" : "object",
+      "properties" : {
+        "paymentOnSubscriptionName" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "paymentType" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "timeDuration" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "repeat" : {
+          "type" : "string",
+          "example" : "Daily"
+        },
+        "hasSubscriptionPrice" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "fromValue" : {
+          "type" : "string",
+          "example" : "date-time"
+        },
+        "toValue" : {
+          "type" : "string",
+          "example" : "date-time"
+        }
+      }
+    },
+    "PaymentOnUnit" : {
+      "type" : "object",
+      "properties" : {
+        "paymentOnUnitName" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "dataUnit" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "unitID" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "hasUnitPrice" : {
+          "type" : "string",
+          "example" : "optional_field"
+        }
+      }
+    },
+    "PricingModel" : {
+      "type" : "object",
+      "required" : [ "hasFreePrice", "hasPaymentOnAPI", "hasPaymentOnPlan", "hasPaymentOnSize", "hasPaymentOnSubscription", "hasPaymentOnUnit" ],
+      "properties" : {
+        "pricingModelName" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "basicPrice" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "currency" : {
+          "type" : "string",
+          "example" : "mandatory_field"
+        },
+        "hasPaymentOnSubscription" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnSubscription"
+          }
+        },
+        "hasPaymentOnPlan" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnPlan"
+          }
+        },
+        "hasPaymentOnAPI" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnAPI"
+          }
+        },
+        "hasPaymentOnUnit" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnUnit"
+          }
+        },
+        "hasPaymentOnSize" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnSize"
+          }
+        },
+        "hasFreePrice" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PaymentOnFreePrice"
+          }
+        }
+      }
+    },
+    "Void" : {
+      "type" : "object"
+    }
+  }
+}
