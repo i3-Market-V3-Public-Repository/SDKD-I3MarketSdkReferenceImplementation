@@ -1,4 +1,5 @@
 FROM maven:3.6.3-jdk-11 as initial
+ARG TEST
 
 RUN mkdir -p /root/.m2 \
     && mkdir /root/.m2/repository
@@ -9,7 +10,7 @@ COPY . /sdk-ri
 
 WORKdir /sdk-ri
 
-RUN mvn install
+RUN mvn clean install $TEST
 
 FROM jetty
 
