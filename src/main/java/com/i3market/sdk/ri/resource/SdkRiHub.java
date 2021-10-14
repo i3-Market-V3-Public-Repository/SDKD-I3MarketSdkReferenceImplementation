@@ -93,7 +93,7 @@ public class SdkRiHub {
 		configJson.put("backplane_instance", SdkRiConstants.BACKPLANE_ENDPOINT);    
 		configJson.put("oidc_isntance", SdkRiConstants.OIDC_ENDPOINT);    
 		configJson.put("vc_instance", SdkRiConstants.VC_ENDPOINT); 
-	
+		configJson.put("data_access.url", SdkRiConstants.DATA_ACCESS_ENDPOINT); 
 		return configJson.toString();
 	}
 	
