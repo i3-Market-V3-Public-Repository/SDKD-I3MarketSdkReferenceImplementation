@@ -1,10 +1,15 @@
 FROM maven:3.6.3-jdk-11 as initial
 
+RUN mkdir -p /root/.m2 \
+    && mkdir /root/.m2/repository
+
+COPY settings.xml /root/.m2
+
 COPY . /sdk-ri
 
 WORKdir /sdk-ri
 
-RUN mvn clean install
+RUN mvn install
 
 FROM jetty
 
