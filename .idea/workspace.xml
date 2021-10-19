@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d802d934-2809-40f5-9345-4e0976d959f1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveCategoryList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveContractParametersByOfferingId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveContractParametersByProviderId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveListOfProviderByCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingById.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingById.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingByProviderId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingByProviderId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/AccountDataBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/AccountDataBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/fromNonRepudiableProtocol/FromNonRepudiableProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/fromNonRepudiableProtocol/FromNonRepudiableProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/resource/SdkRiHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/resource/SdkRiHub.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1zftS2I8HoK6UJNBwEiRn95dpCO" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d802d934-2809-40f5-9345-4e0976d959f1" name="Changes" comment="" />
+      <created>1634550967238</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634550967238</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
