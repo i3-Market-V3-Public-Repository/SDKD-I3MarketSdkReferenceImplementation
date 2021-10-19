@@ -41,4 +41,6 @@ public class RetrieveOfferingById {
         return registrationOfferingApi.getRegisteredOfferingUsingGETWithHttpInfo(id, page, size, sort);
 
     }
+
+
 }
