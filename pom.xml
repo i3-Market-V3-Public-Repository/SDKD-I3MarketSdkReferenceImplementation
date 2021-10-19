@@ -59,11 +59,11 @@
 		</dependency>
 
 <!--		// https://gitlab.com/i3-market/code/wp3/t3.3/non-repudiable-exchange/non-repudiable-proofs-java/-/packages/3043423-->
-<!--		<dependency>-->
-<!--			<groupId>non-repudiable-protocol</groupId>-->
-<!--			<artifactId>lib</artifactId>-->
-<!--			<version>0.1.2</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>non-repudiable-protocol</groupId>
+			<artifactId>lib</artifactId>
+			<version>0.1.2</version>
+		</dependency>
 
 
 

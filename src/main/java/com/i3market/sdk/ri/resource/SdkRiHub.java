@@ -46,6 +46,7 @@ import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
 //import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
+import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
@@ -405,81 +406,81 @@ public class SdkRiHub {
  */
 //
 	
-//	@POST
-//	@Path("/get-block/{data}")
-//	@ApiOperation(value = "get data block", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get data block") })
-//	@Produces({ "application/json", "application/xml" })
-//	public String accountDataBlock(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data, @QueryParam("block_id") String block_id, @QueryParam("block_ack") String block_ack)
-//	throws ApiException {
-//		InlineObject blockIdAck = new InlineObject();
-//		blockIdAck.setBlockId(block_id);
-//		blockIdAck.setBlockAck(block_ack);
-//		return new AccountDataBlock().accountDataBlock(bearerToken, blockIdAck, data);
-//	}
-//
-//	@POST
-//	@Path("/get-file/{data}")
-//	@ApiOperation(value = "get file", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get file") })
-//	@Produces({ "text/plain" })
-//	public String accountDataFile(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data)
-//	throws ApiException {
-//		InlineObject blockIdAck = new InlineObject();
-//		blockIdAck.setBlockId("null");
-//		blockIdAck.setBlockAck("null");
-//		return new AccountDataBlock().getFile(bearerToken, blockIdAck, data);
-//	}
-//
-//	@POST
-//	@Path("/decrypt")
-//	@ApiOperation(value = "decrypt cipherblock", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to decrypt cipherblock") })
-//	@Produces({ "text/plain" })
-//	public byte[] decrypt(@QueryParam("cipherblock") String cipherblock, @QueryParam("jwk") String jwk)
-//	throws ApiException {
-//		JSONObject jwk_toJson = new JSONObject(jwk);
-//		return new AccountDataBlock().decryptCipherblock(cipherblock, jwk_toJson);
-//	}
-//
-//	@POST
-//	@Path("/create-invoice")
-//	@ApiOperation(value = "create invoice", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get invoice") })
-//	@Produces({ "application/json", "application/xml" })
-//	public Invoice createInvoice(@QueryParam("bearerToken") String bearerToken, @QueryParam("fromDate") String fromDate, @QueryParam("toDate") String toDate)
-//	throws ApiException {
-//		return new AccountDataBlock().createInvoice(bearerToken, fromDate, toDate);
-//	}
-//
-//	@GET
-//	@Path("/get-jwk")
-//	@ApiOperation(value = "get jwk", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get jwk") })
-//	@Produces({ "application/json", "application/xml" })
-//	public String getJwk()
-//	throws ApiException {
-//		return new AccountDataBlock().getJwk();
-//	}
-//
-//	@DELETE
-//	@Path("/delete-file")
-//	@ApiOperation(value = "delete file", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to delete file") })
-//	@Produces({ "text/plain" })
-//	public String deleteFile(@QueryParam("data") String data)
-//	throws ApiException {
-//		return new AccountDataBlock().deleteFile(data);
-//	}
-//
-//	@POST
-//	@Path("/download-file")
-//	@ApiOperation(value = "download file", tags = "common-services: exchange")
-//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to download file")})
-//	@Produces({ "application/octet-stream" })
-//	public FileInputStream downloadFile(@QueryParam("data") String data)
-//	throws ApiException {
-//		return new AccountDataBlock().downloadFile(data);
-//	}
+	@POST
+	@Path("/get-block/{data}")
+	@ApiOperation(value = "get data block", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get data block") })
+	@Produces({ "application/json", "application/xml" })
+	public String accountDataBlock(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data, @QueryParam("block_id") String block_id, @QueryParam("block_ack") String block_ack)
+	throws ApiException {
+		InlineObject blockIdAck = new InlineObject();
+		blockIdAck.setBlockId(block_id);
+		blockIdAck.setBlockAck(block_ack);
+		return new AccountDataBlock().accountDataBlock(bearerToken, blockIdAck, data);
+	}
+
+	@POST
+	@Path("/get-file/{data}")
+	@ApiOperation(value = "get file", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get file") })
+	@Produces({ "text/plain" })
+	public String accountDataFile(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data)
+	throws ApiException {
+		InlineObject blockIdAck = new InlineObject();
+		blockIdAck.setBlockId("null");
+		blockIdAck.setBlockAck("null");
+		return new AccountDataBlock().getFile(bearerToken, blockIdAck, data);
+	}
+
+	@POST
+	@Path("/decrypt")
+	@ApiOperation(value = "decrypt cipherblock", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to decrypt cipherblock") })
+	@Produces({ "text/plain" })
+	public byte[] decrypt(@QueryParam("cipherblock") String cipherblock, @QueryParam("jwk") String jwk)
+	throws ApiException {
+		JSONObject jwk_toJson = new JSONObject(jwk);
+		return new AccountDataBlock().decryptCipherblock(cipherblock, jwk_toJson);
+	}
+
+	@POST
+	@Path("/create-invoice")
+	@ApiOperation(value = "create invoice", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get invoice") })
+	@Produces({ "application/json", "application/xml" })
+	public Invoice createInvoice(@QueryParam("bearerToken") String bearerToken, @QueryParam("fromDate") String fromDate, @QueryParam("toDate") String toDate)
+	throws ApiException {
+		return new AccountDataBlock().createInvoice(bearerToken, fromDate, toDate);
+	}
+
+	@GET
+	@Path("/get-jwk")
+	@ApiOperation(value = "get jwk", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get jwk") })
+	@Produces({ "application/json", "application/xml" })
+	public String getJwk()
+	throws ApiException {
+		return new AccountDataBlock().getJwk();
+	}
+
+	@DELETE
+	@Path("/delete-file")
+	@ApiOperation(value = "delete file", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to delete file") })
+	@Produces({ "text/plain" })
+	public String deleteFile(@QueryParam("data") String data)
+	throws ApiException {
+		return new AccountDataBlock().deleteFile(data);
+	}
+
+	@POST
+	@Path("/download-file")
+	@ApiOperation(value = "download file", tags = "common-services: exchange")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to download file")})
+	@Produces({ "application/octet-stream" })
+	public FileInputStream downloadFile(@QueryParam("data") String data)
+	throws ApiException {
+		return new AccountDataBlock().downloadFile(data);
+	}
 	
 }
