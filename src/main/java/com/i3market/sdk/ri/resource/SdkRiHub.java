@@ -290,7 +290,6 @@ public class SdkRiHub {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		System.out.println(" ----> CAT: " + category);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
@@ -341,7 +340,6 @@ public class SdkRiHub {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		System.out.println(" ----> CAT: " + category);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().
 					writeValueAsString(new RetrieveListOfProvider().
