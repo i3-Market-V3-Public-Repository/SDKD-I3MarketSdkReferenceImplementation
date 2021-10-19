@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d802d934-2809-40f5-9345-4e0976d959f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveCategoryList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveContractParametersByOfferingId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveContractParametersByProviderId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveListOfProviderByCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingById.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingById.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingByProviderId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveOfferingByProviderId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/AccountDataBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/AccountDataBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/fromNonRepudiableProtocol/FromNonRepudiableProtocol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/exchange/fromNonRepudiableProtocol/FromNonRepudiableProtocol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveListOfProviderByCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/common_services/data/discovery/RetrieveListOfProvider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/resource/SdkRiHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i3market/sdk/ri/resource/SdkRiHub.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

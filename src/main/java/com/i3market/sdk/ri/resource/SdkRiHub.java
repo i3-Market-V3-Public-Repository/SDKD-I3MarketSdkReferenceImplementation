@@ -130,7 +130,7 @@ public class SdkRiHub {
 	@GET
 	@Path("/registration/categories-list")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "get category list", tags="common-services: offering")
+	@ApiOperation(value = "retrieve category list", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveCategoryList(
@@ -151,7 +151,7 @@ public class SdkRiHub {
 
 
 	@GET
-	@Path("/contract-parameter/{offeringId}/offeringId")
+	@Path("/offering/contract-parameter/{offeringId}/offeringId")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@ApiOperation(value = "retrieve contract parameters by offeringId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
@@ -175,9 +175,9 @@ public class SdkRiHub {
 
 
 	@GET
-	@Path("/contract-parameter/{providerId}/providerId")
+	@Path("/offering/contract-parameter/{providerId}/providerId")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve contract parameters by offeringId", tags="common-services: offering")
+	@ApiOperation(value = "retrieve contract parameters by providerId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveOfferingContractParametersByProviderId(@PathParam("providerId") String providerId,
@@ -209,7 +209,7 @@ public class SdkRiHub {
 
 	@DELETE
 	@Path("/delete-offering/{id}")
-	@ApiOperation(value = "delete a data offering by id", tags="common-services: offering")
+	@ApiOperation(value = "delete a data offering by offeringId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse deleteDataOffering(@PathParam("id") String id) throws ApiException {
@@ -235,7 +235,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveDataOfferingById(@PathParam("id") String id,
 										   @QueryParam("page") @DefaultValue("0") Integer page,
-										   @QueryParam("size") @DefaultValue("10") Integer size,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
 
 		String strJson = "{}";
@@ -248,19 +248,19 @@ public class SdkRiHub {
 			e.printStackTrace();
 		}
 		return strJson;
-		//return new RetrieveOfferingById().getDataOfferingById(id, page, size, sort);
+
 	}
 
 
 	@GET
 	@Path("/offering/{id}/providerId")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve all data offerings registered with data provider id", tags="common-services: offering")
+	@ApiOperation(value = "retrieve all data offerings by a data providerId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveAllDataOfferingsByProviderId(@PathParam("id") String id,
 													   @QueryParam("page") @DefaultValue("0") Integer page,
-													   @QueryParam("size") @DefaultValue("10") Integer size,
+													   @QueryParam("size") @DefaultValue("5") Integer size,
 													   @QueryParam("sort") List<String> sort) throws ApiException  {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
@@ -272,19 +272,18 @@ public class SdkRiHub {
 			e.printStackTrace();
 		}
 		return strJson;
-		//	 return new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort);
 	}
 
 
 	@GET
 	@Path("/offering/{category}")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve a data offering by category", tags="common-services: offering")
+	@ApiOperation(value = "retrieve data offerings by a category", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveDataOfferingByCategory(@PathParam("category") String category,
 												 @QueryParam("page") @DefaultValue("0") Integer page,
-												 @QueryParam("size") @DefaultValue("10") Integer size,
+												 @QueryParam("size") @DefaultValue("5") Integer size,
 												 @QueryParam("sort") List<String> sort) throws ApiException {
 
 		String strJson = "{}";
@@ -298,18 +297,17 @@ public class SdkRiHub {
 			e.printStackTrace();
 		}
 		return strJson;
-		//return mapper.readValue(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort).toString(), List.class);
-		//return new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort);
+
 	}
 
 
 	@GET
 	@Path("/offering/offerings-list")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve  internal offering list", tags="common-services: offering")
+	@ApiOperation(value = "retrieve offering list from internal database only", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveDataOfferingList(@PathParam("category") String category,
+	public String retrieveDataOfferingList(
 												 @QueryParam("page") @DefaultValue("0") Integer page,
 												 @QueryParam("size") @DefaultValue("5") Integer size,
 												 @QueryParam("sort") List<String> sort) throws ApiException {
@@ -317,7 +315,6 @@ public class SdkRiHub {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		System.out.println(" ----> CAT: " + category);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingList().getDataOfferingList(page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
@@ -329,6 +326,58 @@ public class SdkRiHub {
 	}
 
 
+	@GET
+	@Path("/offering/providers/{category}/category")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve  provider list by category from internal database only", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveProviderIdListByCategory(@PathParam("category") String category,
+										   @QueryParam("page") @DefaultValue("0") Integer page,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		System.out.println(" ----> CAT: " + category);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().
+					writeValueAsString(new RetrieveListOfProvider().
+							getProviderListByCategory(category,page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
+
+	@GET
+	@Path("/offering/providers-list")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve  data provider list from internal database", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveAllProviders(@QueryParam("page") @DefaultValue("0") Integer page,
+												   @QueryParam("size") @DefaultValue("5") Integer size,
+												   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().
+					writeValueAsString(new RetrieveListOfProvider().
+							getAllProviders(page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
 
 
 	@POST
@@ -342,13 +391,6 @@ public class SdkRiHub {
 	}
 
 
-
-
-
-
-
-
-
     @PATCH
     @Path("/update-offering")
     @ApiOperation(value = "update an offering", tags="common-services: offering")
@@ -358,8 +400,10 @@ public class SdkRiHub {
           return new UpdateOffering().updateOffering(dataOffering);
     }
 
-
-
+/**
+ * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library
+ */
+//
 	
 //	@POST
 //	@Path("/get-block/{data}")
@@ -373,7 +417,7 @@ public class SdkRiHub {
 //		blockIdAck.setBlockAck(block_ack);
 //		return new AccountDataBlock().accountDataBlock(bearerToken, blockIdAck, data);
 //	}
-
+//
 //	@POST
 //	@Path("/get-file/{data}")
 //	@ApiOperation(value = "get file", tags = "common-services: exchange")
