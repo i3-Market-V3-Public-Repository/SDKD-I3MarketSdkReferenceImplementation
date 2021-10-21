@@ -6,6 +6,7 @@ import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.ContractParameters;
+import com.i3m.model.backplane.ContractsParametersForOfferings;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 
 
 public class RetrieveContractParametersByProviderId {
-    public ApiResponse<List<ContractParameters>> getOfferingContractsByProviderId(String providerId, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByProviderId(String providerId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
