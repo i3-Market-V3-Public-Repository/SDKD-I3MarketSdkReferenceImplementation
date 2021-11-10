@@ -51,6 +51,6 @@ public class Routes {
 	public static String post_data_offering= "/api/sdk-ri/registration/data-offering";
 
 	// The post routes the request to respective services to update a data offering
-	public static String patch_update_data_offering = "/api/sdk-ri/registration/update-offering";
+	public static String patch_update_data_offering = "/api/sdk-ri/update-offering";
 
 }

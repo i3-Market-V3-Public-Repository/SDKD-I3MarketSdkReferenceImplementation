@@ -149,7 +149,7 @@ public class TestEndpoints {
 		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
 	}
 
-	@Test(priority = 12)
+	@Test(priority = 13)
 	public void testContractByProviderId()  {
 
 		System.out.println("*************************{CONTRACT BY PROVIDERID}************************************");
@@ -160,7 +160,7 @@ public class TestEndpoints {
 		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
 	}
 
-	@Test(priority = 13)
+	@Test(priority = 14)
 	public void testContractByOfferingId()  {
 
 		System.out.println("*************************{CONTRACT BY OFFERINGID}************************************");
@@ -171,7 +171,7 @@ public class TestEndpoints {
 		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
 	}
 
-	@Test(priority = 14)
+	@Test(priority = 15)
 	public void testDeleteOffering()  {
 
 		System.out.println("*************************{OFFERING DELETE}************************************");
@@ -182,8 +182,8 @@ public class TestEndpoints {
 		System.out.println("******************************************************************************************");
 	}
 
-	@Test(priority = 15)
-	public void testDeletedOffering()  {
+	@Test(priority = 16)
+	public void testGetOfferingList()  {
 
 		System.out.println("*************************{OFFERINGS LIST}************************************");
 		Response response= CommonServicesEndpoints.getOfferingsList(auth_token);
