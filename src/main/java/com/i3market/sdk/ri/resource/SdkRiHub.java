@@ -17,23 +17,6 @@
 
 package com.i3market.sdk.ri.resource;
 
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -41,26 +24,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
-import com.i3m.model.backplane.PingResponse;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.ActivateUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
-//import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
-import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.logging.Logger;
 
 @Path("sdk-ri")
 @Api(value = "/")
@@ -493,16 +478,4 @@ public class SdkRiHub {
 		return new ActivateUserSubscription().activateUserSubscription(user_id, subscription_id);
 	}
 
-
-	@POST
-	@Path("/alerts/{user_id}/subscriptions")
-	@ApiOperation(value = "Register a user to receive alerts for a category", tags="common-services: alerts")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete body")})
-	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
-	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
-	@Produces({ "application/json", "application/xml" })
-	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody String category) throws ApiException {
-		return new CreateUserSubscription().createUserSubscription(user_id, category);
-	}
 }
