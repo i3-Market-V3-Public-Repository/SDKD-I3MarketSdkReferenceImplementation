@@ -5,9 +5,8 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.SubscriptionsApi;
-import com.i3m.model.backplane.InlineObject2;
+import com.i3m.model.backplane.InlineObject9;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ public class CreateUserSubscription {
         //SubscriptionApi subscriptionApi = new SubscriptionApi();
         SubscriptionsApi subscriptionApi = new SubscriptionsApi();
 
-        InlineObject2 cat = new InlineObject2();
+        InlineObject9 cat = new InlineObject9();
         cat.category(category);
 
         return subscriptionApi.postSubscriptionsWithHttpInfo(cat, user_id);
