@@ -1,12 +1,18 @@
-FROM maven:3.6.3-jdk-11 as initial
+FROM maven:3.8.3-jdk-8 as initial
+ARG TEST
+
+RUN mkdir -p /root/.m2 \
+    && mkdir /root/.m2/repository
+
+COPY settings.xml /root/.m2
 
 COPY . /sdk-ri
 
 WORKdir /sdk-ri
 
-RUN mvn clean install
+RUN mvn clean install $TEST
 
-FROM jetty
+FROM jetty:9.4-jdk8
 
 USER root
 ADD https://github.com/keycloak/keycloak/releases/download/12.0.4/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz /var/lib/jetty/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz
