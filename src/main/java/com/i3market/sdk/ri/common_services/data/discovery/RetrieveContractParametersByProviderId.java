@@ -5,19 +5,21 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.model.backplane.ContractParameters;
+import com.i3m.model.backplane.ContractsParametersForOfferings;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
- * @author qaiser
- * @email: qaiser.mehmood@insight-centre.org
- * @project i3-sdk-ri
+ * Implemented by: Chi-Hung Le
+ * @email: chi-hung.le@insight-centre.org
  */
-public class RetrieveOfferingTemplate {
-    private static final Logger _log = LoggerFactory.getLogger(RetrieveOfferingTemplate.class);
 
-    public ApiResponse<String> getDataOfferingTemplate() throws ApiException {
+
+public class RetrieveContractParametersByProviderId {
+    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByProviderId(String providerId, Integer page, Integer size, List<String> sort) throws ApiException {
+
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
@@ -26,9 +28,9 @@ public class RetrieveOfferingTemplate {
 
         apiClient.setServerIndex(null);
 
-        _log.debug("getting data offering template");
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return registrationOfferingApi.getOfferingTemplateUsingGETWithHttpInfo();
+        return  registrationOfferingApi.getOfferingContractsByProviderIdIdUsingGETWithHttpInfo(providerId, page, size, sort);
+
     }
 }
