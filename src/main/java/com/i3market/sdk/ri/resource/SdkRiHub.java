@@ -39,9 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
-import com.i3m.model.backplane.DataOffering;
-import com.i3m.model.backplane.DataProvider;
-import com.i3m.model.backplane.PingResponse;
+import com.i3m.model.backplane.*;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
@@ -51,6 +49,7 @@ import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
@@ -480,5 +479,115 @@ public class SdkRiHub {
 	throws ApiException {
 		return new AccountDataBlock().downloadFile(data);
 	}
+
+	/////// Tokenizer API ///////
+
+	@POST
+	@Path("/token/payment")
+	@ApiOperation(value = "token payment operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to execute payment")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> payment(@RequestBody InlineObject5 inlineObject5) throws ApiException {
+		return new Token().payment(inlineObject5);
+	}
+
+	@POST
+	@Path("/token/exchangein")
+	@ApiOperation(value = "exchange in operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public InlineResponse2003 exchangeIn(@RequestBody InlineObject3 inlineObject3) throws ApiException {
+		return new Token().exchangeIn(inlineObject3);
+	}
+
+	@POST
+	@Path("/token/exchangeout")
+	@ApiOperation(value = "exchange out operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public InlineResponse2004 exchangeOut(@RequestBody InlineObject4 inlineObject4) throws ApiException {
+		return new Token().exchangeOut(inlineObject4);
+	}
+
+	@POST
+	@Path("/token/clearing")
+	@ApiOperation(value = "clearing operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public InlineResponse2001 clearing(@RequestBody InlineObject1 inlineObject1) throws ApiException {
+		return new Token().clearing(inlineObject1);
+	}
+
+	@POST
+	@Path("/token/deploytransaction")
+	@ApiOperation(value = "deploy operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public InlineResponse2002 deployTransaction(@RequestBody InlineObject2 inlineObject2) throws ApiException {
+		return new Token().deployTransaction(inlineObject2);
+	}
+
+	@POST
+	@Path("/token/setpaid")
+	@ApiOperation(value = "set paid status of operation", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> setPaid(@RequestBody InlineObject6 inlineObject6) throws ApiException {
+		return new Token().setPaid(inlineObject6);
+	}
+
+	@POST
+	@Path("/token/marketplace")
+	@ApiOperation(value = "add a new marketplace to the treasury smart contract and create a new token ", tags="common-services: token")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add marketplace")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public InlineResponse200 addMarketplace(@RequestBody com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
+		return new Token().createMarketplace(inlineObject);
+	}
+
+	@GET
+	@Path("/token/balances/{address}")
+	@ApiOperation(value = "get marketplace balance by marketplace address", tags = "common-services: token")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
+	@Produces({ "application/json", "application/xml" })
+	public InlineResponse20010 getBalanceByAddress(@QueryParam("address") String address) throws ApiException {
+		return new Token().getBalanceByAddress(address);
+	}
+
+	@GET
+	@Path("/token/marketplaces/{address}")
+	@ApiOperation(value = "get marketplace index by marketplace address", tags = "common-services: token")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
+	@Produces({ "application/json", "application/xml" })
+	public InlineResponse20011 getMarketplaceByAddress(@QueryParam("address") String address) throws ApiException {
+		return new Token().getMarketplaceByAddress(address);
+	}
+
+	@GET
+	@Path("/token/transactions/{transactionHash}")
+	@ApiOperation(value = "get transaction with transaction hash", tags = "common-services: token")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction with this transactionHash") })
+	@Produces({ "application/json", "application/xml" })
+	public InlineResponse20013 getTransactionsByTransactionHash(@QueryParam("transactionHash") String transactionHash) throws ApiException {
+		return new Token().getTransactionsByTransactionHash(transactionHash);
+	}
+
+	@GET
+	@Path("/token/token-transfer/{transferId}")
+	@ApiOperation(value = "get transaction status object with transfer identifier", tags = "common-services: token")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
+	@Produces({ "application/json", "application/xml" })
+	public InlineResponse20012 getTokenTransfersByTransferId(@QueryParam("transferId") String transferId) throws ApiException {
+		return new Token().getTokenTransfersByTransferId(transferId);
+	}
+
+	/////////////////////////////
 	
 }
