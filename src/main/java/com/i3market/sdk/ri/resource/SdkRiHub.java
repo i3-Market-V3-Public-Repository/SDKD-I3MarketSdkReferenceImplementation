@@ -50,7 +50,6 @@ import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
-import com.i3market.sdk.ri.examples.PocBackplane;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import org.json.JSONObject;
@@ -498,8 +497,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public InlineResponse2003 exchangeIn(@RequestBody InlineObject3 inlineObject3) throws ApiException {
-		return new Token().exchangeIn(inlineObject3);
+	public InlineResponse20010 exchangeIn(@RequestBody InlineObject4 inlineObject4) throws ApiException {
+		return new Token().exchangeIn(inlineObject4);
 	}
 
 	@POST
@@ -508,7 +507,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public InlineResponse2004 exchangeOut(@RequestBody InlineObject4 inlineObject4) throws ApiException {
+	public InlineResponse20010 exchangeOut(@RequestBody InlineObject4 inlineObject4) throws ApiException {
 		return new Token().exchangeOut(inlineObject4);
 	}
 
@@ -518,7 +517,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public InlineResponse2001 clearing(@RequestBody InlineObject1 inlineObject1) throws ApiException {
+	public InlineResponse2007 clearing(@RequestBody InlineObject1 inlineObject1) throws ApiException {
 		return new Token().clearing(inlineObject1);
 	}
 
@@ -528,7 +527,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public InlineResponse2002 deployTransaction(@RequestBody InlineObject2 inlineObject2) throws ApiException {
+	public InlineResponse2008 deployTransaction(@RequestBody InlineObject2 inlineObject2) throws ApiException {
 		return new Token().deployTransaction(inlineObject2);
 	}
 
@@ -548,7 +547,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public InlineResponse200 addMarketplace(@RequestBody com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
+	public InlineResponse2005 addMarketplace(@RequestBody com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
 		return new Token().createMarketplace(inlineObject);
 	}
 
@@ -557,7 +556,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace balance by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse20010 getBalanceByAddress(@QueryParam("address") String address) throws ApiException {
+	public InlineResponse2003 getBalanceByAddress(@QueryParam("address") String address) throws ApiException {
 		return new Token().getBalanceByAddress(address);
 	}
 
@@ -566,7 +565,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace index by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse20011 getMarketplaceByAddress(@QueryParam("address") String address) throws ApiException {
+	public InlineResponse2004 getMarketplaceByAddress(@QueryParam("address") String address) throws ApiException {
 		return new Token().getMarketplaceByAddress(address);
 	}
 
@@ -584,7 +583,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get transaction status object with transfer identifier", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse20012 getTokenTransfersByTransferId(@QueryParam("transferId") String transferId) throws ApiException {
+	public InlineResponse2006 getTokenTransfersByTransferId(@QueryParam("transferId") String transferId) throws ApiException {
 		return new Token().getTokenTransfersByTransferId(transferId);
 	}
 
