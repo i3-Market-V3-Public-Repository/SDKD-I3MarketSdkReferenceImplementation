@@ -597,7 +597,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
 	@Produces({ "text/html", "application/xml" })
-	public ApiResponse<void> getIssueVerifiableCredential(@QueryParam("credential") String credential) throws ApiException {
+	public Object getIssueVerifiableCredential(@QueryParam("credential") String credential) throws ApiException {
 		return new VerifiableCredentials().getIssueVerifiableCredential(credential);
 	}
 
@@ -607,7 +607,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ApiResponse<void> revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject11 credential) throws ApiException {
+	public Object revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject7 credential) throws ApiException {
 		return new VerifiableCredentials().postRevokeCredentialByJWT(credential);
 	}
 
@@ -617,7 +617,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ApiResponse<void> verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject11 credential) throws ApiException {
+	public Object verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject8 credential) throws ApiException {
 		return new VerifiableCredentials().postVerifyCredentialByJWT(credential);
 	}
 
@@ -626,7 +626,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get the issued credential list", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the credential list") })
 	@Produces({ "application/json", "application/xml" })
-	public ApiResponse<void> getCredentialsList() throws ApiException {
+	public List<String> getCredentialsList() throws ApiException {
 		return new VerifiableCredentials().getCredentialList();
 	}
 
@@ -635,7 +635,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "subscribe the issuer", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to subscribe the issuer") })
 	@Produces({ "application/json", "application/xml" })
-	public ApiResponse<void> getSubscribeIssuer() throws ApiException {
+	public Object getSubscribeIssuer() throws ApiException {
 		return new VerifiableCredentials().getSubscribeIssuer();
 	}
 
@@ -644,7 +644,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "unsubscribe the issuer", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to unsubscribe the issuer") })
 	@Produces({ "application/json", "application/xml" })
-	public ApiResponse<void> getUnsubscribeIssuer() throws ApiException {
+	public Object getUnsubscribeIssuer() throws ApiException {
 		return new VerifiableCredentials().getUnsubscribeIssuer();
 	}
 
@@ -653,7 +653,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "verify the issuer subscription", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to verify the issuer subscription") })
 	@Produces({ "application/json", "application/xml" })
-	public ApiResponse<void> getVerifyIssuerSubscription() throws ApiException {
+	public Object getVerifyIssuerSubscription() throws ApiException {
 		return new VerifiableCredentials().getVerifyIssuerSubscription();
 	}
 
