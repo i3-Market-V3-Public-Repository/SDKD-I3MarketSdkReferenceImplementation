@@ -50,6 +50,7 @@ import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
+import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import org.json.JSONObject;
@@ -585,6 +586,75 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public InlineResponse2006 getTokenTransfersByTransferId(@QueryParam("transferId") String transferId) throws ApiException {
 		return new Token().getTokenTransfersByTransferId(transferId);
+	}
+
+	/////// Verifiable Credential API ///////
+
+	// FIXME: InlineResponse2006 ?????
+
+	@GET
+	@Path("/credential/issue/{credential}")
+	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
+	@Produces({ "text/html", "application/xml" })
+	public ApiResponse<void> getIssueVerifiableCredential(@QueryParam("credential") String credential) throws ApiException {
+		return new VerifiableCredentials().getIssueVerifiableCredential(credential);
+	}
+
+	@POST
+	@Path("/credential/revoke")
+	@ApiOperation(value = "revoke a credential by jwt ", tags="common-services: credential")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ApiResponse<void> revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject11 credential) throws ApiException {
+		return new VerifiableCredentials().postRevokeCredentialByJWT(credential);
+	}
+
+	@POST
+	@Path("/credential/verify")
+	@ApiOperation(value = "verify a credential by jwt ", tags="common-services: credential")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ApiResponse<void> verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject11 credential) throws ApiException {
+		return new VerifiableCredentials().postVerifyCredentialByJWT(credential);
+	}
+
+	@GET
+	@Path("/credential")
+	@ApiOperation(value = "get the issued credential list", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the credential list") })
+	@Produces({ "application/json", "application/xml" })
+	public ApiResponse<void> getCredentialsList() throws ApiException {
+		return new VerifiableCredentials().getCredentialList();
+	}
+
+	@GET
+	@Path("/issuer/subscribe")
+	@ApiOperation(value = "subscribe the issuer", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to subscribe the issuer") })
+	@Produces({ "application/json", "application/xml" })
+	public ApiResponse<void> getSubscribeIssuer() throws ApiException {
+		return new VerifiableCredentials().getSubscribeIssuer();
+	}
+
+	@GET
+	@Path("/issuer/unsubscribe")
+	@ApiOperation(value = "unsubscribe the issuer", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to unsubscribe the issuer") })
+	@Produces({ "application/json", "application/xml" })
+	public ApiResponse<void> getUnsubscribeIssuer() throws ApiException {
+		return new VerifiableCredentials().getUnsubscribeIssuer();
+	}
+
+	@GET
+	@Path("/issuer/verify")
+	@ApiOperation(value = "verify the issuer subscription", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to verify the issuer subscription") })
+	@Produces({ "application/json", "application/xml" })
+	public ApiResponse<void> getVerifyIssuerSubscription() throws ApiException {
+		return new VerifiableCredentials().getVerifyIssuerSubscription();
 	}
 
 	/////////////////////////////
