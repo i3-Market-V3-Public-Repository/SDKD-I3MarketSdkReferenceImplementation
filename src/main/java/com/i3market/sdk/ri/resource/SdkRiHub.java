@@ -590,14 +590,12 @@ public class SdkRiHub {
 
 	/////// Verifiable Credential API ///////
 
-	// FIXME: InlineResponse2006 ?????
-
 	@GET
 	@Path("/credential/issue/{credential}")
 	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getIssueVerifiableCredential(@QueryParam("credential") String credential) throws ApiException {
+	public Object getIssueVerifiableCredential(@PathParam("credential") String credential) throws ApiException {
 		return new VerifiableCredentials().getIssueVerifiableCredential(credential);
 	}
 
