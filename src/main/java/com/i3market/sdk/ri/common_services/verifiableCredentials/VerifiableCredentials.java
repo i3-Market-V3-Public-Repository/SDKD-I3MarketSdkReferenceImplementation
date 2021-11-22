@@ -14,11 +14,14 @@ import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class VerifiableCredentials {
+import java.util.List;
+
+public class
+VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public ApiResponse<void> getIssueVerifiableCredential(String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(String credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -34,7 +37,7 @@ public class VerifiableCredentials {
         return credentialApi.getRelease2VcCredentialIssueByCredential(credential);
     }
 
-    public ApiResponse<void> postRevokeCredentialByJWT(InlineObject credential) {
+    public Object postRevokeCredentialByJWT(InlineObject7 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -51,7 +54,7 @@ public class VerifiableCredentials {
 
     }
 
-    public ApiResponse<void> postVerifyCredentialByJWT(InlineObject credential) {
+    public Object postVerifyCredentialByJWT(InlineObject8 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -67,7 +70,7 @@ public class VerifiableCredentials {
         return credentialApi.postRelease2VcCredentialVerify(credential);
     }
 
-    public ApiResponse<void> getCredentialList() {
+    public List<String> getCredentialList() throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -83,7 +86,7 @@ public class VerifiableCredentials {
         return credentialApi.getRelease2VcCredential();
     }
 
-    public ApiResponse<void> getSubscribeIssuer() {
+    public Object getSubscribeIssuer() throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -99,7 +102,7 @@ public class VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerSubscribe();
     }
 
-    public ApiResponse<void> getUnsubscribeIssuer() {
+    public Object getUnsubscribeIssuer() throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -115,7 +118,7 @@ public class VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerUnsubscribe();
     }
 
-    public ApiResponse<void> getVerifyIssuerSubscription() {
+    public Object getVerifyIssuerSubscription() throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
