@@ -654,6 +654,15 @@ public class SdkRiHub {
 		return new CreateNotification().createServiceNotification(body);
 	}
 
+	@POST
+	@Path("/notification")
+	@ApiOperation(value = "Creates a user notification and store it", tags="common-services: notification")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Notification> createUserNotification(@RequestBody UserNotification body) throws ApiException {
+		return new CreateNotification().createUserNotification(body);
+	}
 	/////////////////////////////
 	
 }
