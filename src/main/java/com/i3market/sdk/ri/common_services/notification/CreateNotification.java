@@ -47,7 +47,7 @@ public class CreateNotification {
 
         _log.debug("creating a user notification {}", body);
         NotificationsApi notificationsApi = new NotificationsApi();
-        return notificationsApi.postApiV1UserNotificationWithHttpInfo(body);
+        return notificationsApi.postApiV1NotificationWithHttpInfo(body);
 
     }
 
