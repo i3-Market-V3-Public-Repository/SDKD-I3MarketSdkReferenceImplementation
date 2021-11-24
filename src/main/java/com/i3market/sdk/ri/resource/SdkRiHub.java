@@ -17,23 +17,6 @@
 
 package com.i3market.sdk.ri.resource;
 
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -43,23 +26,29 @@ import com.i3m.model.backplane.*;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
-//import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.notification.CreateNotification;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.logging.Logger;
+
+//import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 
 @Path("sdk-ri")
 @Api(value = "/")
@@ -653,6 +642,16 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public Object getVerifyIssuerSubscription() throws ApiException {
 		return new VerifiableCredentials().getVerifyIssuerSubscription();
+	}
+
+	@POST
+	@Path("/notification/service")
+	@ApiOperation(value = "Creates a notification to send to other registered services", tags="common-services: notification")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Object> createServiceNotification(@RequestBody ServiceNotification body) throws ApiException {
+		return new CreateNotification().createServiceNotification(body);
 	}
 
 	/////////////////////////////
