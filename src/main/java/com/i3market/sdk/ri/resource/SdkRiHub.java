@@ -17,23 +17,6 @@
 
 package com.i3market.sdk.ri.resource;
 
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PATCH;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -43,23 +26,29 @@ import com.i3m.model.backplane.*;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
-//import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.logging.Logger;
+
+//import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 
 @Path("sdk-ri")
 @Api(value = "/")
@@ -655,6 +644,68 @@ public class SdkRiHub {
 		return new VerifiableCredentials().getVerifyIssuerSubscription();
 	}
 
+	///////////////////////////// Notifications /////////////////////////////
+
+	@GET
+	@Path("/notification")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the stored notifications", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveAllNotifications() throws ApiException {
+
+		return new RetrieveNotifications().getAllNotifications();
+
+	}
+
+	@GET
+	@Path("/notification/unread")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> getAllUnreadNotifications() throws ApiException {
+
+		return new RetrieveNotifications().getAllUnreadNotifications();
+
+	}
+
+	@GET
+	@Path("/notification/user/{user_id}")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+
+		return new RetrieveNotifications().getUserNotifications(user_id);
+
+	}
+
+	@GET
+	@Path("/notification/user/{user_id}/unread")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveUnreadNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+
+		return new RetrieveNotifications().getUserUnreadNotifications(user_id);
+
+	}
+
+	@GET
+	@Path("/notification/{notification_id}")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<Notification> retrieveNotificationsByNotificationId(@PathParam("notification_id") String notification_id) throws ApiException {
+
+		return new RetrieveNotifications().getNotificationsByNotificationId(notification_id);
+
+	}
+
 	/////////////////////////////
-	
+
 }
