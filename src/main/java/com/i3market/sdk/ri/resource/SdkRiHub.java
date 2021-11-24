@@ -605,7 +605,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject7 credential) throws ApiException {
+	public Object revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject credential) throws ApiException {
 		return new VerifiableCredentials().postRevokeCredentialByJWT(credential);
 	}
 
@@ -615,7 +615,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject8 credential) throws ApiException {
+	public Object verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject1 credential) throws ApiException {
 		return new VerifiableCredentials().postVerifyCredentialByJWT(credential);
 	}
 

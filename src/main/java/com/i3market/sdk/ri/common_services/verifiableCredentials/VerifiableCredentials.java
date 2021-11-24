@@ -37,7 +37,7 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredentialIssueByCredential(credential);
     }
 
-    public Object postRevokeCredentialByJWT(InlineObject7 credential) throws ApiException {
+    public Object postRevokeCredentialByJWT(InlineObject credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -54,7 +54,7 @@ VerifiableCredentials {
 
     }
 
-    public Object postVerifyCredentialByJWT(InlineObject8 credential) throws ApiException {
+    public Object postVerifyCredentialByJWT(InlineObject1 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
