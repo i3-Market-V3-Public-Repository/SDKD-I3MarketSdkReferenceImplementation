@@ -17,7 +17,6 @@ public class CreateUserSubscription {
     public CreateUserSubscription() {
     }
 
-    // public ApiResponse<Subscription> createUserSubscription (String user_id, String category) throws ApiException {
     public ApiResponse<Subscription> createUserSubscription (String user_id, CreateSubscription sub) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -27,13 +26,9 @@ public class CreateUserSubscription {
 
         apiClient.setServerIndex(null);
 
-        //_log.debug("creating a user subscription for {} {}", user_id, category);
         _log.debug("creating a user subscription for {} {}", user_id, sub);
-        //SubscriptionApi subscriptionApi = new SubscriptionApi();
-        SubscriptionsApi subscriptionApi = new SubscriptionsApi();
 
-        //CreateSubscription sub = new CreateSubscription();
-        //sub.category(category);
+        SubscriptionsApi subscriptionApi = new SubscriptionsApi();
 
         return subscriptionApi.postApiV1UsersByUserIdSubscriptionsWithHttpInfo(user_id, sub);
     }
