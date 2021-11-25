@@ -392,15 +392,6 @@ public class SdkRiHub {
           return new UpdateOffering().updateOffering(dataOffering);
     }
 
-	@GET
-	@Path("/get-contract-template/{idOffering}")
-	@ApiOperation(value = "retrieve the contract template", tags = "common-services: offering")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
-	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@RequestHeader(name = "Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
-		return new BackplaneClient().getTemplate(token, idOffering);
-	}
-
 /**
  * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library
  */
@@ -769,5 +760,17 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<Notification> markAsUnreadNotification(@PathParam("notification_id") String notification_id) throws ApiException {
 		return new ModifyNotification().markAsUnreadNotification(notification_id);
 	}
+	
+	/////// Smart Contract Manager ///////
+	
+	@GET
+	@Path("/get-contract-template/{idOffering}")
+	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
+	@Produces({ "text/html", "application/xml" })
+	public Object getContractTemplate(@RequestHeader(name = "Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
+		return new BackplaneClient().getTemplate(token, idOffering);
+	}
+
 
 }
