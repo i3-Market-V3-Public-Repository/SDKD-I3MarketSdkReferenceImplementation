@@ -34,6 +34,7 @@ import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import com.i3market.sdk.ri.common_services.notification.CreateNotification;
 import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
 import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
+import com.i3market.sdk.ri.common_services.notification.ModifyNotification;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -736,6 +737,26 @@ public class SdkRiHub {
 
 		return new RetrieveNotifications().getNotificationsByNotificationId(notification_id);
 
+	}
+
+	@PATCH
+	@Path("/notification/{notification_id}/read")
+	@ApiOperation(value = "Mark a notification as read", tags="common-services: notification")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
+	@Produces({ "application/json", "application/xml" })
+	//@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Notification> markAsReadNotification(@PathParam("notification_id") String notification_id) throws ApiException {
+		return new ModifyNotification().markAsReadNotification(notification_id);
+	}
+
+	@PATCH
+	@Path("/notification/{notification_id}/unread")
+	@ApiOperation(value = "Mark a notification as unread", tags="common-services: notification")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
+	@Produces({ "application/json", "application/xml" })
+	//@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Notification> markAsUnreadNotification(@PathParam("notification_id") String notification_id) throws ApiException {
+		return new ModifyNotification().markAsUnreadNotification(notification_id);
 	}
 
 }
