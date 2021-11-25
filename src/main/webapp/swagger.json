@@ -13,6 +13,8 @@
   }, {
     "name" : "common-services: management"
   }, {
+    "name" : "common-services: notification"
+  }, {
     "name" : "common-services: offering"
   }, {
     "name" : "common-services: token"
@@ -324,10 +326,12 @@
         "operationId" : "getContractTemplate",
         "produces" : [ "text/html", "application/xml" ],
         "parameters" : [ {
-          "name" : "bearerToken",
-          "in" : "query",
+          "in" : "body",
+          "name" : "body",
           "required" : false,
-          "type" : "string"
+          "schema" : {
+            "type" : "string"
+          }
         }, {
           "name" : "idOffering",
           "in" : "path",
@@ -474,6 +478,241 @@
           },
           "400" : {
             "description" : "failed to verify the issuer subscription"
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification" : {
+      "get" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "retrieve all the stored notifications",
+        "description" : "",
+        "operationId" : "retrieveAllNotifications",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListNotification"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "Creates a user notification and store it",
+        "description" : "",
+        "operationId" : "createUserNotification",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UserNotification"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseNotification"
+            }
+          },
+          "400" : {
+            "description" : "failed to add notification"
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/service" : {
+      "post" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "Creates a notification to send to other registered services",
+        "description" : "",
+        "operationId" : "createServiceNotification",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ServiceNotification"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseObject"
+            }
+          },
+          "400" : {
+            "description" : "failed to add notification"
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/unread" : {
+      "get" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "retrieve all the unread stored notifications",
+        "description" : "",
+        "operationId" : "getAllUnreadNotifications",
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListNotification"
+            }
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/user/{user_id}" : {
+      "get" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "retrieve all the stored notifications for a user",
+        "description" : "",
+        "operationId" : "retrieveNotificationsByUserId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListNotification"
+            }
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/user/{user_id}/unread" : {
+      "get" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "retrieve all the unread stored notifications for a user",
+        "description" : "",
+        "operationId" : "retrieveUnreadNotificationsByUserId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListNotification"
+            }
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/{notification_id}" : {
+      "get" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "retrieve all the unread stored notifications for a user",
+        "description" : "",
+        "operationId" : "retrieveNotificationsByNotificationId",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "notification_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseNotification"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "Delete a notification by id",
+        "description" : "",
+        "operationId" : "deleteNotification",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "notification_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseNotification"
+            }
+          },
+          "400" : {
+            "description" : "failed to modify notification"
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/{notification_id}/read" : {
+      "patch" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "Mark a notification as read",
+        "description" : "",
+        "operationId" : "markAsReadNotification",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "notification_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseNotification"
+            }
+          },
+          "400" : {
+            "description" : "failed to modify notification"
+          }
+        }
+      }
+    },
+    "/sdk-ri/notification/{notification_id}/unread" : {
+      "patch" : {
+        "tags" : [ "common-services: notification" ],
+        "summary" : "Mark a notification as unread",
+        "description" : "",
+        "operationId" : "markAsUnreadNotification",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "notification_id",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseNotification"
+            }
+          },
+          "400" : {
+            "description" : "failed to modify notification"
           }
         }
       }
@@ -1368,6 +1607,72 @@
         }
       }
     },
+    "ApiResponseListNotification" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Notification"
+          }
+        }
+      }
+    },
+    "ApiResponseNotification" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "$ref" : "#/definitions/Notification"
+        }
+      }
+    },
+    "ApiResponseObject" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "object"
+        }
+      }
+    },
     "ApiResponseString" : {
       "type" : "object",
       "properties" : {
@@ -2021,6 +2326,40 @@
         }
       }
     },
+    "Notification" : {
+      "type" : "object",
+      "required" : [ "action", "id", "origin", "receptor", "status" ],
+      "properties" : {
+        "origin" : {
+          "type" : "string",
+          "description" : "Origin of the notification"
+        },
+        "receptor" : {
+          "type" : "string",
+          "description" : "Destination of the notification"
+        },
+        "data" : {
+          "type" : "object",
+          "description" : "Contains the data of the notification"
+        },
+        "action" : {
+          "type" : "string",
+          "description" : "Action for the notification"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the notification"
+        },
+        "unread" : {
+          "type" : "boolean",
+          "description" : "True if the notification has not been read, otherwise false"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "Autogenerated ID for identification"
+        }
+      }
+    },
     "Organization" : {
       "type" : "object",
       "required" : [ "name", "organizationId" ],
@@ -2477,11 +2816,60 @@
         }
       }
     },
+    "ServiceNotification" : {
+      "type" : "object",
+      "required" : [ "receiver_id" ],
+      "properties" : {
+        "receiver_id" : {
+          "type" : "string",
+          "example" : "offering.new",
+          "description" : "Queue name to send the notification",
+          "enum" : [ "OFFERING_NEW", "OFFERING_UPDATE", "AGREEMENT_ACCEPTED", "AGREEMENT_REJECTED", "AGREEMENT_UPDATE", "AGREEMENT_PENDING", "AGREEMENT_TERMINATION", "AGREEMENT_CLAIM" ]
+        },
+        "message" : {
+          "type" : "object",
+          "description" : "Data to send, example={'category': 'Agriculture'}"
+        }
+      }
+    },
     "SetPaid" : {
       "type" : "object",
       "properties" : {
         "transactionObject" : {
           "$ref" : "#/definitions/RawTransaction5"
+        }
+      }
+    },
+    "UserNotification" : {
+      "type" : "object",
+      "required" : [ "origin", "receiver_id", "status", "type" ],
+      "properties" : {
+        "origin" : {
+          "type" : "string",
+          "description" : "Origin of the notification"
+        },
+        "predefined" : {
+          "type" : "boolean",
+          "example" : true
+        },
+        "type" : {
+          "type" : "string",
+          "example" : "offering.new",
+          "description" : "Queue name to send the notification",
+          "enum" : [ "OFFERING_NEW", "OFFERING_UPDATE", "AGREEMENT_ACCEPTED", "AGREEMENT_REJECTED", "AGREEMENT_UPDATE", "AGREEMENT_PENDING", "AGREEMENT_TERMINATION", "AGREEMENT_CLAIM" ]
+        },
+        "receiver_id" : {
+          "type" : "string",
+          "example" : "UserID123",
+          "description" : "User ID for notify a user"
+        },
+        "message" : {
+          "type" : "object",
+          "description" : "Data to send, example={'category': 'Agriculture'}"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the notification"
         }
       }
     },
