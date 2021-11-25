@@ -24,9 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
+import com.i3m.model.backplane.Subscription;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.ActivateUserSubscription;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
@@ -466,16 +467,23 @@ public class SdkRiHub {
 		return new AccountDataBlock().downloadFile(data);
 	}
 
-	@POST
+
+	@PATCH
 	@Path("/alerts/{user_id}/subscriptions/{subscription_id}/activate")
 	@ApiOperation(value = "Activate a subscription", tags="common-services: alerts")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
-	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
-	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> activateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
-		return new ActivateUserSubscription().activateUserSubscription(user_id, subscription_id);
+	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
 	}
-
+	@PATCH
+	@Path("/alerts/{user_id}/subscriptions/{subscription_id}/deactivate")
+	@ApiOperation(value = "Deactivate a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().deactivateUserSubscription(user_id, subscription_id);
+	}
 }
