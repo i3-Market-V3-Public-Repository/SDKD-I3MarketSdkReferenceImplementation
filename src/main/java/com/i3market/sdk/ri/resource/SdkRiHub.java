@@ -31,6 +31,7 @@ import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -644,6 +645,14 @@ public class SdkRiHub {
 	}
 
 	/////////////////////////////
-
+	@DELETE
+	@Path("/notification/{notification_id}")
+	@ApiOperation(value = "Delete a notification by id", tags="common-services: notification")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
+	@Produces({ "application/json", "application/xml" })
+	//@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Notification> deleteNotification(@PathParam("notification_id") String notification_id) throws ApiException {
+		return new DeleteNotification().deleteNotification(notification_id);
+	}
 	
 }
