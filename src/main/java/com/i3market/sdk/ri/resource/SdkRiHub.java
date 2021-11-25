@@ -33,6 +33,7 @@ import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
 import com.i3market.sdk.ri.common_services.notification.CreateNotification;
 import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
+import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -645,6 +646,8 @@ public class SdkRiHub {
 		return new VerifiableCredentials().getVerifyIssuerSubscription();
 	}
 
+	///////////////////////////// Notifications /////////////////////////////
+	
 	@POST
 	@Path("/notification/service")
 	@ApiOperation(value = "Creates a notification to send to other registered services", tags="common-services: notification")
@@ -674,5 +677,65 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<Notification> deleteNotification(@PathParam("notification_id") String notification_id) throws ApiException {
 		return new DeleteNotification().deleteNotification(notification_id);
 	}
-	
+
+	@GET
+	@Path("/notification")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the stored notifications", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveAllNotifications() throws ApiException {
+
+		return new RetrieveNotifications().getAllNotifications();
+
+	}
+
+	@GET
+	@Path("/notification/unread")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> getAllUnreadNotifications() throws ApiException {
+
+		return new RetrieveNotifications().getAllUnreadNotifications();
+
+	}
+
+	@GET
+	@Path("/notification/user/{user_id}")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+
+		return new RetrieveNotifications().getUserNotifications(user_id);
+
+	}
+
+	@GET
+	@Path("/notification/user/{user_id}/unread")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveUnreadNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+
+		return new RetrieveNotifications().getUserUnreadNotifications(user_id);
+
+	}
+
+	@GET
+	@Path("/notification/{notification_id}")
+	//@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
+	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<Notification> retrieveNotificationsByNotificationId(@PathParam("notification_id") String notification_id) throws ApiException {
+
+		return new RetrieveNotifications().getNotificationsByNotificationId(notification_id);
+
+	}
+
 }
