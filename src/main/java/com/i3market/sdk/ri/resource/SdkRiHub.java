@@ -469,7 +469,7 @@ public class SdkRiHub {
 	}
 
 	@GET
-	@Path("/alerts/subscriptions/")
+	@Path("/alerts/users/subscriptions/")
 	@ApiOperation(value = "Get all user's subscriptions", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
@@ -479,7 +479,7 @@ public class SdkRiHub {
 	}
 
 	@GET
-	@Path("/alerts/{user_id}/subscriptions/")
+	@Path("/alerts/users/{user_id}/subscriptions/")
 	@ApiOperation(value = "Get user's subscriptions by user ID", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
