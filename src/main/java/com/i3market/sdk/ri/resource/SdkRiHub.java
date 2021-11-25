@@ -49,6 +49,7 @@ import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
+import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -60,6 +61,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Path("sdk-ri")
 @Api(value = "/")
@@ -397,6 +399,15 @@ public class SdkRiHub {
     public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(dataOffering);
     }
+
+	@GET
+	@Path("/get-contract-template/{idOffering}")
+	@ApiOperation(value = "retrieve the contract template", tags = "common-services: offering")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
+	@Produces({ "text/html", "application/xml" })
+	public Object getContractTemplate(@RequestHeader(name = "Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
+		return new BackplaneClient().getTemplate(token, idOffering);
+	}
 
 /**
  * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library
