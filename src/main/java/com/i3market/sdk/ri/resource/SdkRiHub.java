@@ -764,11 +764,11 @@ public class SdkRiHub {
 	/////// Smart Contract Manager ///////
 	
 	@GET
-	@Path("/get-contract-template/{idOffering}")
+	@Path("/contract/get-contract-template/{idOffering}")
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@RequestHeader(name = "Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
+	public Object getContractTemplate(@HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
 		return new BackplaneClient().getTemplate(token, idOffering);
 	}
 
