@@ -25,9 +25,10 @@ import com.i3m.api.ApiException;
 import com.i3m.model.backplane.DataOffering;
 import com.i3m.model.backplane.DataProvider;
 import com.i3m.model.backplane.Subscription;
+import com.i3m.model.backplane.UserSubscriptionList;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptionByUserID;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
@@ -468,14 +469,35 @@ public class SdkRiHub {
 	}
 
 	@GET
-	@Path("/alerts/{user_id}/subscriptions/")
-	@ApiOperation(value = "Get user's subscriptions", tags="common-services: alerts")
+	@Path("/alerts/subscriptions/")
+	@ApiOperation(value = "Get all user's subscriptions", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
-	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
-	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
-		return new GetSubscriptionByUserID().getSubscriptionByUserID(user_id);
+	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions() throws ApiException {
+		return new GetSubscriptions().getSubscriptions();
 	}
+
+	@GET
+	@Path("/alerts/{user_id}/subscriptions/")
+	@ApiOperation(value = "Get user's subscriptions by user ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserID(user_id);
+	}
+
+	@GET
+	@Path("/alerts/{user_id}/subscriptions/{subscription_id}")
+	@ApiOperation(value = "Get a user subscription by user ID and subscription ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(user_id, subscription_id);
+	}
+
+
+
 }
