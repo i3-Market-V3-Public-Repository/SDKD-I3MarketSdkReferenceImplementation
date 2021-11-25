@@ -644,7 +644,6 @@ public class SdkRiHub {
 
 	/////////////////////////////
 
-
 	@POST
 	@Path("/alerts/users/{user_id}/subscriptions")
 	@ApiOperation(value = "Register a user to receive alerts for a category", tags="common-services: alerts")
