@@ -469,7 +469,7 @@ public class SdkRiHub {
 
 
 	@PATCH
-	@Path("/alerts/{user_id}/subscriptions/{subscription_id}/activate")
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/activate")
 	@ApiOperation(value = "Activate a subscription", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
@@ -478,7 +478,7 @@ public class SdkRiHub {
 		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
 	}
 	@PATCH
-	@Path("/alerts/{user_id}/subscriptions/{subscription_id}/deactivate")
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/deactivate")
 	@ApiOperation(value = "Deactivate a subscription", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
