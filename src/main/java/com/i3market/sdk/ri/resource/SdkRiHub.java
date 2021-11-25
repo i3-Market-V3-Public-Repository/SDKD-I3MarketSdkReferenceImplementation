@@ -468,7 +468,7 @@ public class SdkRiHub {
 	}
 
 	@DELETE
-	@Path("/alerts/{user_id}/subscriptions/{subscription_id}")
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}")
 	@ApiOperation(value = "Delete a subscription", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
