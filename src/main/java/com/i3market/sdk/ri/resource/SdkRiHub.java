@@ -471,8 +471,6 @@ public class SdkRiHub {
 	@Path("/alerts/{user_id}/subscriptions/{subscription_id}")
 	@ApiOperation(value = "Delete a subscription", tags="common-services: alerts")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
-	//@ApiResponses(value = {@ApiResponse(code = 406, message = "Empty body")})
-	//@ApiResponses(value = {@ApiResponse(code = 400, message = "Already exists subscription to category")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
