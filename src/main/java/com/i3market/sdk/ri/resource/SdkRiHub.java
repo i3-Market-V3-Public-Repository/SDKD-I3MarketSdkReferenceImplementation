@@ -25,6 +25,10 @@ import com.i3m.api.ApiException;
 import com.i3m.model.backplane.*;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
@@ -772,5 +776,80 @@ public class SdkRiHub {
 		return new BackplaneClient().getTemplate(token, idOffering);
 	}
 
+	/////// Alerts Subscriptions ///////
+	
+	@GET
+	@Path("/alerts/users/subscriptions/")
+	@ApiOperation(value = "Get all user's subscriptions", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions() throws ApiException {
+		return new GetSubscriptions().getSubscriptions();
+	}
+
+	@GET
+	@Path("/alerts/users/{user_id}/subscriptions/")
+	@ApiOperation(value = "Get user's subscriptions by user ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserID(user_id);
+	}
+
+	@GET
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}")
+	@ApiOperation(value = "Get a user subscription by user ID and subscription ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(user_id, subscription_id);
+	}
+
+	@POST
+	@Path("/alerts/users/{user_id}/subscriptions")
+	@ApiOperation(value = "Register a user to receive alerts for a category", tags="common-services: alerts")
+	@ApiResponses(value = {
+			@ApiResponse(code = 400, message = "Incomplete body"),
+			@ApiResponse(code = 406, message = "Empty body"),
+			@ApiResponse(code = 400, message = "Already exists subscription to category")
+	})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
+		return new CreateUserSubscription().createUserSubscription(user_id, sub);
+	}
+
+	@PATCH
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/activate")
+	@ApiOperation(value = "Activate a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
+	}
+
+	@PATCH
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/deactivate")
+	@ApiOperation(value = "Deactivate a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().deactivateUserSubscription(user_id, subscription_id);
+	}
+
+	@DELETE
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}")
+	@ApiOperation(value = "Delete a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new DeleteUserSubscription().deleteUserSubscription(user_id, subscription_id);
+	}
 
 }
