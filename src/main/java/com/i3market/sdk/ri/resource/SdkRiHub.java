@@ -39,9 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
-import com.i3m.model.backplane.DataOffering;
-import com.i3m.model.backplane.DataProvider;
-import com.i3m.model.backplane.PingResponse;
+import com.i3m.model.backplane.*;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
@@ -403,7 +401,7 @@ public class SdkRiHub {
  * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library
  */
 //
-
+	
 	@POST
 	@Path("/get-block/{data}")
 	@ApiOperation(value = "get data block", tags = "common-services: exchange")
@@ -658,6 +656,35 @@ public class SdkRiHub {
 	}
 
 	/////// Alerts Subscriptions ///////
+	@GET
+	@Path("/alerts/users/subscriptions/")
+	@ApiOperation(value = "Get all user's subscriptions", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions() throws ApiException {
+		return new GetSubscriptions().getSubscriptions();
+	}
+
+	@GET
+	@Path("/alerts/users/{user_id}/subscriptions/")
+	@ApiOperation(value = "Get user's subscriptions by user ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserID(user_id);
+	}
+
+	@GET
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}")
+	@ApiOperation(value = "Get a user subscription by user ID and subscription ID", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(user_id, subscription_id);
+	}
 
 	@POST
 	@Path("/alerts/users/{user_id}/subscriptions")
@@ -704,4 +731,3 @@ public class SdkRiHub {
 	}
 
 }
-
