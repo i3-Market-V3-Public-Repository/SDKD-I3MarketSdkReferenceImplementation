@@ -23,9 +23,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.backplane.*;
+import com.i3m.model.backplane.DataOffering;
+import com.i3m.model.backplane.DataProvider;
+import com.i3m.model.backplane.Subscription;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
@@ -389,7 +392,7 @@ public class SdkRiHub {
  * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library
  */
 //
-	
+
 	@POST
 	@Path("/get-block/{data}")
 	@ApiOperation(value = "get data block", tags = "common-services: exchange")
@@ -466,6 +469,7 @@ public class SdkRiHub {
 	throws ApiException {
 		return new AccountDataBlock().downloadFile(data);
 	}
+
 
 	/////// Tokenizer API ///////
 
@@ -642,7 +646,7 @@ public class SdkRiHub {
 		return new VerifiableCredentials().getVerifyIssuerSubscription();
 	}
 
-	/////////////////////////////
+	/////// Alerts Subscriptions ///////
 
 	@POST
 	@Path("/alerts/users/{user_id}/subscriptions")
@@ -657,5 +661,26 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
 		return new CreateUserSubscription().createUserSubscription(user_id, sub);
 	}
+
+	@PATCH
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/activate")
+	@ApiOperation(value = "Activate a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
+	}
+
+	@PATCH
+	@Path("/alerts/users/{user_id}/subscriptions/{subscription_id}/deactivate")
+	@ApiOperation(value = "Deactivate a subscription", tags="common-services: alerts")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().deactivateUserSubscription(user_id, subscription_id);
+	}
+
 }
 
