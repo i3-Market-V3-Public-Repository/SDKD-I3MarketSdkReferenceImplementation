@@ -172,27 +172,6 @@ public class SdkRiHub {
 	}
 
 
-	@GET
-	@Path("/offering/contract-parameter/{providerId}/providerId")
-	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve contract parameters by providerId", tags="common-services: offering")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
-	@Produces({ "application/json", "application/xml" })
-	public String retrieveOfferingContractParametersByProviderId(@PathParam("providerId") String providerId,
-																 @QueryParam("page") @DefaultValue("0") Integer page,
-																 @QueryParam("size") @DefaultValue("5") Integer size,
-																 @QueryParam("sort") List<String> sort) throws ApiException {
-		String strJson = "{}";
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveContractParametersByProviderId()
-					.getOfferingContractsByProviderId(providerId, page, size, sort));
-		} catch (ProcessingException | JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return strJson;
-	}
 
 	@POST
 	@Path("/registration/data-offering")
