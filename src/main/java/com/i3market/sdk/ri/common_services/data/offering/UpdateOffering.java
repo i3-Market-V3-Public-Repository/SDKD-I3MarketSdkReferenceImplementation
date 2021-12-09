@@ -5,7 +5,7 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataOffering;
+import com.i3m.model.backplane.DataOfferingDTO;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import org.apache.http.HttpStatus;
 
@@ -16,7 +16,7 @@ import org.apache.http.HttpStatus;
  */
 public class UpdateOffering {
 
-    public ApiResponse updateOffering(DataOffering dataOffering) throws ApiException {
+    public ApiResponse updateOffering(DataOfferingDTO dataOffering) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
