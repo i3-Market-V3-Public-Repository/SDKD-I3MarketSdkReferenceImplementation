@@ -149,16 +149,16 @@ public class TestEndpoints {
 		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
 	}
 
-	@Test(priority = 13)
-	public void testContractByProviderId()  {
-
-		System.out.println("*************************{CONTRACT BY PROVIDERID}************************************");
-		String providerId = "id123456789";
-
-		Response response= CommonServicesEndpoints.getContractByProviderId(auth_token, providerId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
-	}
+//	@Test(priority = 13)
+//	public void testContractByProviderId()  {
+//
+//		System.out.println("*************************{CONTRACT BY PROVIDERID}************************************");
+//		String providerId = "id123456789";
+//
+//		Response response= CommonServicesEndpoints.getContractByProviderId(auth_token, providerId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("*********************DATA OBTAINED: " + data + "*******************************************");
+//	}
 
 	@Test(priority = 14)
 	public void testContractByOfferingId()  {
