@@ -33,7 +33,7 @@ public class BackplaneClient {
 		authentications.put("jwt", jwtAuth);
 		
 		AgreementApi controller = new AgreementApi();
-		return  controller.idTemplateGetWithHttpInfo(idTemplate);
+		return  controller.templateTemplateIdGetWithHttpInfo(idTemplate);
 	}
 
 }
