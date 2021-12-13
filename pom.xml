@@ -289,6 +289,13 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.36.0.3</version>
 	   </dependency>
+	   
+	   <!--  CORS  -->
+	   <dependency>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-servlets</artifactId>
+          <version>9.4.0.M0</version>
+       </dependency>
 
     </dependencies>
 
