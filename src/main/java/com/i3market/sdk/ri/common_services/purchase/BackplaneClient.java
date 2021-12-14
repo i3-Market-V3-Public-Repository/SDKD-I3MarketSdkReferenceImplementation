@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class BackplaneClient {
 	
-	public Template getTemplate (String jwt, String idTemplate) throws ApiException {
+	public Template getTemplate (String bearerToken, String idTemplate) throws ApiException {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 		
 		// Get default client from Configuration
@@ -25,12 +25,15 @@ public class BackplaneClient {
 		
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
-		
+
 	    // Setup authentications (JWT).
+		String jwt = "Bearer " + bearerToken;
+
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-		HttpBearerAuth jwtAuth = new  HttpBearerAuth(null);
-		jwtAuth.setBearerToken(jwt.split(" ")[1]);
-		authentications.put("jwt", jwtAuth);
+		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
+		bearerAuth.setBearerToken(jwt);
+		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
+		authentications.put("bearerAuth", bearerAuth);
 		
 		AgreementApi controller = new AgreementApi();
 		return  controller.templateTemplateIdGet(idTemplate);
