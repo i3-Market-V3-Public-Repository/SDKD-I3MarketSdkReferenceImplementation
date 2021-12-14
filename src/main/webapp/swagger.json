@@ -7,6 +7,10 @@
   },
   "basePath" : "/SdkRefImpl/api",
   "tags" : [ {
+    "name" : "common-services: alerts"
+  }, {
+    "name" : "common-services: contract"
+  }, {
     "name" : "common-services: credential"
   }, {
     "name" : "common-services: exchange"
@@ -21,6 +25,246 @@
   } ],
   "schemes" : [ "http", "https" ],
   "paths" : {
+    "/sdk-ri/alerts/users/subscriptions" : {
+      "get" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Get all user's subscriptions",
+        "description" : "",
+        "operationId" : "getSubscriptions",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListUserSubscriptionList"
+            }
+          },
+          "400" : {
+            "description" : "Incomplete request"
+          }
+        }
+      }
+    },
+    "/sdk-ri/alerts/users/{user_id}/subscriptions" : {
+      "get" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Get user's subscriptions by user ID",
+        "description" : "",
+        "operationId" : "getSubscriptionsByUserID",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseListSubscription"
+            }
+          },
+          "400" : {
+            "description" : "Incomplete request"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Register a user to receive alerts for a category",
+        "description" : "",
+        "operationId" : "createUserSubscription",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CreateSubscription"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseSubscription"
+            }
+          },
+          "400" : {
+            "description" : "Already exists subscription to category"
+          },
+          "406" : {
+            "description" : "Empty body"
+          }
+        }
+      }
+    },
+    "/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}" : {
+      "get" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Get a user subscription by user ID and subscription ID",
+        "description" : "",
+        "operationId" : "getSubscriptionsByUserIDSubscriptionID",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "subscription_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseSubscription"
+            }
+          },
+          "400" : {
+            "description" : "Incomplete request"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Delete a subscription",
+        "description" : "",
+        "operationId" : "deleteUserSubscription",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "subscription_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseSubscription"
+            }
+          },
+          "400" : {
+            "description" : "Incomplete request"
+          }
+        }
+      }
+    },
+    "/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}/activate" : {
+      "patch" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Activate a subscription",
+        "description" : "",
+        "operationId" : "activateSubscription",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "subscription_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseSubscription"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}/deactivate" : {
+      "patch" : {
+        "tags" : [ "common-services: alerts" ],
+        "summary" : "Deactivate a subscription",
+        "description" : "",
+        "operationId" : "deactivateSubscription",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "subscription_id",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ApiResponseSubscription"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/sdk-ri/contract/get-contract-template/{idOffering}" : {
+      "get" : {
+        "tags" : [ "common-services: contract" ],
+        "summary" : "retrieve the contract template",
+        "description" : "",
+        "operationId" : "getContractTemplate",
+        "produces" : [ "text/html", "application/xml" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "idOffering",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "failed to get the contract template"
+          }
+        }
+      }
+    },
     "/sdk-ri/create-invoice" : {
       "post" : {
         "tags" : [ "common-services: exchange" ],
@@ -314,39 +558,6 @@
           },
           "400" : {
             "description" : "failed to get data block"
-          }
-        }
-      }
-    },
-    "/sdk-ri/get-contract-template/{idOffering}" : {
-      "get" : {
-        "tags" : [ "common-services: offering" ],
-        "summary" : "retrieve the contract template",
-        "description" : "",
-        "operationId" : "getContractTemplate",
-        "produces" : [ "text/html", "application/xml" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "idOffering",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
-            }
-          },
-          "400" : {
-            "description" : "failed to get the contract template"
           }
         }
       }
@@ -726,55 +937,6 @@
         "produces" : [ "application/json", "application/xml" ],
         "parameters" : [ {
           "name" : "offeringId",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "page",
-          "in" : "query",
-          "required" : false,
-          "type" : "integer",
-          "default" : 0,
-          "format" : "int32"
-        }, {
-          "name" : "size",
-          "in" : "query",
-          "required" : false,
-          "type" : "integer",
-          "default" : 5,
-          "format" : "int32"
-        }, {
-          "name" : "sort",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          },
-          "collectionFormat" : "multi"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "400" : {
-            "description" : "failed to retrieve this offering"
-          }
-        }
-      }
-    },
-    "/sdk-ri/offering/contract-parameter/{providerId}/providerId" : {
-      "get" : {
-        "tags" : [ "common-services: offering" ],
-        "summary" : "retrieve contract parameters by providerId",
-        "description" : "",
-        "operationId" : "retrieveOfferingContractParametersByProviderId",
-        "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ {
-          "name" : "providerId",
           "in" : "path",
           "required" : true,
           "type" : "string"
@@ -1540,7 +1702,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/DataOffering"
+            "$ref" : "#/definitions/DataOfferingDTO"
           }
         } ],
         "responses" : {
@@ -1631,6 +1793,54 @@
         }
       }
     },
+    "ApiResponseListSubscription" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Subscription"
+          }
+        }
+      }
+    },
+    "ApiResponseListUserSubscriptionList" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/UserSubscriptionList"
+          }
+        }
+      }
+    },
     "ApiResponseNotification" : {
       "type" : "object",
       "properties" : {
@@ -1691,6 +1901,27 @@
         },
         "data" : {
           "type" : "string"
+        }
+      }
+    },
+    "ApiResponseSubscription" : {
+      "type" : "object",
+      "properties" : {
+        "statusCode" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headers" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        },
+        "data" : {
+          "$ref" : "#/definitions/Subscription"
         }
       }
     },
@@ -1788,15 +2019,25 @@
         }
       }
     },
+    "CreateSubscription" : {
+      "type" : "object",
+      "required" : [ "category" ],
+      "properties" : {
+        "category" : {
+          "type" : "string",
+          "description" : "Category the user subscribes to"
+        }
+      }
+    },
     "DataOffering" : {
       "type" : "object",
       "properties" : {
-        "dataOfferingId" : {
-          "type" : "string"
-        },
         "provider" : {
           "type" : "string",
           "example" : "mandatory_field"
+        },
+        "marketID" : {
+          "type" : "string"
         },
         "owner" : {
           "type" : "string"
@@ -1805,9 +2046,6 @@
           "type" : "string",
           "example" : "mandatory_field"
         },
-        "dataOfferingLabel" : {
-          "type" : "string"
-        },
         "dataOfferingDescription" : {
           "type" : "string"
         },
@@ -1815,13 +2053,68 @@
           "type" : "string",
           "example" : "Other"
         },
-        "isActivated" : {
+        "status" : {
           "type" : "string",
-          "example" : "yes OR no"
+          "example" : "e.g. Activated, InActivated, ToBeDeleted, Deleted"
         },
         "dataOfferingExpirationTime" : {
           "type" : "string",
           "example" : "NA"
+        },
+        "contractParameters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ContractParameters"
+          }
+        },
+        "hasPricingModel" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PricingModel"
+          }
+        },
+        "hasDataset" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Dataset"
+          }
+        }
+      }
+    },
+    "DataOfferingDTO" : {
+      "type" : "object",
+      "required" : [ "contractParameters", "hasDataset", "hasPricingModel", "provider" ],
+      "properties" : {
+        "dataOfferingId" : {
+          "type" : "string"
+        },
+        "provider" : {
+          "type" : "string"
+        },
+        "marketID" : {
+          "type" : "string"
+        },
+        "owner" : {
+          "type" : "string"
+        },
+        "dataOfferingTitle" : {
+          "type" : "string"
+        },
+        "dataOfferingDescription" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string",
+          "example" : "activated, inactivated, deleted"
+        },
+        "version" : {
+          "type" : "number"
+        },
+        "dataOfferingExpirationTime" : {
+          "type" : "string"
         },
         "contractParameters" : {
           "type" : "array",
@@ -1904,10 +2197,6 @@
           "example" : "optional_field"
         },
         "description" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
-        "creator" : {
           "type" : "string",
           "example" : "optional_field"
         },
@@ -2069,15 +2358,19 @@
           "type" : "string",
           "example" : "optional_field"
         },
-        "distribution" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
         "description" : {
           "type" : "string",
           "example" : "optional_field"
         },
         "license" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "accessRights" : {
+          "type" : "string",
+          "example" : "optional_field"
+        },
+        "downloadType" : {
           "type" : "string",
           "example" : "optional_field"
         },
@@ -2434,30 +2727,6 @@
         }
       }
     },
-    "PaymentOnPlan" : {
-      "type" : "object",
-      "properties" : {
-        "paymentId" : {
-          "type" : "string"
-        },
-        "paymentOnPlanName" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
-        "description" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
-        "planDuration" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
-        "hasPlanPrice" : {
-          "type" : "string",
-          "example" : "optional_field"
-        }
-      }
-    },
     "PaymentOnSize" : {
       "type" : "object",
       "properties" : {
@@ -2511,14 +2780,6 @@
         "hasSubscriptionPrice" : {
           "type" : "string",
           "example" : "optional_field"
-        },
-        "fromValue" : {
-          "type" : "string",
-          "example" : "date-time"
-        },
-        "toValue" : {
-          "type" : "string",
-          "example" : "date-time"
         }
       }
     },
@@ -2540,10 +2801,6 @@
           "type" : "string",
           "example" : "optional_field"
         },
-        "unitID" : {
-          "type" : "string",
-          "example" : "optional_field"
-        },
         "hasUnitPrice" : {
           "type" : "string",
           "example" : "optional_field"
@@ -2552,7 +2809,7 @@
     },
     "PricingModel" : {
       "type" : "object",
-      "required" : [ "hasFreePrice", "hasPaymentOnAPI", "hasPaymentOnPlan", "hasPaymentOnSize", "hasPaymentOnSubscription", "hasPaymentOnUnit" ],
+      "required" : [ "hasFreePrice", "hasPaymentOnAPI", "hasPaymentOnSize", "hasPaymentOnSubscription", "hasPaymentOnUnit" ],
       "properties" : {
         "pricingModelId" : {
           "type" : "string"
@@ -2573,12 +2830,6 @@
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/PaymentOnSubscription"
-          }
-        },
-        "hasPaymentOnPlan" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/PaymentOnPlan"
           }
         },
         "hasPaymentOnAPI" : {
@@ -2840,6 +3091,24 @@
         }
       }
     },
+    "Subscription" : {
+      "type" : "object",
+      "required" : [ "active", "category", "id" ],
+      "properties" : {
+        "active" : {
+          "type" : "boolean",
+          "description" : "Describes if the subscription is active or not"
+        },
+        "category" : {
+          "type" : "string",
+          "description" : "Category the user subscribes to"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "Autogenerated id for identification"
+        }
+      }
+    },
     "UserNotification" : {
       "type" : "object",
       "required" : [ "origin", "receiver_id", "status", "type" ],
@@ -2870,6 +3139,20 @@
         "status" : {
           "type" : "string",
           "description" : "Status of the notification"
+        }
+      }
+    },
+    "UserSubscriptionList" : {
+      "type" : "object",
+      "properties" : {
+        "user_id" : {
+          "type" : "string"
+        },
+        "subscriptions" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Subscription"
+          }
         }
       }
     },
