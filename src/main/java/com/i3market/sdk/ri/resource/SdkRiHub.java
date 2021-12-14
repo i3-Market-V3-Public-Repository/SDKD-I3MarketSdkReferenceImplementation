@@ -794,7 +794,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@QueryParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@PathParam("user_id") String user_id) throws ApiException {
 		return new GetSubscriptions().getSubscriptionByUserID(user_id);
 	}
 
@@ -804,7 +804,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(user_id, subscription_id);
 	}
 
@@ -818,7 +818,7 @@ public class SdkRiHub {
 	})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@QueryParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
+	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@PathParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
 		return new CreateUserSubscription().createUserSubscription(user_id, sub);
 	}
 
@@ -828,7 +828,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
 	}
 
@@ -838,7 +838,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new ModifyUserSubscription().deactivateUserSubscription(user_id, subscription_id);
 	}
 
@@ -848,7 +848,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@QueryParam("user_id") String user_id, @QueryParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new DeleteUserSubscription().deleteUserSubscription(user_id, subscription_id);
 	}
 
