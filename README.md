@@ -75,8 +75,8 @@ Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API
 	
 - An example of setup could be the following:
 	
-	- backplane.url =  http://95.211.3.244:3000/
-	- oidc.url =  https://identity1.i3-market.eu/
-	- verifiable_credentials.url = https://identity1.i3-market.eu/vc/api-spec/ui/
+	- backplane.url =  xxxx
+	- oidc.url =  xxxx
+	- verifiable_credentials.url = xxxxx
 
 
