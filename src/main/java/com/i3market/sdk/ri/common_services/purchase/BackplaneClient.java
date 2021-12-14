@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class BackplaneClient {
 	
-	public ApiResponse<Template> getTemplate (String jwt, String idTemplate) throws ApiException {
+	public Template getTemplate (String jwt, String idTemplate) throws ApiException {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 		
 		// Get default client from Configuration
@@ -33,7 +33,7 @@ public class BackplaneClient {
 		authentications.put("jwt", jwtAuth);
 		
 		AgreementApi controller = new AgreementApi();
-		return  controller.templateTemplateIdGetWithHttpInfo(idTemplate);
+		return  controller.templateTemplateIdGet(idTemplate);
 	}
 
 }
