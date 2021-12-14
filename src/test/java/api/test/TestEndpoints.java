@@ -474,16 +474,16 @@ public class TestEndpoints {
 		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
 	}
 
-	/**
+
 	@Test(priority = 8)
 	public void testSearchOfferingByOfferingId()  {
 
 		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
-		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, offeringId);
+		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, "id123456789_dataoffering2");
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("*************************DATA OBTAINED: " + data + "*******************************************");
 	}
-	**/
+
 
 	@Test(priority = 9)
 	public void testProvidersByCategory()  {
@@ -666,7 +666,7 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
-	/**
+
 	@Test(priority = 28)
 	public void testCreateUsersSubscription()  {
 
@@ -676,7 +676,7 @@ public class TestEndpoints {
 		createdSubscriptionId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.id").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
-
+	/**
 	@Test(priority = 29)
 	public void testUsersSubscriptionsByUserId()  {
 
