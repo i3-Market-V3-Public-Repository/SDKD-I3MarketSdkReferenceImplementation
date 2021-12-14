@@ -522,7 +522,7 @@ public class SdkRiHub {
 	@POST
 	@Path("/token/marketplace")
 	@ApiOperation(value = "add a new marketplace to the treasury smart contract and create a new token ", tags="common-services: token")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add marketplace")})
+	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
 	public RegisterMarketplace1 addMarketplace(@RequestBody RegisterMarketplace inlineObject) throws ApiException {
