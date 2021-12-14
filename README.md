@@ -17,11 +17,11 @@ default config file is palced in /src/main/wabapp/WEB-INF/keycloak.json
 
 {
   "realm": "i3market",
-  "auth-server-url": "http://83.149.125.78:8080/auth/",
+  "auth-server-url": "http://X.X.X.X",
   "ssl-required": "none",
   "resource": "SDK-RI_Client",
   "credentials": {
-    "secret": "703e0db9-a646-4f1d-bdc6-2b3fe20db08a"
+    "secret": "XXXXXXXXXXXXX"
   },
   "use-resource-role-mappings": true,
   "confidential-port": 0
