@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="i3-sdk-ri" />
+        <module name="i3m-sdk-reference-implementation" />
       </profile>
     </annotationProcessing>
   </component>
