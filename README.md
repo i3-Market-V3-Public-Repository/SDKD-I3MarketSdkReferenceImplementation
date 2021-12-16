@@ -79,7 +79,7 @@ Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API
 	- oidc.url =  xxxx
 	- verifiable_credentials.url = xxxxx
 
-# Contact us if you have any issue with the semantic engine
+# Contact us if you have any issue with the SDK-RI
 Ivan Martinez: ivan.martinez@atos.net
 or
 Nines : maria.sanguino@atos.net
