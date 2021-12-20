@@ -60,7 +60,8 @@ public class CommonServicesEndpoints {
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).
-				when().get(Routes.get_contract_parameters_by_offeringid, id);
+				pathParam("offeringId", id).
+				when().get(Routes.get_contract_parameters_by_offeringid);
 		return response;
 	}
 
@@ -68,7 +69,8 @@ public class CommonServicesEndpoints {
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).
-				when().get(Routes.get_contract_parameters_by_providerid, id);
+				pathParam("providerId", id).
+				when().get(Routes.get_contract_parameters_by_providerid);
 		return response;
 	}
 
@@ -283,38 +285,42 @@ public class CommonServicesEndpoints {
 		return response;
 	}
 
-	public static Response getSubscriptionBySubscriptionId(String token, String subscription_id){
+	public static Response getSubscriptionBySubscriptionId(String token, String user_id, String subscription_id){
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).
 				pathParam("subscription_id", subscription_id).
+				pathParam("user_id", user_id).
 				when().get(Routes.get_delete_subscription_subscriptonId);
 		return response;
 	}
 
-	public static Response deleteSubscriptionBySubscriptionId(String token, String subscription_id){
+	public static Response deleteSubscriptionBySubscriptionId(String token, String user_id,String subscription_id){
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).
 				pathParam("subscription_id", subscription_id).
+				pathParam("user_id", user_id).
 				when().delete(Routes.get_delete_subscription_subscriptonId);
 		return response;
 	}
 
-	public static Response patchDeactivateSubscriptionById(String token, String subscription_id) {
+	public static Response patchDeactivateSubscriptionById(String token, String user_id,String subscription_id) {
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).contentType("application/json").
 				pathParam("subscription_id", subscription_id).
+				pathParam("user_id", user_id).
 				when().patch(Routes.patch_subscrition_deactivate);
 		return response;
 	}
 
-	public static Response patchActivateSubscriptionById(String token, String subscription_id) {
+	public static Response patchActivateSubscriptionById(String token, String user_id, String subscription_id) {
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("Authorization", "Bearer " + token).contentType("application/json").
 				pathParam("subscription_id", subscription_id).
+				pathParam("user_id", user_id).
 				when().patch(Routes.patch_subscrition_activate);
 		return response;
 	}

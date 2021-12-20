@@ -30,7 +30,9 @@
 package api.test;
 
 import api.engine.endpoints.CommonServicesEndpoints;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -45,26 +47,27 @@ public class TestEndpoints {
 	// OFFERINGS
 	String newProviderString = "{\"providerId\":\"id123456789\",\"name\":\"provider test\",\"description\":\"this is a test\",\"organization\":[{\"organizationId\":\"organizationTest123\",\"name\":\"this organization is a test\",\"description\":\"this organization is a test plus description\",\"address\":\"this is an optional address\",\"contactPoint\":\"this is an optional contact point\"}]}";
 	JSONObject newProviderBody = new JSONObject(newProviderString);
-
-	//String newOfferingString = "{\"provider\":\"id123456789\",\"owner\":\"Integration Offerings Test\",\"dataOfferingTitle\":\"offering integration test\",\"dataOfferingDescription\":\"Test data\",\"category\":\"Agriculture\",\"isActivated\":\"yes\",\"dataOfferingExpirationTime\":\"Test data\",\"contractParameters\":[{\"interestOfProvider\":\"Contract1\",\"interestDescription\":\"Contract1\",\"hasGoverningJurisdiction\":\"Contract1\",\"purpose\":\"Contract1\",\"purposeDescription\":\"Contract1\",\"hasIntendedUse\":[{\"processData\":\"true\",\"shareDataWithThirdParty\":\"true\",\"editData\":\"true\"}],\"hasLicenseGrant\":[{\"copyData\":\"true\",\"transferable\":\"true\",\"exclusiveness\":\"true\",\"revocable\":\"true\"}]}],\"hasPricingModel\":[{\"pricingModelName\":\"Test data\",\"basicPrice\":\"Test data\",\"currency\":\"Test data\",\"hasPaymentOnSubscription\":[{\"paymentOnSubscriptionName\":\"Test data\",\"paymentType\":\"Test data\",\"timeDuration\":\"Test data\",\"description\":\"Test data\",\"repeat\":\"Daily\",\"hasSubscriptionPrice\":\"Test data\",\"fromValue\":\"2021-10-04T14:20:23.162Z\",\"toValue\":\"2021-10-04T14:20:23.162Z\"}],\"hasPaymentOnPlan\":[{\"paymentOnPlanName\":\"Test data\",\"description\":\"Test data\",\"planDuration\":\"Test data\",\"hasPlanPrice\":\"Test data\"}],\"hasPaymentOnAPI\":[{\"paymentOnAPIName\":\"Test data\",\"description\":\"Test data\",\"numberOfObject\":\"Test data\",\"hasAPIPrice\":\"Test data\"}],\"hasPaymentOnUnit\":[{\"paymentOnUnitName\":\"Test data\",\"description\":\"Test data\",\"dataUnit\":\"Test data\",\"unitID\":\"Test data\",\"hasUnitPrice\":\"Test data\"}],\"hasPaymentOnSize\":[{\"paymentOnSizeName\":\"Test data\",\"description\":\"Test data\",\"dataSize\":\"Test data\",\"hasSizePrice\":\"Test data\"}],\"hasFreePrice\":[{\"hasPriceFree\":\"Test data\"}]}],\"hasDataset\":[{\"title\":\"Test data\",\"keyword\":\"Test data\",\"dataset\":\"Test data\",\"description\":\"Test data\",\"issued\":\"2021-10-04T14:20:23.162Z\",\"modified\":\"2021-10-04T14:20:23.162Z\",\"temporal\":\"Test data\",\"language\":\"Test data\",\"spatial\":\"Test data\",\"accrualPeriodicity\":\"Test data\",\"temporalResolution\":\"Test data\",\"distribution\":[{\"title\":\"Test data\",\"description\":\"Test data\",\"license\":\"Test data\",\"conformsTo\":\"Test data\",\"mediaType\":\"Test data\",\"packageFormat\":\"Test data\",\"accessService\":[{\"conformsTo\":\"Test data\",\"endpointDescription\":\"Test data\",\"endpointURL\":\"Test data\",\"servesDataset\":\"Test data\",\"serviceSpecs\":\"Test data\"}]}],\"datasetInformation\":[{\"measurementType\":\"Test data\",\"measurementChannelType\":\"Test data\",\"sensorID\":\"Test data\",\"deviceID\":\"Test data\",\"cppType\":\"Test data\",\"sensorType\":\"Test data\"}],\"theme\":[\"Test data\"]}]}";
+	String providerId="id123456789";
 	String newOfferingString = "{\n" +
-			"  \"provider\": \"uiot-provider\",\n" +
-			"  \"marketID\" : \"UIOT-M\",\n" +
-			"  \"owner\": \"Owner webri node 249\",\n" +
-			"  \"dataOfferingTitle\": \"Offsore Wind Turbine\",\n" +
-			"  \"dataOfferingDescription\": \"This is offshore wind turbine data\",\n" +
-			"  \"category\": \"engineering\",\n" +
-			"  \"status\": \"activated\",\n" +
-			"  \"dataOfferingExpirationTime\": \"1month\",\n" +
+			"  \"provider\": \""+providerId+"\",\n" +
+			"  \"marketID\": \"string\",\n" +
+			"  \"owner\": \"string\",\n" +
+			"  \"dataOfferingTitle\": \"mandatory_field\",\n" +
+			"  \"dataOfferingDescription\": \"string\",\n" +
+			"  \"category\": \"Other\",\n" +
+			"  \"status\": \"e.g. Activated, InActivated, ToBeDeleted, Deleted\",\n" +
+			"  \"dataOfferingExpirationTime\": \"NA\",\n" +
 			"  \"contractParameters\": [\n" +
 			"    {\n" +
-			"      \"interestOfProvider\": \"Chi\",\n" +
-			"      \"interestDescription\": \"Test\",\n" +
-			"      \"hasGoverningJurisdiction\": \"Test data\",\n" +
-			"      \"purpose\": \"Test data\",\n" +
-			"      \"purposeDescription\": \"Test data\",\n" +
+			"      \"contractParametersId\": \"string\",\n" +
+			"      \"interestOfProvider\": \"NA\",\n" +
+			"      \"interestDescription\": \"NA\",\n" +
+			"      \"hasGoverningJurisdiction\": \"NA\",\n" +
+			"      \"purpose\": \"NA\",\n" +
+			"      \"purposeDescription\": \"NA\",\n" +
 			"      \"hasIntendedUse\": [\n" +
 			"        {\n" +
+			"          \"intendedUseId\": \"string\",\n" +
 			"          \"processData\": \"true OR false\",\n" +
 			"          \"shareDataWithThirdParty\": \"true OR false\",\n" +
 			"          \"editData\": \"true OR false\"\n" +
@@ -72,6 +75,7 @@ public class TestEndpoints {
 			"      ],\n" +
 			"      \"hasLicenseGrant\": [\n" +
 			"        {\n" +
+			"          \"licenseGrantId\": \"string\",\n" +
 			"          \"copyData\": \"true OR false\",\n" +
 			"          \"transferable\": \"true OR false\",\n" +
 			"          \"exclusiveness\": \"true OR false\",\n" +
@@ -82,249 +86,115 @@ public class TestEndpoints {
 			"  ],\n" +
 			"  \"hasPricingModel\": [\n" +
 			"    {\n" +
-			"      \"pricingModelName\": \"Test data1\",\n" +
-			"      \"basicPrice\": \"Test data\",\n" +
-			"      \"currency\": \"Test data\",\n" +
+			"      \"pricingModelId\": \"string\",\n" +
+			"      \"pricingModelName\": \"mandatory_field\",\n" +
+			"      \"basicPrice\": \"mandatory_field\",\n" +
+			"      \"currency\": \"mandatory_field\",\n" +
 			"      \"hasPaymentOnSubscription\": [\n" +
 			"        {\n" +
-			"          \"paymentOnSubscriptionName\": \"Test data\",\n" +
-			"          \"paymentType\": \"Test data\",\n" +
-			"          \"timeDuration\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"repeat\": \"DAILY\",\n" +
-			"          \"hasSubscriptionPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnAPI\": [\n" +
-			"        {\n" +
-			"          \"paymentOnAPIName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"numberOfObject\": \"Test data\",\n" +
-			"          \"hasAPIPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnUnit\": [\n" +
-			"        {\n" +
-			"          \"paymentOnUnitName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"dataUnit\": \"Test data\",\n" +
-			"          \"hasUnitPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnSize\": [\n" +
-			"        {\n" +
-			"          \"paymentOnSizeName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"dataSize\": \"Test data\",\n" +
-			"          \"hasSizePrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasFreePrice\": [\n" +
-			"        {\n" +
-			"          \"hasPriceFree\": \"FREE\"\n" +
-			"        }\n" +
-			"      ]\n" +
-			"    }\n" +
-			"  ],\n" +
-			"  \"hasDataset\": [\n" +
-			"    {\n" +
-			"      \"title\": \"Test data\",\n" +
-			"      \"keyword\": \"Test data\",\n" +
-			"      \"dataset\": \"Test data\",\n" +
-			"      \"description\": \"Test data\",\n" +
-			"      \"issued\": \"2021-10-04T14:20:23.162Z\",\n" +
-			"      \"modified\": \"2021-10-04T14:20:23.162Z\",\n" +
-			"      \"temporal\": \"Test data\",\n" +
-			"      \"language\": \"Test data\",\n" +
-			"      \"spatial\": \"Test data\",\n" +
-			"      \"accrualPeriodicity\": \"Test data\",\n" +
-			"      \"temporalResolution\": \"Test data\",\n" +
-			"      \"theme\": [\n" +
-			"        \"Test data\"\n" +
-			"      ],\n" +
-			"      \"distribution\": [\n" +
-			"        {\n" +
-			"          \"title\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"license\": \"Test data\",\n" +
-			"\t\t  \"accessRights\": \"private\",\n" +
-			"\t\t  \"downloadType\": \"JSON\",\n" +
-			"          \"conformsTo\": \"Test data\",\n" +
-			"          \"mediaType\": \"Test data\",\n" +
-			"          \"packageFormat\": \"Test data\",\n" +
-			"          \"accessService\": [\n" +
-			"            {\n" +
-			"              \"conformsTo\": \"Test data\",\n" +
-			"              \"endpointDescription\": \"Test data\",\n" +
-			"              \"endpointURL\": \"Test data\",\n" +
-			"              \"servesDataset\": \"Test data\",\n" +
-			"              \"serviceSpecs\": \"Test data\"\n" +
-			"            }\n" +
-			"          ]\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"datasetInformation\": [\n" +
-			"        {\n" +
-			"          \"measurementType\": \"Test data\",\n" +
-			"          \"measurementChannelType\": \"Test data\",\n" +
-			"          \"sensorID\": \"Test data\",\n" +
-			"          \"deviceID\": \"Test data\",\n" +
-			"          \"cppType\": \"Test data\",\n" +
-			"          \"sensorType\": \"Test data\"\n" +
-			"        }\n" +
-			"      ]\n" +
-			"    }\n" +
-			"  ]\n" +
-			"}\n";
-	JSONObject newOfferingBody = new JSONObject(newOfferingString);
-
-	//String updateOfferingString = "{\"dataOfferingId\":\"id123456789_dataoffering1\",\"provider\":\"id123456789\",\"owner\":\"Integration Offerings Test\",\"dataOfferingTitle\":\"offering integration test\",\"dataOfferingDescription\":\"Test data\",\"category\":\"Agriculture\",\"isActivated\":\"yes\",\"dataOfferingExpirationTime\":\"Test data\",\"contractParameters\":[{\"interestOfProvider\":\"Contract1\",\"interestDescription\":\"Contract1\",\"hasGoverningJurisdiction\":\"Contract1\",\"purpose\":\"Contract1\",\"purposeDescription\":\"Contract1\",\"hasIntendedUse\":[{\"processData\":\"true\",\"shareDataWithThirdParty\":\"true\",\"editData\":\"true\"}],\"hasLicenseGrant\":[{\"copyData\":\"true\",\"transferable\":\"true\",\"exclusiveness\":\"true\",\"revocable\":\"true\"}]}],\"hasPricingModel\":[{\"pricingModelName\":\"Test data\",\"basicPrice\":\"Test data\",\"currency\":\"Test data\",\"hasPaymentOnSubscription\":[{\"paymentOnSubscriptionName\":\"Test data\",\"paymentType\":\"Test data\",\"timeDuration\":\"Test data\",\"description\":\"Test data\",\"repeat\":\"Daily\",\"hasSubscriptionPrice\":\"Test data\",\"fromValue\":\"2021-10-04T14:20:23.162Z\",\"toValue\":\"2021-10-04T14:20:23.162Z\"}],\"hasPaymentOnPlan\":[{\"paymentOnPlanName\":\"Test data\",\"description\":\"Test data\",\"planDuration\":\"Test data\",\"hasPlanPrice\":\"Test data\"}],\"hasPaymentOnAPI\":[{\"paymentOnAPIName\":\"Test data\",\"description\":\"Test data\",\"numberOfObject\":\"Test data\",\"hasAPIPrice\":\"Test data\"}],\"hasPaymentOnUnit\":[{\"paymentOnUnitName\":\"Test data\",\"description\":\"Test data\",\"dataUnit\":\"Test data\",\"unitID\":\"Test data\",\"hasUnitPrice\":\"Test data\"}],\"hasPaymentOnSize\":[{\"paymentOnSizeName\":\"Test data\",\"description\":\"Test data\",\"dataSize\":\"Test data\",\"hasSizePrice\":\"Test data\"}],\"hasFreePrice\":[{\"hasPriceFree\":\"Test data\"}]}],\"hasDataset\":[{\"title\":\"Test data\",\"keyword\":\"Test data\",\"dataset\":\"Test data\",\"description\":\"Test data\",\"issued\":\"2021-10-04T14:20:23.162Z\",\"modified\":\"2021-10-04T14:20:23.162Z\",\"temporal\":\"Test data\",\"language\":\"Test data\",\"spatial\":\"Test data\",\"accrualPeriodicity\":\"Test data\",\"temporalResolution\":\"Test data\",\"distribution\":[{\"title\":\"Test data\",\"distribution\":\"Test data\",\"description\":\"Test data\",\"license\":\"Test data\",\"conformsTo\":\"Test data\",\"mediaType\":\"Test data\",\"packageFormat\":\"Test data\",\"accessService\":[{\"conformsTo\":\"Test data\",\"endpointDescription\":\"Test data\",\"endpointURL\":\"Test data\",\"servesDataset\":\"Test data\",\"serviceSpecs\":\"Test data\"}]}],\"datasetInformation\":[{\"measurementType\":\"Test data\",\"measurementChannelType\":\"Test data\",\"sensorID\":\"Test data\",\"deviceID\":\"Test data\",\"cppType\":\"Test data\",\"sensorType\":\"Test data\"}],\"theme\":[\"Test data\"]}]}";
-	String updateOfferingString = "{\n" +
-			"\t\n" +
-			"  \"provider\": \"provider-webri\",\n" +
-			"  \"owner\": \"Test data Node 244\",\n" +
-			"  \"dataOfferingTitle\": \"Test data node 244\",\n" +
-			"  \"dataOfferingLabel\": \"Test data\",\n" +
-			"  \"dataOfferingDescription\": \"Test data\",\n" +
-			"  \"category\": \"wellbeing\",\n" +
-			"  \"isActivated\": \"No\",\n" +
-			"  \"dataOfferingExpirationTime\": \"Test data\",\n" +
-			"  \"contractParameters\": [\n" +
-			"    {\n" +
-			"      \"interestOfProvider\": \"Contract1\",\n" +
-			"      \"interestDescription\": \"Contract1\",\n" +
-			"      \"hasGoverningJurisdiction\": \"Contract1\",\n" +
-			"      \"purpose\": \"Contract1\",\n" +
-			"      \"purposeDescription\": \"Contract1\",\n" +
-			"      \"hasIntendedUse\": [\n" +
-			"        {\n" +
-			"          \"processData\": \"true\",\n" +
-			"          \"shareDataWithThirdParty\": \"true\",\n" +
-			"          \"editData\": \"true\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasLicenseGrant\": [\n" +
-			"        {\n" +
-			"          \"copyData\": \"true OR false\",\n" +
-			"          \"transferable\": \"true OR false\",\n" +
-			"          \"exclusiveness\": \"true OR false\",\n" +
-			"          \"revocable\": \"true OR false\"\n" +
-			"        }\n" +
-			"      ]\n" +
-			"    }\n" +
-			"  ],\n" +
-			"  \"hasPricingModel\": [\n" +
-			"    {\n" +
-			"      \"pricingModelName\": \"Test data\",\n" +
-			"      \"basicPrice\": \"Test data\",\n" +
-			"      \"currency\": \"Test data\",\n" +
-			"      \"hasPaymentOnSubscription\": [\n" +
-			"        {\n" +
-			"          \"paymentOnSubscriptionName\": \"Test data\",\n" +
-			"          \"paymentType\": \"Test data\",\n" +
-			"          \"timeDuration\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
+			"          \"paymentId\": \"string\",\n" +
+			"          \"paymentOnSubscriptionName\": \"optional_field\",\n" +
+			"          \"paymentType\": \"optional_field\",\n" +
+			"          \"timeDuration\": \"optional_field\",\n" +
+			"          \"description\": \"optional_field\",\n" +
 			"          \"repeat\": \"Daily\",\n" +
-			"          \"hasSubscriptionPrice\": \"Test data\",\n" +
-			"          \"fromValue\": \"2021-10-04T14:20:23.162Z\",\n" +
-			"          \"toValue\": \"2021-10-04T14:20:23.162Z\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnPlan\": [\n" +
-			"        {\n" +
-			"          \"paymentOnPlanName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"planDuration\": \"Test data\",\n" +
-			"          \"hasPlanPrice\": \"Test data\"\n" +
+			"          \"hasSubscriptionPrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnAPI\": [\n" +
 			"        {\n" +
-			"          \"paymentOnAPIName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"numberOfObject\": \"Test data\",\n" +
-			"          \"hasAPIPrice\": \"Test data\"\n" +
+			"          \"paymentId\": \"string\",\n" +
+			"          \"paymentOnAPIName\": \"optional_field\",\n" +
+			"          \"description\": \"optional_field\",\n" +
+			"          \"numberOfObject\": \"optional_field\",\n" +
+			"          \"hasAPIPrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnUnit\": [\n" +
 			"        {\n" +
-			"          \"paymentOnUnitName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"dataUnit\": \"Test data\",\n" +
-			"          \"unitID\": \"Test data\",\n" +
-			"          \"hasUnitPrice\": \"Test data\"\n" +
+			"          \"paymentId\": \"string\",\n" +
+			"          \"paymentOnUnitName\": \"optional_field\",\n" +
+			"          \"description\": \"optional_field\",\n" +
+			"          \"dataUnit\": \"optional_field\",\n" +
+			"          \"hasUnitPrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnSize\": [\n" +
 			"        {\n" +
-			"          \"paymentOnSizeName\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"dataSize\": \"Test data\",\n" +
-			"          \"hasSizePrice\": \"Test data\"\n" +
+			"          \"paymentId\": \"string\",\n" +
+			"          \"paymentOnSizeName\": \"optional_field\",\n" +
+			"          \"description\": \"optional_field\",\n" +
+			"          \"dataSize\": \"optional_field\",\n" +
+			"          \"hasSizePrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasFreePrice\": [\n" +
 			"        {\n" +
-			"          \"hasPriceFree\": \"Test data\"\n" +
+			"          \"paymentId\": \"string\",\n" +
+			"          \"hasPriceFree\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ]\n" +
 			"    }\n" +
 			"  ],\n" +
 			"  \"hasDataset\": [\n" +
 			"    {\n" +
-			"      \"title\": \"Test data\",\n" +
-			"      \"keyword\": \"Test data\",\n" +
-			"      \"dataset\": \"Test data\",\n" +
-			"      \"description\": \"Test data\",\n" +
-			"      \"creator\": \"Test data\",\n" +
-			"      \"issued\": \"2021-10-04T14:20:23.162Z\",\n" +
-			"      \"modified\": \"2021-10-04T14:20:23.162Z\",\n" +
-			"      \"temporal\": \"Test data\",\n" +
-			"      \"language\": \"Test data\",\n" +
-			"      \"spatial\": \"Test data\",\n" +
-			"      \"accrualPeriodicity\": \"Test data\",\n" +
-			"      \"temporalResolution\": \"Test data\",\n" +
+			"      \"datasetId\": \"string\",\n" +
+			"      \"title\": \"mandatory_field\",\n" +
+			"      \"keyword\": \"mandatory_field\",\n" +
+			"      \"dataset\": \"optional_field\",\n" +
+			"      \"description\": \"optional_field\",\n" +
+			"      \"issued\": \"date-time\",\n" +
+			"      \"modified\": \"date-time\",\n" +
+			"      \"temporal\": \"optional_field\",\n" +
+			"      \"language\": \"optional_field\",\n" +
+			"      \"spatial\": \"optional_field\",\n" +
+			"      \"accrualPeriodicity\": \"optional_field\",\n" +
+			"      \"temporalResolution\": \"optional_field\",\n" +
 			"      \"distribution\": [\n" +
 			"        {\n" +
-			"          \"title\": \"Test data\",\n" +
-			"          \"distribution\": \"Test data\",\n" +
-			"          \"description\": \"Test data\",\n" +
-			"          \"license\": \"Test data\",\n" +
-			"          \"conformsTo\": \"Test data\",\n" +
-			"          \"mediaType\": \"Test data\",\n" +
-			"          \"packageFormat\": \"Test data\",\n" +
+			"          \"distributionId\": \"string\",\n" +
+			"          \"title\": \"optional_field\",\n" +
+			"          \"description\": \"optional_field\",\n" +
+			"          \"license\": \"optional_field\",\n" +
+			"          \"accessRights\": \"optional_field\",\n" +
+			"          \"downloadType\": \"optional_field\",\n" +
+			"          \"conformsTo\": \"optional_field\",\n" +
+			"          \"mediaType\": \"optional_field\",\n" +
+			"          \"packageFormat\": \"optional_field\",\n" +
 			"          \"accessService\": [\n" +
 			"            {\n" +
-			"              \"conformsTo\": \"Test data\",\n" +
-			"              \"endpointDescription\": \"Test data\",\n" +
-			"              \"endpointURL\": \"Test data\",\n" +
-			"              \"servesDataset\": \"Test data\",\n" +
-			"              \"serviceSpecs\": \"Test data\"\n" +
+			"              \"dataserviceId\": \"string\",\n" +
+			"              \"conformsTo\": \"optional_field\",\n" +
+			"              \"endpointDescription\": \"optional_field\",\n" +
+			"              \"endpointURL\": \"optional_field\",\n" +
+			"              \"servesDataset\": \"optional_field\",\n" +
+			"              \"serviceSpecs\": \"optional_field\"\n" +
 			"            }\n" +
 			"          ]\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"datasetInformation\": [\n" +
 			"        {\n" +
-			"          \"measurementType\": \"Test data\",\n" +
-			"          \"measurementChannelType\": \"Test data\",\n" +
-			"          \"sensorID\": \"Test data\",\n" +
-			"          \"deviceID\": \"Test data\",\n" +
-			"          \"cppType\": \"Test data\",\n" +
-			"          \"sensorType\": \"Test data\"\n" +
+			"          \"datasetInformationId\": \"string\",\n" +
+			"          \"measurementType\": \"optional_field\",\n" +
+			"          \"measurementChannelType\": \"optional_field\",\n" +
+			"          \"sensorID\": \"optional_field\",\n" +
+			"          \"deviceID\": \"optional_field\",\n" +
+			"          \"cppType\": \"optional_field\",\n" +
+			"          \"sensorType\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"theme\": [\n" +
-			"        \"Test data\"\n" +
+			"        \"optional_field\"\n" +
 			"      ]\n" +
 			"    }\n" +
 			"  ]\n" +
 			"}";
-	JSONObject updateOfferingBody = new JSONObject(updateOfferingString);
+	JSONObject newOfferingBody = new JSONObject(newOfferingString);
+	String dataOfferingId = "";
+	JSONObject obtainedOfferingBody = null;
 
 	String category = "Agriculture";
-	String providerId = "id123456789";
-	String offeringId = "id123456789_dataoffering1";
 
 	// NOTIFICATIONS
 	String newUserNotification = "{\n" +
@@ -457,26 +327,44 @@ public class TestEndpoints {
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
-	
+
 	@Test(priority = 3)
 	public void testOfferingCreation()  {
 
 		System.out.println("************************************{OFFERING CREATION}************************************");
 		Response response= CommonServicesEndpoints.postDataOffering(auth_token, newOfferingBody.toString());
+		dataOfferingId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data[0].dataOfferingId").toString();
 		response.then().log().body().statusCode(200);
+
 		System.out.println("******************************************************************************************");
 	}
 
 	@Test(priority = 4)
+	public void testSearchOfferingByOfferingId()  {
+
+		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
+		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, dataOfferingId);
+		response.then().log().body().statusCode(200);
+		JSONObject body = new JSONObject(response.getBody().asString());
+		JSONArray JsonArray = body.getJSONArray("data");
+		obtainedOfferingBody = JsonArray.getJSONObject(0);
+		System.out.println("*************************DATA OBTAINED: " + obtainedOfferingBody.toString()+ "*******************************************");
+	}
+
+	@Test(priority = 5)
 	public void testUpdateOffering()  {
 
 		System.out.println("************************************{OFFERING UPDATE}************************************");
-		Response response= CommonServicesEndpoints.updateDataOffering(auth_token, updateOfferingBody.toString());
+		Integer version = (int) obtainedOfferingBody.get("version");  //GET CURRENT VERSION AS INT
+		version = version + 1; // INCREASE VERSION COUNTER
+		obtainedOfferingBody.put("version", version); //UPDATE VERSION KEY
+		System.out.println("Offering ID "+dataOfferingId+" to update with values:\n"+obtainedOfferingBody);
+		Response response= CommonServicesEndpoints.updateDataOffering(auth_token, obtainedOfferingBody.toString());
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
-	
-	@Test(priority = 5)
+
+	@Test(priority = 6)
 	public void testCategoriesList()  {
 
 		System.out.println("************************************{CATEGORIES LISTING}************************************");
@@ -485,7 +373,7 @@ public class TestEndpoints {
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
 
-	@Test(priority = 6)
+	@Test(priority = 7)
 	public void testOfferingSearchByCategory()  {
 	
 		System.out.println("************************************{OFFERING SEARCH BY CATEGORY}************************************");
@@ -494,7 +382,7 @@ public class TestEndpoints {
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
 
-	@Test(priority = 7)
+	@Test(priority = 8)
 	public void testSearchOfferingByProviderId()  {
 
 		System.out.println("************************************{OFFERING SEARCH BY PROVIDERID}************************************");
@@ -502,17 +390,6 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
 	}
-
-	/**
-	@Test(priority = 8)
-	public void testSearchOfferingByOfferingId()  {
-
-		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
-		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, offeringId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("*************************DATA OBTAINED: " + data + "*******************************************");
-	}
-	**/
 
 	@Test(priority = 9)
 	public void testProvidersByCategory()  {
@@ -550,11 +427,12 @@ public class TestEndpoints {
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
 
-	/**
+	/** TODO FIX IT
 	@Test(priority = 13)
 	public void testContractByProviderId()  {
 
 		System.out.println("************************************{CONTRACT BY PROVIDERID}************************************");
+		System.out.println("Obtaining provider "+providerId+" contracts...");
 		Response response= CommonServicesEndpoints.getContractByProviderId(auth_token, providerId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
@@ -565,7 +443,7 @@ public class TestEndpoints {
 	public void testContractByOfferingId()  {
 
 		System.out.println("************************************{CONTRACT BY OFFERINGID}************************************");
-		Response response= CommonServicesEndpoints.getContractByOfferingId(auth_token, offeringId);
+		Response response= CommonServicesEndpoints.getContractByOfferingId(auth_token, dataOfferingId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -574,7 +452,7 @@ public class TestEndpoints {
 	public void testDeleteOffering()  {
 
 		System.out.println("************************************{OFFERING DELETE}************************************");
-		Response response= CommonServicesEndpoints.deleteOffering(auth_token, offeringId);
+		Response response= CommonServicesEndpoints.deleteOffering(auth_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
@@ -695,7 +573,7 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
-	/**
+
 	@Test(priority = 28)
 	public void testCreateUsersSubscription()  {
 
@@ -719,7 +597,7 @@ public class TestEndpoints {
 	public void testUsersSubscriptionsBySubscriptionId()  {
 
 		System.out.println("************************************{GET USER SUBSCRIPTIONS BY SUBSCRIPTION ID}************************************");
-		Response response= CommonServicesEndpoints.getSubscriptionBySubscriptionId(auth_token, createdSubscriptionId);
+		Response response= CommonServicesEndpoints.getSubscriptionBySubscriptionId(auth_token, subscriptionUserId,createdSubscriptionId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -728,7 +606,7 @@ public class TestEndpoints {
 	public void testDeactivateUserSubscription()  {
 
 		System.out.println("************************************{DEACTIVATE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.patchDeactivateSubscriptionById(auth_token, createdSubscriptionId);
+		Response response= CommonServicesEndpoints.patchDeactivateSubscriptionById(auth_token, subscriptionUserId, createdSubscriptionId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -737,7 +615,7 @@ public class TestEndpoints {
 	public void testActivateUserSubscription()  {
 
 		System.out.println("************************************{ACTIVATE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.patchActivateSubscriptionById(auth_token, createdSubscriptionId);
+		Response response= CommonServicesEndpoints.patchActivateSubscriptionById(auth_token, subscriptionUserId, createdSubscriptionId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -746,7 +624,7 @@ public class TestEndpoints {
 	public void testDeleteUserSubscription()  {
 
 		System.out.println("************************************{DELETE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.deleteSubscriptionBySubscriptionId(auth_token, createdSubscriptionId);
+		Response response= CommonServicesEndpoints.deleteSubscriptionBySubscriptionId(auth_token, subscriptionUserId, createdSubscriptionId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -754,12 +632,12 @@ public class TestEndpoints {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// CONTRACT ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+	/**
 	@Test(priority = 34)
 	public void testGetContractTemplateByIdOffering()  {
 
 		System.out.println("************************************{GET CONTRACT TEMPLATE BY ID OFFERING}************************************");
-		Response response= CommonServicesEndpoints.getContractTemplateByIdOffering(auth_token, "id123456789_dataoffering2");
+		Response response= CommonServicesEndpoints.getContractTemplateByIdOffering(auth_token, dataOfferingId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}

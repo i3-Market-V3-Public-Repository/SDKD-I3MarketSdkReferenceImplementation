@@ -90,148 +90,148 @@ public class Routes {
 	//////////////////////////////////////////////// NOTIFICATIONS /////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get/post method routes the request to respective services to get all user notifications or create one
 	public static String get_post_user_notifications="/api/sdk-ri/notification";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to create a service notification
 	public static String post_service_notifications="/api/sdk-ri/notification/service";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get all the unread notifications
 	public static String get_unread_notifications="/api/sdk-ri/notification/unread";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get the notifications by user id
 	public static String get_notifications_by_userId="/api/sdk-ri/notification/user/{user_id}";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get a user unread notifications by user id
 	public static String get_unread_notifications_by_userId="/api/sdk-ri/notification/user/{user_id}/unread";
 
-	// The get method routes the request to respective services to
+	// The get/delete method routes the request to respective services to get or delete a notification by notification id
 	public static String get_delete_notification_by_notificationId="/api/sdk-ri/notification/{notification_id}";
 
-	// The get method routes the request to respective services to
+	// The patch method routes the request to respective services to mark a notification as read
 	public static String patch_notification_read="/api/sdk-ri/notification/{notification_id}/read";
 
-	// The get method routes the request to respective services to
+	// The patch method routes the request to respective services to mark a notification as unread
 	public static String patch_notification_unread="/api/sdk-ri/notification/{notification_id}/unread";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////// ALERT SUBSCRIPTIONS //////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get all the registered users subscriptions
 	public static String get_subscriptions="/api/sdk-ri/alerts/users/subscriptions";
 
-	// The get method routes the request to respective services to
+	// The get/post method routes the request to respective services to get all user subscriptions or register one
 	public static String get_post_subscription_userId="/api/sdk-ri/alerts/users/{user_id}/subscriptions";
 
-	// The get method routes the request to respective services to
+	// The get/delete method routes the request to respective services to get a subscription by subscription id or delete it
 	public static String get_delete_subscription_subscriptonId="/api/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}";
 
-	// The get method routes the request to respective services to
+	// The patch method routes the request to respective services to activate a user subscription
 	public static String patch_subscrition_activate="/api/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}/activate";
 
-	// The get method routes the request to respective services to
+	// The patch method routes the request to respective services to deactivate a user subscription
 	public static String patch_subscrition_deactivate="/api/sdk-ri/alerts/users/{user_id}/subscriptions/{subscription_id}/deactivate";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// CONTRACT ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
 	public static String get_contract_template_idOffering="/api/sdk-ri/contract/get-contract-template/{idOffering}";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// CREDENTIAL //////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get the issued credential list
 	public static String get_issued_credential_list="/api/sdk-ri/credential/";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to generate a verifiable credential
 	public static String get_generate_verifiable_credential="/api/sdk-ri/credential/issue/{credential}";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to revoke a credential by jwt
 	public static String post_revoke_verifiable_credential="/api/sdk-ri/credential/revoke";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to verify a credential by jwt
 	public static String post_verify_credential="/api/sdk-ri/credential/verify";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to subscribe the issuer
 	public static String get_subscribe_issuer="/api/sdk-ri/issuer/subscribe";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to unsubscribe the issuer
 	public static String get_unsubscribe_issuer="/api/sdk-ri/issuer/unsubscribe";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to verify the issuer subscription
 	public static String get_verify_issuer_subscription="/api/sdk-ri/issuer/verify";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// EXCHANGE ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to create an invoice
 	public static String post_create_invoice="/api/sdk-ri/create-invoice";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to decrypt a cipherblock
 	public static String post_decrypt_cipherblock="/api/sdk-ri/decrypt";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to delete a file
 	public static String delete_file="/api/sdk-ri/delete-file";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to download a file
 	public static String post_download_file="/api/sdk-ri/download-file";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to get data block
 	public static String post_get_data_block="/api/sdk-ri/get-block/{data}";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to get file
 	public static String post_get_file="/api/sdk-ri/get-file/{data}";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get jwk
 	public static String get_jwk="/api/sdk-ri/get-jwk";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// MANAGEMENT //////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get sdk-ri configuration info
 	public static String get_sdkri_config_info="/api/sdk-ri/getConfigurationInfo";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////// TOKEN ////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to obtain the marketplace balance by marketplace address
 	public static String get_marketplace_balance_by_address="/api/sdk-ri/token/balances/{address}";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to clearing operation
 	public static String post_clearing_operation="/api/sdk-ri/token/clearing";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to deploy operation
 	public static String post_deploy_operation="/api/sdk-ri/token/deploytransaction";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to exchange in operation
 	public static String post_exchange_in_operation="/api/sdk-ri/token/exchangein";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to exchange out operation
 	public static String post_exchange_out_operation="/api/sdk-ri/token/exchangeout";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to add a new marketplace to the treasury smart contract and create a new token
 	public static String post_new_marketplace="/api/sdk-ri/token/marketplace";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get marketplace index by marketplace address
 	public static String get_marketpace_index_by_address="/api/sdk-ri/token/marketplaces/{address}";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to token payment operation
 	public static String post_token_payment_operation="/api/sdk-ri/token/payment";
 
-	// The get method routes the request to respective services to
+	// The post method routes the request to respective services to set paid status of operation
 	public static String post_set_paid_status_operation="/api/sdk-ri/token/setpaid";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get the transaction status object with transfer identifier
 	public static String get_transaction_status_by_transferId="/api/sdk-ri/token/token-transfer/{transferId}";
 
-	// The get method routes the request to respective services to
+	// The get method routes the request to respective services to get transaction with transaction hash
 	public static String get_transaction_by_transactionHash="/api/sdk-ri/token/token-transfer/{transactionHash}";
 
 
