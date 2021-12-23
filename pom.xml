@@ -361,6 +361,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.9.Final</version>
 				<configuration>
 					<skip>false</skip>
 				</configuration>
