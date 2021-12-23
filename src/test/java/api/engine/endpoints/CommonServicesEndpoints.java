@@ -40,7 +40,7 @@ public class CommonServicesEndpoints {
 	    RestAssured.baseURI=Routes.security_token_uri;
 	    Response response=RestAssured.
 	         given().contentType("application/x-www-form-urlencoded").accept(ContentType.JSON).
-	         body("grant_type=password&client_id=SDKGeneratorClient&client_secret=a4279d93-994d-4de4-a2d6-3b1660d07842&scope=openid&username=i3market&password=sgfjlsn44r50.,fsf03").
+	         body("grant_type=password&client_id=SDKGeneratorClient&client_secret=xxxxxx&scope=openid&username=i3market&password=xxxxxxxx").
 	         when().post(Routes.security_token_uri);
         return response;
 	}
