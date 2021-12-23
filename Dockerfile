@@ -17,7 +17,7 @@ WORKdir /sdk-ri
 RUN chmod +x setup-sdk-ri.sh
 RUN bash setup-sdk-ri.sh
 
-RUN mvn clean install $TEST
+RUN mvn clean install -U $TEST
 
 FROM jetty:9.4-jdk8
 
