@@ -35,10 +35,10 @@ package api.engine.endpoints;
 public class Routes {
 	
 	// The security server uri
-	public static String security_token_uri= "http://83.149.125.78:8080/auth/realms/i3market/protocol/openid-connect/token";
+	public static String security_token_uri= "http://xxxxxx:8080/auth/realms/i3market/protocol/openid-connect/token";
 	
 	// The base uri is the resource where all the common services are running.
-	public static String base_uri  ="http://95.211.3.244:8182/SdkRefImpl";
+	public static String base_uri  ="http://xxxxxx:8182/SdkRefImpl";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// OFFERINGS ///////////////////////////////////////////////////////
