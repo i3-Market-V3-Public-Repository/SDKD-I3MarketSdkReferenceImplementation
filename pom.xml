@@ -341,7 +341,8 @@
 
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
-				 <version>2.0.2.Final</version>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>2.0.2.Final</version>
 				<configuration>
 					<skip>false</skip>
 				</configuration>
