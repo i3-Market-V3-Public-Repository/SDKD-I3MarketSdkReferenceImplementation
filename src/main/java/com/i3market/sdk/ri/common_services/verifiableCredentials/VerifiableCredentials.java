@@ -63,6 +63,7 @@ VerifiableCredentials {
         _log.debug("get issue verifiable credential by credential string");
         CredentialApi credentialApi = new CredentialApi();
 
+
         return credentialApi.getRelease2VcCredentialIssueByCredential(credential);
     }
 
