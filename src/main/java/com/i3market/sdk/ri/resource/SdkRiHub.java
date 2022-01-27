@@ -62,6 +62,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -136,6 +137,32 @@ public class SdkRiHub {
 //		return new PocOIDC().getJWKS(jwt);
 //	}
 
+	@GET
+	@Path("/registration/categories-list")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve category list", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveTotalOfferingAndOfferingList(
+
+			@RequestParam(value = "providerId", defaultValue = "All") String providerId,
+			@RequestParam(value = "category", defaultValue = "All") String category,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "5") int size,
+			@RequestParam(value = "sortBy", defaultValue = "desc") String sortBy,
+			@RequestParam(value = "orderBy", defaultValue = "time") String orderBy) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(
+					new RetrieveTotalOfferingAndOfferingList().getTotalOfferingAndOfferingList(providerId, category, page, size, sortBy, orderBy));
+		} catch (ProcessingException | JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return strJson;
+	}
 
 	@GET
 	@Path("/registration/categories-list")

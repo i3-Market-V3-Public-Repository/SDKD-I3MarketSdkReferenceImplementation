@@ -50,7 +50,7 @@ public class TestEndpoints {
 	String providerId="id123456789";
 	String newOfferingString = "{\n" +
 			"  \"provider\": \""+providerId+"\",\n" +
-			"  \"marketID\": \"string\",\n" +
+			"  \"marketId\": \"string\",\n" +
 			"  \"owner\": \"string\",\n" +
 			"  \"dataOfferingTitle\": \"mandatory_field\",\n" +
 			"  \"dataOfferingDescription\": \"string\",\n" +
@@ -101,13 +101,13 @@ public class TestEndpoints {
 			"          \"hasSubscriptionPrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
-			"      \"hasPaymentOnAPI\": [\n" +
+			"      \"hasPaymentOnApi\": [\n" +
 			"        {\n" +
 			"          \"paymentId\": \"string\",\n" +
-			"          \"paymentOnAPIName\": \"optional_field\",\n" +
+			"          \"paymentOnApiName\": \"optional_field\",\n" +
 			"          \"description\": \"optional_field\",\n" +
 			"          \"numberOfObject\": \"optional_field\",\n" +
-			"          \"hasAPIPrice\": \"optional_field\"\n" +
+			"          \"hasApiPrice\": \"optional_field\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnUnit\": [\n" +
@@ -178,8 +178,8 @@ public class TestEndpoints {
 			"          \"datasetInformationId\": \"string\",\n" +
 			"          \"measurementType\": \"optional_field\",\n" +
 			"          \"measurementChannelType\": \"optional_field\",\n" +
-			"          \"sensorID\": \"optional_field\",\n" +
-			"          \"deviceID\": \"optional_field\",\n" +
+			"          \"sensorId\": \"optional_field\",\n" +
+			"          \"deviceId\": \"optional_field\",\n" +
 			"          \"cppType\": \"optional_field\",\n" +
 			"          \"sensorType\": \"optional_field\"\n" +
 			"        }\n" +
