@@ -191,7 +191,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<DataOfferingID>> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(dataOffering);
 	}
 
@@ -383,7 +383,7 @@ public class SdkRiHub {
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOfferingDTO dataOffering) throws ApiException {
+    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(dataOffering);
     }
 
@@ -580,12 +580,12 @@ public class SdkRiHub {
 	/////// Verifiable Credential API ///////
 
 	@GET
-	@Path("/credential/issue/{credential}")
+	@Path("/credential/issue/{did}/{credential}")
 	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getIssueVerifiableCredential(@PathParam("credential") String credential) throws ApiException {
-		return new VerifiableCredentials().getIssueVerifiableCredential(credential);
+	public Object getIssueVerifiableCredential(@PathParam("did") String did, @PathParam("credential") String credential) throws ApiException {
+		return new VerifiableCredentials().getIssueVerifiableCredential(did, credential);
 	}
 
 	@POST
