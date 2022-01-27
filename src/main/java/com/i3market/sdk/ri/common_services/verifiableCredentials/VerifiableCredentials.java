@@ -50,7 +50,7 @@ VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public Object getIssueVerifiableCredential(String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(String did, String credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -63,7 +63,7 @@ VerifiableCredentials {
         _log.debug("get issue verifiable credential by credential string");
         CredentialApi credentialApi = new CredentialApi();
 
-        return credentialApi.getRelease2VcCredentialIssueByCredential(credential);
+        return credentialApi.getRelease2VcCredentialIssueByDidByCredential(did, credential);
     }
 
     public Object postRevokeCredentialByJWT(InlineObject credential) throws ApiException {
