@@ -138,19 +138,19 @@ public class SdkRiHub {
 //	}
 
 	@GET
-	@Path("/registration/categories-list")
+	@Path("/registration/offerings")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve category list", tags="common-services: offering")
-	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	@ApiOperation(value = "Get total offering by category and providerID", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offering")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveTotalOfferingAndOfferingList(
 
-			@RequestParam(value = "providerId", defaultValue = "All") String providerId,
-			@RequestParam(value = "category", defaultValue = "All") String category,
-			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "5") int size,
-			@RequestParam(value = "sortBy", defaultValue = "desc") String sortBy,
-			@RequestParam(value = "orderBy", defaultValue = "time") String orderBy) throws ApiException {
+			@QueryParam("providerId") @DefaultValue("All") String providerId,
+			@QueryParam("category") @DefaultValue("All") String category,
+			@QueryParam("page") @DefaultValue("0") Integer page,
+			@QueryParam("size") @DefaultValue("5") Integer size,
+			@QueryParam("sortBy") @DefaultValue("desc") String sortBy,
+			@QueryParam("orderBy") @DefaultValue("time") String orderBy) throws ApiException {
 
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
