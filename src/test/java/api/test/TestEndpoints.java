@@ -49,25 +49,23 @@ public class TestEndpoints {
 	JSONObject newProviderBody = new JSONObject(newProviderString);
 	String providerId="id123456789";
 	String newOfferingString = "{\n" +
-			"  \"provider\": \""+providerId+"\",\n" +
-			"  \"marketId\": \"string\",\n" +
-			"  \"owner\": \"string\",\n" +
-			"  \"dataOfferingTitle\": \"mandatory_field\",\n" +
-			"  \"dataOfferingDescription\": \"string\",\n" +
-			"  \"category\": \"Other\",\n" +
-			"  \"status\": \"e.g. Activated, InActivated, ToBeDeleted, Deleted\",\n" +
-			"  \"dataOfferingExpirationTime\": \"NA\",\n" +
+			"  \"provider\": \"id123456789\",\n" +
+			"  \"marketId\" : \"UIOT-M\",\n" +
+			"  \"owner\": \"Owner webri node 249\",\n" +
+			"  \"dataOfferingTitle\": \"Offsore Wind Turbine\",\n" +
+			"  \"dataOfferingDescription\": \"This is offshore wind turbine data\",\n" +
+			"  \"category\": \"engineering\",\n" +
+			"  \"status\": \"activated\",\n" +
+			"  \"dataOfferingExpirationTime\": \"1month\",\n" +
 			"  \"contractParameters\": [\n" +
 			"    {\n" +
-			"      \"contractParametersId\": \"string\",\n" +
-			"      \"interestOfProvider\": \"NA\",\n" +
-			"      \"interestDescription\": \"NA\",\n" +
-			"      \"hasGoverningJurisdiction\": \"NA\",\n" +
-			"      \"purpose\": \"NA\",\n" +
-			"      \"purposeDescription\": \"NA\",\n" +
+			"      \"interestOfProvider\": \"Chi\",\n" +
+			"      \"interestDescription\": \"Test\",\n" +
+			"      \"hasGoverningJurisdiction\": \"Test data\",\n" +
+			"      \"purpose\": \"Test data\",\n" +
+			"      \"purposeDescription\": \"Test data\",\n" +
 			"      \"hasIntendedUse\": [\n" +
 			"        {\n" +
-			"          \"intendedUseId\": \"string\",\n" +
 			"          \"processData\": \"true OR false\",\n" +
 			"          \"shareDataWithThirdParty\": \"true OR false\",\n" +
 			"          \"editData\": \"true OR false\"\n" +
@@ -75,7 +73,6 @@ public class TestEndpoints {
 			"      ],\n" +
 			"      \"hasLicenseGrant\": [\n" +
 			"        {\n" +
-			"          \"licenseGrantId\": \"string\",\n" +
 			"          \"copyData\": \"true OR false\",\n" +
 			"          \"transferable\": \"true OR false\",\n" +
 			"          \"exclusiveness\": \"true OR false\",\n" +
@@ -86,110 +83,100 @@ public class TestEndpoints {
 			"  ],\n" +
 			"  \"hasPricingModel\": [\n" +
 			"    {\n" +
-			"      \"pricingModelId\": \"string\",\n" +
-			"      \"pricingModelName\": \"mandatory_field\",\n" +
-			"      \"basicPrice\": \"mandatory_field\",\n" +
-			"      \"currency\": \"mandatory_field\",\n" +
+			"      \"pricingModelName\": \"Test data1\",\n" +
+			"      \"basicPrice\": \"Test data\",\n" +
+			"      \"currency\": \"Test data\",\n" +
 			"      \"hasPaymentOnSubscription\": [\n" +
 			"        {\n" +
-			"          \"paymentId\": \"string\",\n" +
-			"          \"paymentOnSubscriptionName\": \"optional_field\",\n" +
-			"          \"paymentType\": \"optional_field\",\n" +
-			"          \"timeDuration\": \"optional_field\",\n" +
-			"          \"description\": \"optional_field\",\n" +
-			"          \"repeat\": \"Daily\",\n" +
-			"          \"hasSubscriptionPrice\": \"optional_field\"\n" +
+			"          \"paymentOnSubscriptionName\": \"Test data\",\n" +
+			"          \"paymentType\": \"Test data\",\n" +
+			"          \"timeDuration\": \"Test data\",\n" +
+			"          \"description\": \"Test data\",\n" +
+			"          \"repeat\": \"DAILY\",\n" +
+			"          \"hasSubscriptionPrice\": \"Test data\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnApi\": [\n" +
 			"        {\n" +
-			"          \"paymentId\": \"string\",\n" +
-			"          \"paymentOnApiName\": \"optional_field\",\n" +
-			"          \"description\": \"optional_field\",\n" +
-			"          \"numberOfObject\": \"optional_field\",\n" +
-			"          \"hasApiPrice\": \"optional_field\"\n" +
+			"          \"paymentOnApiName\": \"Test data\",\n" +
+			"          \"description\": \"Test data\",\n" +
+			"          \"numberOfObject\": \"Test data\",\n" +
+			"          \"hasApiPrice\": \"Test data\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnUnit\": [\n" +
 			"        {\n" +
-			"          \"paymentId\": \"string\",\n" +
-			"          \"paymentOnUnitName\": \"optional_field\",\n" +
-			"          \"description\": \"optional_field\",\n" +
-			"          \"dataUnit\": \"optional_field\",\n" +
-			"          \"hasUnitPrice\": \"optional_field\"\n" +
+			"          \"paymentOnUnitName\": \"Test data\",\n" +
+			"          \"description\": \"Test data\",\n" +
+			"          \"dataUnit\": \"Test data\",\n" +
+			"          \"hasUnitPrice\": \"Test data\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasPaymentOnSize\": [\n" +
 			"        {\n" +
-			"          \"paymentId\": \"string\",\n" +
-			"          \"paymentOnSizeName\": \"optional_field\",\n" +
-			"          \"description\": \"optional_field\",\n" +
-			"          \"dataSize\": \"optional_field\",\n" +
-			"          \"hasSizePrice\": \"optional_field\"\n" +
+			"          \"paymentOnSizeName\": \"Test data\",\n" +
+			"          \"description\": \"Test data\",\n" +
+			"          \"dataSize\": \"Test data\",\n" +
+			"          \"hasSizePrice\": \"Test data\"\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"hasFreePrice\": [\n" +
 			"        {\n" +
-			"          \"paymentId\": \"string\",\n" +
-			"          \"hasPriceFree\": \"optional_field\"\n" +
+			"          \"hasPriceFree\": \"FREE\"\n" +
 			"        }\n" +
 			"      ]\n" +
 			"    }\n" +
 			"  ],\n" +
 			"  \"hasDataset\": [\n" +
 			"    {\n" +
-			"      \"datasetId\": \"string\",\n" +
-			"      \"title\": \"mandatory_field\",\n" +
-			"      \"keyword\": \"mandatory_field\",\n" +
-			"      \"dataset\": \"optional_field\",\n" +
-			"      \"description\": \"optional_field\",\n" +
-			"      \"issued\": \"date-time\",\n" +
-			"      \"modified\": \"date-time\",\n" +
-			"      \"temporal\": \"optional_field\",\n" +
-			"      \"language\": \"optional_field\",\n" +
-			"      \"spatial\": \"optional_field\",\n" +
-			"      \"accrualPeriodicity\": \"optional_field\",\n" +
-			"      \"temporalResolution\": \"optional_field\",\n" +
+			"      \"title\": \"Test data\",\n" +
+			"      \"keyword\": \"Test data\",\n" +
+			"      \"dataset\": \"Test data\",\n" +
+			"      \"description\": \"Test data\",\n" +
+			"      \"issued\": \"2021-10-04T14:20:23.162Z\",\n" +
+			"      \"modified\": \"2021-10-04T14:20:23.162Z\",\n" +
+			"      \"temporal\": \"Test data\",\n" +
+			"      \"language\": \"Test data\",\n" +
+			"      \"spatial\": \"Test data\",\n" +
+			"      \"accrualPeriodicity\": \"Test data\",\n" +
+			"      \"temporalResolution\": \"Test data\",\n" +
+			"      \"theme\": [\n" +
+			"        \"Test data\"\n" +
+			"      ],\n" +
 			"      \"distribution\": [\n" +
 			"        {\n" +
-			"          \"distributionId\": \"string\",\n" +
-			"          \"title\": \"optional_field\",\n" +
-			"          \"description\": \"optional_field\",\n" +
-			"          \"license\": \"optional_field\",\n" +
-			"          \"accessRights\": \"optional_field\",\n" +
-			"          \"downloadType\": \"optional_field\",\n" +
-			"          \"conformsTo\": \"optional_field\",\n" +
-			"          \"mediaType\": \"optional_field\",\n" +
-			"          \"packageFormat\": \"optional_field\",\n" +
+			"          \"title\": \"Test data\",\n" +
+			"          \"description\": \"Test data\",\n" +
+			"          \"license\": \"Test data\",\n" +
+			"\t\t  \"accessRights\": \"private\",\n" +
+			"\t\t  \"downloadType\": \"JSON\",\n" +
+			"          \"conformsTo\": \"Test data\",\n" +
+			"          \"mediaType\": \"Test data\",\n" +
+			"          \"packageFormat\": \"Test data\",\n" +
 			"          \"accessService\": [\n" +
 			"            {\n" +
-			"              \"dataserviceId\": \"string\",\n" +
-			"              \"conformsTo\": \"optional_field\",\n" +
-			"              \"endpointDescription\": \"optional_field\",\n" +
-			"              \"endpointURL\": \"optional_field\",\n" +
-			"              \"servesDataset\": \"optional_field\",\n" +
-			"              \"serviceSpecs\": \"optional_field\"\n" +
+			"              \"conformsTo\": \"Test data\",\n" +
+			"              \"endpointDescription\": \"Test data\",\n" +
+			"              \"endpointURL\": \"Test data\",\n" +
+			"              \"servesDataset\": \"Test data\",\n" +
+			"              \"serviceSpecs\": \"Test data\"\n" +
 			"            }\n" +
 			"          ]\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"datasetInformation\": [\n" +
 			"        {\n" +
-			"          \"datasetInformationId\": \"string\",\n" +
-			"          \"measurementType\": \"optional_field\",\n" +
-			"          \"measurementChannelType\": \"optional_field\",\n" +
-			"          \"sensorId\": \"optional_field\",\n" +
-			"          \"deviceId\": \"optional_field\",\n" +
-			"          \"cppType\": \"optional_field\",\n" +
-			"          \"sensorType\": \"optional_field\"\n" +
+			"          \"measurementType\": \"Test data\",\n" +
+			"          \"measurementChannelType\": \"Test data\",\n" +
+			"          \"sensorId\": \"Test data\",\n" +
+			"          \"deviceId\": \"Test data\",\n" +
+			"          \"cppType\": \"Test data\",\n" +
+			"          \"sensorType\": \"Test data\"\n" +
 			"        }\n" +
-			"      ],\n" +
-			"      \"theme\": [\n" +
-			"        \"optional_field\"\n" +
 			"      ]\n" +
 			"    }\n" +
 			"  ]\n" +
-			"}";
+			"}\n";
 	JSONObject newOfferingBody = new JSONObject(newOfferingString);
 	String dataOfferingId = "";
 	JSONObject obtainedOfferingBody = null;
