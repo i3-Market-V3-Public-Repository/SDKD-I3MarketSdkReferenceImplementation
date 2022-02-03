@@ -33,7 +33,7 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.CategoriesList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
@@ -55,9 +55,9 @@ public class RetrieveCategoryList {
 
         apiClient.setServerIndex(null);
 
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return  registrationOfferingApi.getCategoriesListUsingGETWithHttpInfo(page, size, sort);
+        return  registrationOfferingApi.getAllCategoriesWithHttpInfo();
 
     }
 }

@@ -33,9 +33,9 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.ContractParameters;
-import com.i3m.model.backplane.ContractsParametersForOfferings;
+import com.i3m.model.backplane.OfferingContracts;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
@@ -47,7 +47,8 @@ import java.util.List;
 
 
 public class RetrieveContractParametersByOfferingId {
-    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
+	
+    public ApiResponse<List<OfferingContracts>> getOfferingContractsByOfferingId(String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -57,9 +58,9 @@ public class RetrieveContractParametersByOfferingId {
 
         apiClient.setServerIndex(null);
 
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return  registrationOfferingApi.getOfferingContractsByOfferingIdUsingGETWithHttpInfo(offeringId, page, size, sort);
+        return registrationOfferingApi.contractParametersAggregateByOfferingIdWithHttpInfo(offeringId);
 
     }
 }

@@ -32,23 +32,22 @@ package com.i3market.sdk.ri.common_services.data.offering;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.OfferingControllerApi;
+import com.i3m.model.backplane.DataProvider;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
-/**
- * @author qaiser
- * @email: qaiser.mehmood@insight-centre.org
- * @project i3-sdk-ri
- */
-public class DeleteOfferingById {
+public class DeleteDataProvider {
+	
+	private static final Logger _log = LoggerFactory.getLogger(RegisterDataProvider.class);
+    public DeleteDataProvider() {
+    }
 
-    private static final Logger _log = LoggerFactory.getLogger(DeleteOfferingById.class);
-
-    public ApiResponse<Void> deleteOffering(String offeringId) throws ApiException {
+    public ApiResponse<Void> deleteProvider (String dataProviderId) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -58,11 +57,13 @@ public class DeleteOfferingById {
 
         apiClient.setServerIndex(null);
 
-        _log.debug("deleting a data offering with id {} ", offeringId);
+        _log.debug("deleting provider with Id: ", dataProviderId);
         OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return registrationOfferingApi.deleteOfferingWithHttpInfo(offeringId);
+        return registrationOfferingApi.deleteDataProviderWithHttpInfo(dataProviderId);
 
         //return new ApiResponse(HttpStatus.SC_OK, null);
+
     }
+
 }

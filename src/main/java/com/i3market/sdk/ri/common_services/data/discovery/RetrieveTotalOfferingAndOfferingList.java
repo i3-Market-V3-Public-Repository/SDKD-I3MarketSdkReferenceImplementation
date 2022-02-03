@@ -4,7 +4,7 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.DataOfferingDto;
 import com.i3m.model.backplane.Offerings;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -18,7 +18,7 @@ public class RetrieveTotalOfferingAndOfferingList {
 
     private static final Logger _log = LoggerFactory.getLogger(RetrieveTotalOfferingAndOfferingList.class);
 
-    public ApiResponse<List<Offerings>> getTotalOfferingAndOfferingList(
+    public ApiResponse<Offerings> getTotalOfferingAndOfferingList(
             String providerId, String category,
             Integer page, Integer size, String sortBy, String orderBy) throws ApiException {
 
@@ -30,8 +30,9 @@ public class RetrieveTotalOfferingAndOfferingList {
 
         apiClient.setServerIndex(null);
 
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
-        return registrationOfferingApi.getTotalOfferingAndOfferingListUsingGETWithHttpInfo(providerId, category, page, size, sortBy, orderBy);
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        
+        return registrationOfferingApi.getOfferingByProviderIdAndCategorySortedWithHttpInfo(providerId, category, page, size, orderBy, sortBy);
 
     }
 

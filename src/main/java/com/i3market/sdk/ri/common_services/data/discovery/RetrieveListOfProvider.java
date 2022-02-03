@@ -33,7 +33,7 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.OfferingsList;
 import com.i3m.model.backplane.ProvidersList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -52,9 +52,9 @@ public class RetrieveListOfProvider {
 
         apiClient.setServerIndex(null);
 
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return  registrationOfferingApi.getProvidersListByCategoryGETWithHttpInfo(category, page, size, sort);
+        return registrationOfferingApi.getProviderByCategoryWithHttpInfo(category, page, size);
 
     }
 
@@ -68,9 +68,9 @@ public class RetrieveListOfProvider {
 
         apiClient.setServerIndex(null);
 
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return  registrationOfferingApi.getProvidersListUsingGETWithHttpInfo(page, size, sort);
+        return  registrationOfferingApi.getAllProvidersWithHttpInfo(page, size);
 
     }
 }
