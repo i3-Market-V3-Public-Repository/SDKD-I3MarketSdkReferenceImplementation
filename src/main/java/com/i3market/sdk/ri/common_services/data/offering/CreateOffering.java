@@ -33,8 +33,9 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.DataOffering;
+import com.i3m.model.backplane.DataOfferingDto;
 import com.i3m.model.backplane.DataOfferingId;
 import com.i3m.model.backplane.OfferingsList;
 import com.i3m.model.backplane.ProvidersList;
@@ -50,7 +51,7 @@ public class CreateOffering {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public ApiResponse<List<DataOfferingId>> createOffering (DataOffering dataOffering) throws ApiException {
+    public ApiResponse<List<DataOfferingId>> createOffering (DataOfferingDto dataOfferingDto) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -60,10 +61,10 @@ public class CreateOffering {
 
         apiClient.setServerIndex(null);
 
-        _log.debug("creating a data offering {} ", dataOffering);
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+        _log.debug("creating a data offering {} ", dataOfferingDto);
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
 
-        return registrationOfferingApi.dataOfferingUsingPOSTWithHttpInfo(dataOffering);
+        return registrationOfferingApi.saveDataOfferingWithHttpInfo(dataOfferingDto);
 
 //        return new ApiResponse(HttpStatus.SC_OK, null);
 

@@ -46,6 +46,9 @@ public class Routes {
 
 	// The get routes the request to respective services to delete a data offering by offeringId
 	public static String delete_offering_by_id= "/api/sdk-ri/delete-offering/{id}";
+	
+	// The get routes the request to respective services to delete a provider by providerId
+	public static String delete_provider_by_id= "/api/sdk-ri/registration/data-provider/{providerId}";
 
 	// The get routes the request to respective services to retrieve contract parameters by offeringId
 	public static String get_contract_parameters_by_offeringid= "/api/sdk-ri/offering/contract-parameter/{offeringId}/offeringId";

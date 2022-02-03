@@ -55,6 +55,14 @@ public class CommonServicesEndpoints {
 				when().delete(Routes.delete_offering_by_id, id);
 		return response;
 	}
+	
+	public static Response deleteProvider(String token, String id){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("Authorization", "Bearer " + token).
+				when().delete(Routes.delete_provider_by_id, id);
+		return response;
+	}
 
 	public static Response getContractByOfferingId(String token, String id){
 		RestAssured.baseURI= Routes.base_uri;

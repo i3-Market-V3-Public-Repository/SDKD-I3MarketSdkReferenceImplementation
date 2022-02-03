@@ -452,6 +452,15 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
+	
+	@Test(priority = 16)
+	public void testDeleteProvider()  {
+
+		System.out.println("************************************{DELETE PROVIDER}************************************");
+		Response response= CommonServicesEndpoints.deleteProvider(auth_token, providerId);
+		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////// NOTIFICATIONS /////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

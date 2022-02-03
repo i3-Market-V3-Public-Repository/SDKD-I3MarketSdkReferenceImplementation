@@ -29,46 +29,94 @@
 */
 package com.i3market.sdk.ri.resource;
 
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
-import com.i3m.model.backplane.*;
+import com.i3m.model.backplane.Balances;
+import com.i3m.model.backplane.ClearBalance;
+import com.i3m.model.backplane.ClearingBalance;
+import com.i3m.model.backplane.CreateSubscription;
+import com.i3m.model.backplane.DataOffering;
+import com.i3m.model.backplane.DataOfferingDto;
+import com.i3m.model.backplane.DataOfferingId;
+import com.i3m.model.backplane.DataProvider;
+import com.i3m.model.backplane.DataProviderPayment;
+import com.i3m.model.backplane.DeployTransactionToBesu;
+import com.i3m.model.backplane.DeployedSignedTransaction;
+import com.i3m.model.backplane.ExchangeIn;
+import com.i3m.model.backplane.ExchangeMoneyForTokens;
+import com.i3m.model.backplane.ExchangeOut;
+import com.i3m.model.backplane.ExchangeTokensForMoney;
+import com.i3m.model.backplane.InlineResponse2003;
+import com.i3m.model.backplane.InlineResponse2004;
+import com.i3m.model.backplane.MarkTokenAsPaid;
+import com.i3m.model.backplane.MarketplaceIndex;
+import com.i3m.model.backplane.Notification;
+import com.i3m.model.backplane.Payment;
+import com.i3m.model.backplane.RegisterMarketplace;
+import com.i3m.model.backplane.RegisterMarketplace1;
+import com.i3m.model.backplane.ServiceNotification;
+import com.i3m.model.backplane.SetPaid;
+import com.i3m.model.backplane.Subscription;
+import com.i3m.model.backplane.UserNotification;
+import com.i3m.model.backplane.UserSubscriptionList;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
-import com.i3market.sdk.ri.common_services.data.discovery.*;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveCategoryList;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveContractParametersByOfferingId;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveListOfProvider;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingList;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingTemplate;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveTotalOfferingAndOfferingList;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
+import com.i3market.sdk.ri.common_services.data.offering.DeleteDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
-import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
 import com.i3market.sdk.ri.common_services.notification.CreateNotification;
 import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
-import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
 import com.i3market.sdk.ri.common_services.notification.ModifyNotification;
+import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
+import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.io.FileInputStream;
-import java.util.List;
-import java.util.logging.Logger;
 
 //import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 
@@ -154,10 +202,11 @@ public class SdkRiHub {
 
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		mapper.configure(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(
-					new RetrieveTotalOfferingAndOfferingList().getTotalOfferingAndOfferingList(providerId, category, page, size, sortBy, orderBy));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveTotalOfferingAndOfferingList().getTotalOfferingAndOfferingList(providerId, category, page, size, sortBy, orderBy));
+					
 		} catch (ProcessingException | JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -218,7 +267,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(dataOffering);
 	}
 
@@ -405,12 +454,22 @@ public class SdkRiHub {
 	}
 
 
+	@DELETE
+	@Path("/registration/data-provider/{providerId}")
+	@ApiOperation(value = "delete an existing data provider", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete data provider")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Void> deleteDataProvider(@PathParam("providerId") String dataProviderId) throws ApiException {
+		return new DeleteDataProvider().deleteProvider(dataProviderId);
+	}
+	
     @PATCH
     @Path("/update-offering")
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
+    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(dataOffering);
     }
 

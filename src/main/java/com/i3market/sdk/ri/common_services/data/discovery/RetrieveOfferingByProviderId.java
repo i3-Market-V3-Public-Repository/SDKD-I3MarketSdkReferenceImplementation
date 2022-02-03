@@ -33,12 +33,15 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.RegistrationOfferingApi;
+import com.i3m.api.backplane.OfferingControllerApi;
 import com.i3m.model.backplane.DataOfferingDto;
+import com.i3m.model.backplane.ExtDataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -52,7 +55,7 @@ public class RetrieveOfferingByProviderId {
     public RetrieveOfferingByProviderId() {
     }
 
-    public ApiResponse<List<DataOfferingDto>> getOfferingByProviderId(String id, int page, int size, List<String> sort) throws ApiException {
+    public ApiResponse<List<ExtDataOfferingDto>> getOfferingByProviderId(String id, int page, int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -63,8 +66,9 @@ public class RetrieveOfferingByProviderId {
         apiClient.setServerIndex(null);
 
         _log.debug("parameters to get offerings by provider id are: provider_id {} page {} size {} sort {} ", id, page, size, sort);
-        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
-        return registrationOfferingApi.getAllRegisteredOfferingsUsingGETWithHttpInfo(id, page, size, sort );
+        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        
+        return registrationOfferingApi.offeringAggregateByProviderIdWithHttpInfo(id, page, size);
 
     }
 
