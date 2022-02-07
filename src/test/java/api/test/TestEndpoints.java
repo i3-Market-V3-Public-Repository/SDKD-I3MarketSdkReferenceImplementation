@@ -332,9 +332,8 @@ public class TestEndpoints {
 		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
 		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
-		JSONObject body = new JSONObject(response.getBody().asString());
-		JSONArray JsonArray = body.getJSONArray("data");
-		obtainedOfferingBody = JsonArray.getJSONObject(0);
+		JSONArray body = new JSONArray(response.getBody().asString());
+		obtainedOfferingBody = body.getJSONObject(0);
 		System.out.println("*************************DATA OBTAINED: " + obtainedOfferingBody.toString()+ "*******************************************");
 	}
 
@@ -458,7 +457,7 @@ public class TestEndpoints {
 
 		System.out.println("************************************{DELETE PROVIDER}************************************");
 		Response response= CommonServicesEndpoints.deleteProvider(auth_token, providerId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+		Object data = response.then().log().body().statusCode(200);
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
