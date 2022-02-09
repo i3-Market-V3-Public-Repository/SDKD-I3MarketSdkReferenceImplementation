@@ -32,6 +32,10 @@ package api.test;
 import api.engine.endpoints.CommonServicesEndpoints;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.BeforeTest;
@@ -332,8 +336,9 @@ public class TestEndpoints {
 		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
 		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
-		JSONArray body = new JSONArray(response.getBody().asString());
-		obtainedOfferingBody = body.getJSONObject(0);
+		JsonPath jsonPathEvaluator = response.jsonPath();
+		JSONArray data = new JSONArray((Collection<?>)jsonPathEvaluator.get("data"));
+		obtainedOfferingBody = data.getJSONObject(0);
 		System.out.println("*************************DATA OBTAINED: " + obtainedOfferingBody.toString()+ "*******************************************");
 	}
 
@@ -341,9 +346,9 @@ public class TestEndpoints {
 	public void testUpdateOffering()  {
 
 		System.out.println("************************************{OFFERING UPDATE}************************************");
-		Integer version = (int) obtainedOfferingBody.get("version");  //GET CURRENT VERSION AS INT
-		version = version + 1; // INCREASE VERSION COUNTER
-		obtainedOfferingBody.put("version", version); //UPDATE VERSION KEY
+		//Integer version = (int) obtainedOfferingBody.get("version");  //GET CURRENT VERSION AS INT
+		//version = version + 1; // INCREASE VERSION COUNTER
+		//obtainedOfferingBody.put("version", version); //UPDATE VERSION KEY
 		System.out.println("Offering ID "+dataOfferingId+" to update with values:\n"+obtainedOfferingBody);
 		Response response= CommonServicesEndpoints.updateDataOffering(auth_token, obtainedOfferingBody.toString());
 		response.then().log().body().statusCode(200);
@@ -460,6 +465,7 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200);
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////// NOTIFICATIONS /////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -627,7 +633,7 @@ public class TestEndpoints {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// CONTRACT ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/**
+	
 	@Test(priority = 34)
 	public void testGetContractTemplateByIdOffering()  {
 
@@ -895,5 +901,5 @@ public class TestEndpoints {
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
-	**/
+	
 }
