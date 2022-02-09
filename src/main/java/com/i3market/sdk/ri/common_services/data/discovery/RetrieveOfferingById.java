@@ -33,9 +33,8 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.OfferingControllerApi;
+import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.DataOfferingDto;
-import com.i3m.model.backplane.ExtDataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import org.slf4j.Logger;
@@ -53,7 +52,7 @@ public class RetrieveOfferingById {
     private static final Logger _log = LoggerFactory.getLogger(RetrieveOfferingById.class);
 
 
-    public List<ExtDataOfferingDto> getDataOfferingById(String id, int page, int size, List<String> sort) throws ApiException {
+    public  ApiResponse<List<DataOfferingDto>> getDataOfferingById(String id, int page, int size, List<String> sort) throws ApiException {
 
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
@@ -66,9 +65,9 @@ public class RetrieveOfferingById {
 
         _log.debug("parameters to get offering by id are: provider_id {} page {} size {} sort {} ", id, page, size, sort);
 
-        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return registrationOfferingApi.offeringAggregateByOfferingId(id);
+        return registrationOfferingApi.getRegisteredOfferingUsingGETWithHttpInfo(id, page, size, sort);
 
     }
 

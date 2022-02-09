@@ -33,7 +33,7 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.OfferingControllerApi;
+import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.OfferingsList;
 import com.i3m.model.backplane.ProvidersList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -42,7 +42,7 @@ import java.util.List;
 
 public class RetrieveListOfProvider {
 
-    public ApiResponse<List<ProvidersList>> getProviderListByCategory(String category, Integer page, Integer size, List<String> sort) throws ApiException {
+    public List<ProvidersList> getProviderListByCategory(String category, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -52,9 +52,9 @@ public class RetrieveListOfProvider {
 
         apiClient.setServerIndex(null);
 
-        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return registrationOfferingApi.getProviderByCategoryWithHttpInfo(category, page, size);
+        return registrationOfferingApi.getProvidersListByCategoryGET(category, page, size, sort);
 
     }
 
@@ -68,9 +68,9 @@ public class RetrieveListOfProvider {
 
         apiClient.setServerIndex(null);
 
-        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return  registrationOfferingApi.getAllProvidersWithHttpInfo(page, size);
+        return  registrationOfferingApi.getProvidersListUsingGETWithHttpInfo(page, size, sort);
 
     }
 }

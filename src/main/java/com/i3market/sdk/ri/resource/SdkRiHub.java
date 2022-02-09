@@ -267,7 +267,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(dataOffering);
 	}
 
@@ -469,7 +469,7 @@ public class SdkRiHub {
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
+    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(dataOffering);
     }
 

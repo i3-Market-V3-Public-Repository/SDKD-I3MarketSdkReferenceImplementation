@@ -33,9 +33,8 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.OfferingControllerApi;
+import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.DataOfferingDto;
-import com.i3m.model.backplane.ExtDataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Collections;
@@ -48,7 +47,7 @@ import java.util.List;
  */
 public class RetrieveOfferingByCategory {
 
-    public ApiResponse<List<ExtDataOfferingDto>> getOfferingByCategory(String category, int page, int size, List<String> sort) throws ApiException {
+    public  ApiResponse<List<DataOfferingDto>> getOfferingByCategory(String category, int page, int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -58,9 +57,9 @@ public class RetrieveOfferingByCategory {
 
         apiClient.setServerIndex(null);
 
-        OfferingControllerApi registrationOfferingApi = new OfferingControllerApi();
+        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return  registrationOfferingApi.offeringAggregateByCategoryWithHttpInfo(category, page, size);
+        return  registrationOfferingApi.getAllRegisteredOfferingsByCategoryUsingGETWithHttpInfo(category, page, size, sort);
 
     }
 }
