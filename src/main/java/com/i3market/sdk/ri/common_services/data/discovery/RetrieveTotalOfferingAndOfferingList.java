@@ -18,7 +18,7 @@ public class RetrieveTotalOfferingAndOfferingList {
 
     private static final Logger _log = LoggerFactory.getLogger(RetrieveTotalOfferingAndOfferingList.class);
 
-    public  ApiResponse<List<Offerings>> getTotalOfferingAndOfferingList(
+    public  ApiResponse<Offerings> getTotalOfferingAndOfferingList(
             String providerId, String category,
             Integer page, Integer size, String sortBy, String orderBy) throws ApiException {
 
