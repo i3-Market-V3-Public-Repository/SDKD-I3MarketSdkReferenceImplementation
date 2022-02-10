@@ -41,7 +41,7 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import java.util.List;
 
 public class RetrieveOfferingList {
-    public List<OfferingsList> getDataOfferingList(Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<OfferingsList>> getDataOfferingList(Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -53,7 +53,7 @@ public class RetrieveOfferingList {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return  registrationOfferingApi.getOfferingsListUsingGET(page, size, sort);
+        return  registrationOfferingApi.getOfferingsListUsingGETWithHttpInfo(page, size, sort);
 
     }
 }
