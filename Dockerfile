@@ -1,4 +1,4 @@
-FROM maven:3.8.3-jdk-8 as initial
+FROM maven:3.8.4-jdk-8 as initial
 ARG TEST
 ARG BACKPLANE_URL
 ARG OIDC_URL
