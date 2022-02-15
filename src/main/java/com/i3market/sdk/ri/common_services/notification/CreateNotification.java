@@ -38,6 +38,9 @@ import com.i3m.model.backplane.ServiceNotification;
 import com.i3m.model.backplane.UserNotification;
 import com.i3m.model.backplane.Notification;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
+import javax.ws.rs.core.HttpHeaders;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,15 +51,21 @@ public class CreateNotification {
     //public CreateNotification() {
     //}
 
-    public ApiResponse<Object> createServiceNotification (ServiceNotification body) throws ApiException {
+    public ApiResponse<Object> createServiceNotification (HttpHeaders httpHeaders, ServiceNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("creating a service notification {}", body);
         NotificationsApi notificationsApi = new NotificationsApi();
@@ -64,15 +73,21 @@ public class CreateNotification {
 
     }
 
-    public ApiResponse<Notification> createUserNotification (UserNotification body) throws ApiException {
+    public ApiResponse<Notification> createUserNotification (HttpHeaders httpHeaders, UserNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("creating a user notification {}", body);
         NotificationsApi notificationsApi = new NotificationsApi();

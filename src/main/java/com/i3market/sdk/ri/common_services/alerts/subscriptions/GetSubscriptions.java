@@ -42,6 +42,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class GetSubscriptions {
 
     private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.data.offering.CreateOffering.class);
@@ -49,15 +51,21 @@ public class GetSubscriptions {
     public GetSubscriptions() {
     }
 
-    public ApiResponse<List<UserSubscriptionList>> getSubscriptions () throws ApiException {
+    public ApiResponse<List<UserSubscriptionList>> getSubscriptions (HttpHeaders httpHeaders) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Getting Users subscriptions");
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();
@@ -65,15 +73,21 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersSubscriptionsWithHttpInfo();
     }
 
-    public ApiResponse<List<Subscription>> getSubscriptionByUserID (String user_id) throws ApiException {
+    public ApiResponse<List<Subscription>> getSubscriptionByUserID (HttpHeaders httpHeaders, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Getting User {} subscriptions", user_id);
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();
@@ -81,15 +95,22 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersByUserIdSubscriptionsWithHttpInfo(user_id);
     }
 
-    public ApiResponse<Subscription> getSubscriptionByUserIDSubscriptionId (String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> getSubscriptionByUserIDSubscriptionId (HttpHeaders httpHeaders, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Getting User {} subscriptions", user_id);
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();

@@ -43,6 +43,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Collections;
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 /**
  * @author qaiser
  * @email: qaiser.mehmood@insight-centre.org
@@ -54,15 +56,22 @@ public class RetrieveOfferingByProviderId {
     public RetrieveOfferingByProviderId() {
     }
 
-    public  ApiResponse<List<DataOfferingDto>> getOfferingByProviderId(String id, int page, int size, List<String> sort) throws ApiException {
+    public  ApiResponse<List<DataOfferingDto>> getOfferingByProviderId(HttpHeaders httpHeaders, String id, int page, int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("parameters to get offerings by provider id are: provider_id {} page {} size {} sort {} ", id, page, size, sort);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();

@@ -31,6 +31,8 @@ package com.i3market.sdk.ri.common_services.data.exchange;
 
 import java.util.Map;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import java.util.Base64;
 import java.util.Date;
 import java.io.File;
@@ -115,7 +117,7 @@ public class AccountDataBlock {
 		}
 	}
 
-	public String accountDataBlock(String bearerToken, InlineObject blockIdAck, String data)
+	public String accountDataBlock(HttpHeaders httpHeaders, String bearerToken, InlineObject blockIdAck, String data)
 			throws ApiException {
 
 		// local
@@ -126,6 +128,8 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
+		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
@@ -133,6 +137,10 @@ public class AccountDataBlock {
 
 		apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
 		String jwt = "Bearer " + bearerToken;
 
 		Map<String, Authentication> authentications = apiClient.getAuthentications();
@@ -147,15 +155,21 @@ public class AccountDataBlock {
 		return response;
 	}
 
-	public Invoice createInvoice(String bearerToken, String fromDate, String toDate) throws ApiException {
+	public Invoice createInvoice(HttpHeaders httpHeaders, String bearerToken, String fromDate, String toDate) throws ApiException {
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
+		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 
@@ -231,7 +245,7 @@ public class AccountDataBlock {
 	}
 
 	// Test to fetch entire file
-	public String getFile (String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
+	public String getFile (HttpHeaders httpHeaders, String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
 
 		String check = "not null";
 		String response = null;
@@ -254,12 +268,18 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
+		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 

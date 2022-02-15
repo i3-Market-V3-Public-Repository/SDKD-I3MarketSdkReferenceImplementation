@@ -47,19 +47,28 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class CreateOffering {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public  ApiResponse<List<DataOfferingId>> createOffering (DataOffering dataOfferingDto) throws ApiException {
+    public  ApiResponse<List<DataOfferingId>> createOffering (HttpHeaders httpHeaders, DataOffering dataOfferingDto) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("creating a data offering {} ", dataOfferingDto);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();

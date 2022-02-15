@@ -47,6 +47,10 @@ import org.testng.annotations.Test;
 public class TestEndpoints {
 	
 	String auth_token = "";
+	
+	//TOKENS
+	String access_token = "erwe-4543645grf-grdytrey";
+	String id_token = "fewoptjwetn53-4356346,234.54654367";
 
 	// OFFERINGS
 	String newProviderString = "{\"providerId\":\"id123456789\",\"name\":\"provider test\",\"description\":\"this is a test\",\"organization\":[{\"organizationId\":\"organizationTest123\",\"name\":\"this organization is a test\",\"description\":\"this organization is a test plus description\",\"address\":\"this is an optional address\",\"contactPoint\":\"this is an optional contact point\"}]}";
@@ -58,7 +62,7 @@ public class TestEndpoints {
 			"  \"owner\": \"Owner webri node 249\",\n" +
 			"  \"dataOfferingTitle\": \"Offsore Wind Turbine\",\n" +
 			"  \"dataOfferingDescription\": \"This is offshore wind turbine data\",\n" +
-			"  \"category\": \"engineering\",\n" +
+			"  \"category\": \"Energy\",\n" +
 			"  \"status\": \"activated\",\n" +
 			"  \"dataOfferingExpirationTime\": \"1month\",\n" +
 			"  \"contractParameters\": [\n" +
@@ -185,7 +189,7 @@ public class TestEndpoints {
 	String dataOfferingId = "";
 	JSONObject obtainedOfferingBody = null;
 
-	String category = "Agriculture";
+	String category = "Energy";
 
 	// NOTIFICATIONS
 	String newUserNotification = "{\n" +
@@ -304,7 +308,7 @@ public class TestEndpoints {
 	public void testOfferingTemplate()  {
 	
 		System.out.println("************************************{OFFERING TEMPLATE}************************************");
-	    Response response= CommonServicesEndpoints.getOfferingTemplate(auth_token);
+	    Response response= CommonServicesEndpoints.getOfferingTemplate(access_token, id_token);
 		String data = response.then().log().body().statusCode(200).extract().path("data");
 	    System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -314,7 +318,7 @@ public class TestEndpoints {
 
 		System.out.println("************************************{PROVIDER CREATION}************************************");
 
-		Response response= CommonServicesEndpoints.postDataProvider(auth_token, newProviderBody.toString());
+		Response response= CommonServicesEndpoints.postDataProvider(access_token, id_token, newProviderBody.toString());
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
@@ -323,7 +327,7 @@ public class TestEndpoints {
 	public void testOfferingCreation()  {
 
 		System.out.println("************************************{OFFERING CREATION}************************************");
-		Response response= CommonServicesEndpoints.postDataOffering(auth_token, newOfferingBody.toString());
+		Response response= CommonServicesEndpoints.postDataOffering(access_token, id_token, newOfferingBody.toString());
 		dataOfferingId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data[0].dataOfferingId").toString();
 		response.then().log().body().statusCode(200);
 
@@ -334,7 +338,7 @@ public class TestEndpoints {
 	public void testSearchOfferingByOfferingId()  {
 
 		System.out.println("****************************{OFFERING SEARCH BY OFFERINGID}************************************");
-		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(auth_token, dataOfferingId);
+		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(access_token, id_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
 		JsonPath jsonPathEvaluator = response.jsonPath();
 		JSONArray data = new JSONArray((Collection<?>)jsonPathEvaluator.get("data"));
@@ -350,7 +354,7 @@ public class TestEndpoints {
 		//version = version + 1; // INCREASE VERSION COUNTER
 		//obtainedOfferingBody.put("version", version); //UPDATE VERSION KEY
 		System.out.println("Offering ID "+dataOfferingId+" to update with values:\n"+obtainedOfferingBody);
-		Response response= CommonServicesEndpoints.updateDataOffering(auth_token, obtainedOfferingBody.toString());
+		Response response= CommonServicesEndpoints.updateDataOffering(access_token, id_token, obtainedOfferingBody.toString());
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
@@ -359,7 +363,7 @@ public class TestEndpoints {
 	public void testCategoriesList()  {
 
 		System.out.println("************************************{CATEGORIES LISTING}************************************");
-		Response response= CommonServicesEndpoints.searchCatergoriesList(auth_token);
+		Response response= CommonServicesEndpoints.searchCatergoriesList(access_token, id_token);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -368,7 +372,7 @@ public class TestEndpoints {
 	public void testOfferingSearchByCategory()  {
 	
 		System.out.println("************************************{OFFERING SEARCH BY CATEGORY}************************************");
-	    Response response= CommonServicesEndpoints.searchOfferingByCategory(auth_token,"Agriculture");
+	    Response response= CommonServicesEndpoints.searchOfferingByCategory(access_token, id_token, category);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -377,7 +381,7 @@ public class TestEndpoints {
 	public void testSearchOfferingByProviderId()  {
 
 		System.out.println("************************************{OFFERING SEARCH BY PROVIDERID}************************************");
-		Response response= CommonServicesEndpoints.searchOfferingByProviderId(auth_token, providerId);
+		Response response= CommonServicesEndpoints.searchOfferingByProviderId(access_token, id_token, providerId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
 	}
@@ -386,7 +390,7 @@ public class TestEndpoints {
 	public void testProvidersByCategory()  {
 
 		System.out.println("************************************{OFFERING SEARCH BY CATEGORY}************************************");
-		Response response= CommonServicesEndpoints.searchOfferingByCategory(auth_token,category);
+		Response response= CommonServicesEndpoints.searchOfferingByCategory(access_token, id_token, category);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
 	}
@@ -395,7 +399,7 @@ public class TestEndpoints {
 	public void testProvidersByCategories()  {
 
 		System.out.println("************************************{PROVIDERS LIST}************************************");
-		Response response= CommonServicesEndpoints.getProvidersByCategory(auth_token, category);
+		Response response= CommonServicesEndpoints.getProvidersByCategory(access_token, id_token, category);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -404,7 +408,7 @@ public class TestEndpoints {
 	public void testProvidersList()  {
 
 		System.out.println("************************************{PROVIDERS LIST}************************************");
-		Response response= CommonServicesEndpoints.getProvidersList(auth_token);
+		Response response= CommonServicesEndpoints.getProvidersList(access_token, id_token);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -413,7 +417,7 @@ public class TestEndpoints {
 	public void testOfferingsList()  {
 
 		System.out.println("************************************{OFFERINGS LIST}************************************");
-		Response response= CommonServicesEndpoints.getOfferingsList(auth_token);
+		Response response= CommonServicesEndpoints.getOfferingsList(access_token, id_token);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -434,7 +438,7 @@ public class TestEndpoints {
 	public void testContractByOfferingId()  {
 
 		System.out.println("************************************{CONTRACT BY OFFERINGID}************************************");
-		Response response= CommonServicesEndpoints.getContractByOfferingId(auth_token, dataOfferingId);
+		Response response= CommonServicesEndpoints.getContractByOfferingId(access_token, id_token, dataOfferingId);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -443,7 +447,7 @@ public class TestEndpoints {
 	public void testDeleteOffering()  {
 
 		System.out.println("************************************{OFFERING DELETE}************************************");
-		Response response= CommonServicesEndpoints.deleteOffering(auth_token, dataOfferingId);
+		Response response= CommonServicesEndpoints.deleteOffering(access_token, id_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
 		System.out.println("******************************************************************************************");
 	}
@@ -452,7 +456,7 @@ public class TestEndpoints {
 	public void testGetOfferingList()  {
 
 		System.out.println("************************************{OFFERINGS LIST}************************************");
-		Response response= CommonServicesEndpoints.getOfferingsList(auth_token);
+		Response response= CommonServicesEndpoints.getOfferingsList(access_token, id_token);
 		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -461,7 +465,7 @@ public class TestEndpoints {
 	public void testDeleteProvider()  {
 
 		System.out.println("************************************{DELETE PROVIDER}************************************");
-		Response response= CommonServicesEndpoints.deleteProvider(auth_token, providerId);
+		Response response= CommonServicesEndpoints.deleteProvider(access_token, id_token, providerId);
 		Object data = response.then().log().body().statusCode(200);
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
@@ -470,436 +474,436 @@ public class TestEndpoints {
 	//////////////////////////////////////////////// NOTIFICATIONS /////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 17)
-	public void testGetUsersStoredNotificationList()  {
-
-		System.out.println("************************************{NOTIFICATION LIST}************************************");
-		Response response= CommonServicesEndpoints.getUserNotifications(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 18)
-	public void testPostUserNotification()  {
-
-		System.out.println("************************************{CREATE USER NOTIFICATION}************************************");
-		Response response= CommonServicesEndpoints.postUserNotification(auth_token, newUserNotificationBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		createdNotificationId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.id").toString();
-		System.out.println("************************************ID OBTAINED: "+ createdNotificationId + "\nDATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 19)
-	public void testPostServiceNotification()  {
-
-		System.out.println("************************************{CREATE SERVICE NOTIFICATION}************************************");
-		Response response= CommonServicesEndpoints.postServiceNotification(auth_token, newServiceNotificationBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-
-	}
-
-	@Test(priority = 20)
-	public void testGetUnreadNotificationList()  {
-
-		System.out.println("************************************{UNREAD NOTIFICATIONS LIST}************************************");
-		Response response= CommonServicesEndpoints.getUserNotifications(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 21)
-	public void testGetNotificationByUserId()  {
-
-		System.out.println("************************************{NOTIFICATIONS BY USER ID}************************************");
-		Response response= CommonServicesEndpoints.getUserNotificationsByUserId(auth_token, "UserID345");
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
-	}
-
-	@Test(priority = 22)
-	public void testGetUnreadNotificationByUserId()  {
-
-		System.out.println("************************************{UNREAD NOTIFICATIONS BY USER ID}************************************");
-		Response response= CommonServicesEndpoints.getUnreadUserNotificationsByUserId(auth_token, "UserID345");
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 23)
-	public void testGetNotificationByNotificationId()  {
-
-		System.out.println("************************************{NOTIFICATIONS BY NOTIFICATION ID}************************************");
-		Response response= CommonServicesEndpoints.getUserNotificationsByNotificationId(auth_token, createdNotificationId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 24)
-	public void testPatchNotificationAsReadByNotificationId()  {
-
-		System.out.println("************************************{MARK NOTIFICATION AS READ BY NOTIFICATION ID}************************************");
-		Response response= CommonServicesEndpoints.patchMarkNotificationAsRead(auth_token, createdNotificationId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 25)
-	public void testPatchNotificationAsUnreadByNotificationId()  {
-
-		System.out.println("************************************{MARK NOTIFICATION AS UNREAD BY NOTIFICATION ID}************************************");
-		Response response= CommonServicesEndpoints.patchMarkNotificationAsUnread(auth_token, createdNotificationId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 26)
-	public void testDeleteNotificationByNotificationId()  {
-
-		System.out.println("************************************{DELETE NOTIFICATION BY NOTIFICATION ID}************************************");
-		Response response= CommonServicesEndpoints.deleteUserNotificationsByNotificationId(auth_token, createdNotificationId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 17)
+//	public void testGetUsersStoredNotificationList()  {
+//
+//		System.out.println("************************************{NOTIFICATION LIST}************************************");
+//		Response response= CommonServicesEndpoints.getUserNotifications(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 18)
+//	public void testPostUserNotification()  {
+//
+//		System.out.println("************************************{CREATE USER NOTIFICATION}************************************");
+//		Response response= CommonServicesEndpoints.postUserNotification(access_token, id_token, newUserNotificationBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		createdNotificationId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.id").toString();
+//		System.out.println("************************************ID OBTAINED: "+ createdNotificationId + "\nDATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 19)
+//	public void testPostServiceNotification()  {
+//
+//		System.out.println("************************************{CREATE SERVICE NOTIFICATION}************************************");
+//		Response response= CommonServicesEndpoints.postServiceNotification(access_token, id_token, newServiceNotificationBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//
+//	}
+//
+//	@Test(priority = 20)
+//	public void testGetUnreadNotificationList()  {
+//
+//		System.out.println("************************************{UNREAD NOTIFICATIONS LIST}************************************");
+//		Response response= CommonServicesEndpoints.getUserNotifications(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 21)
+//	public void testGetNotificationByUserId()  {
+//
+//		System.out.println("************************************{NOTIFICATIONS BY USER ID}************************************");
+//		Response response= CommonServicesEndpoints.getUserNotificationsByUserId(access_token, id_token, "UserID345");
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "*******************************************");
+//	}
+//
+//	@Test(priority = 22)
+//	public void testGetUnreadNotificationByUserId()  {
+//
+//		System.out.println("************************************{UNREAD NOTIFICATIONS BY USER ID}************************************");
+//		Response response= CommonServicesEndpoints.getUnreadUserNotificationsByUserId(access_token, id_token, "UserID345");
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 23)
+//	public void testGetNotificationByNotificationId()  {
+//
+//		System.out.println("************************************{NOTIFICATIONS BY NOTIFICATION ID}************************************");
+//		Response response= CommonServicesEndpoints.getUserNotificationsByNotificationId(access_token, id_token, createdNotificationId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 24)
+//	public void testPatchNotificationAsReadByNotificationId()  {
+//
+//		System.out.println("************************************{MARK NOTIFICATION AS READ BY NOTIFICATION ID}************************************");
+//		Response response= CommonServicesEndpoints.patchMarkNotificationAsRead(access_token, id_token, createdNotificationId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 25)
+//	public void testPatchNotificationAsUnreadByNotificationId()  {
+//
+//		System.out.println("************************************{MARK NOTIFICATION AS UNREAD BY NOTIFICATION ID}************************************");
+//		Response response= CommonServicesEndpoints.patchMarkNotificationAsUnread(access_token, id_token, createdNotificationId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 26)
+//	public void testDeleteNotificationByNotificationId()  {
+//
+//		System.out.println("************************************{DELETE NOTIFICATION BY NOTIFICATION ID}************************************");
+//		Response response= CommonServicesEndpoints.deleteUserNotificationsByNotificationId(access_token, id_token, createdNotificationId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////// ALERT SUBSCRIPTIONS //////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 27)
-	public void testGetAllUsersSubscriptions()  {
-
-		System.out.println("************************************{GET ALL USERS SUBSCRIPTIONS}************************************");
-		Response response= CommonServicesEndpoints.getUserSubscriptions(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 28)
-	public void testCreateUsersSubscription()  {
-
-		System.out.println("************************************{CREATE USER SUBSCRIPTIONS}************************************");
-		Response response= CommonServicesEndpoints.postSubscriptionByUserId(auth_token, subscriptionUserId, newUserSubscriptionBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		createdSubscriptionId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.id").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 29)
-	public void testUsersSubscriptionsByUserId()  {
-
-		System.out.println("************************************{GET USER SUBSCRIPTIONS BY USER ID}************************************");
-		Response response= CommonServicesEndpoints.getSubscriptionByUserId(auth_token, subscriptionUserId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 30)
-	public void testUsersSubscriptionsBySubscriptionId()  {
-
-		System.out.println("************************************{GET USER SUBSCRIPTIONS BY SUBSCRIPTION ID}************************************");
-		Response response= CommonServicesEndpoints.getSubscriptionBySubscriptionId(auth_token, subscriptionUserId,createdSubscriptionId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 31)
-	public void testDeactivateUserSubscription()  {
-
-		System.out.println("************************************{DEACTIVATE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.patchDeactivateSubscriptionById(auth_token, subscriptionUserId, createdSubscriptionId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 32)
-	public void testActivateUserSubscription()  {
-
-		System.out.println("************************************{ACTIVATE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.patchActivateSubscriptionById(auth_token, subscriptionUserId, createdSubscriptionId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 33)
-	public void testDeleteUserSubscription()  {
-
-		System.out.println("************************************{DELETE USER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.deleteSubscriptionBySubscriptionId(auth_token, subscriptionUserId, createdSubscriptionId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 27)
+//	public void testGetAllUsersSubscriptions()  {
+//
+//		System.out.println("************************************{GET ALL USERS SUBSCRIPTIONS}************************************");
+//		Response response= CommonServicesEndpoints.getUserSubscriptions(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 28)
+//	public void testCreateUsersSubscription()  {
+//
+//		System.out.println("************************************{CREATE USER SUBSCRIPTIONS}************************************");
+//		Response response= CommonServicesEndpoints.postSubscriptionByUserId(access_token, id_token, subscriptionUserId, newUserSubscriptionBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		createdSubscriptionId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.id").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 29)
+//	public void testUsersSubscriptionsByUserId()  {
+//
+//		System.out.println("************************************{GET USER SUBSCRIPTIONS BY USER ID}************************************");
+//		Response response= CommonServicesEndpoints.getSubscriptionByUserId(access_token, id_token, subscriptionUserId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 30)
+//	public void testUsersSubscriptionsBySubscriptionId()  {
+//
+//		System.out.println("************************************{GET USER SUBSCRIPTIONS BY SUBSCRIPTION ID}************************************");
+//		Response response= CommonServicesEndpoints.getSubscriptionBySubscriptionId(access_token, id_token, subscriptionUserId,createdSubscriptionId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 31)
+//	public void testDeactivateUserSubscription()  {
+//
+//		System.out.println("************************************{DEACTIVATE USER SUBSCRIPTION}************************************");
+//		Response response= CommonServicesEndpoints.patchDeactivateSubscriptionById(access_token, id_token, subscriptionUserId, createdSubscriptionId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 32)
+//	public void testActivateUserSubscription()  {
+//
+//		System.out.println("************************************{ACTIVATE USER SUBSCRIPTION}************************************");
+//		Response response= CommonServicesEndpoints.patchActivateSubscriptionById(access_token, id_token, subscriptionUserId, createdSubscriptionId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 33)
+//	public void testDeleteUserSubscription()  {
+//
+//		System.out.println("************************************{DELETE USER SUBSCRIPTION}************************************");
+//		Response response= CommonServicesEndpoints.deleteSubscriptionBySubscriptionId(access_token, id_token, subscriptionUserId, createdSubscriptionId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// CONTRACT ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Test(priority = 34)
-	public void testGetContractTemplateByIdOffering()  {
-
-		System.out.println("************************************{GET CONTRACT TEMPLATE BY ID OFFERING}************************************");
-		Response response= CommonServicesEndpoints.getContractTemplateByIdOffering(auth_token, dataOfferingId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 34)
+//	public void testGetContractTemplateByIdOffering()  {
+//
+//		System.out.println("************************************{GET CONTRACT TEMPLATE BY ID OFFERING}************************************");
+//		Response response= CommonServicesEndpoints.getContractTemplateByIdOffering(access_token, id_token, dataOfferingId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// CREDENTIAL //////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 35)
-	public void testGetIssuedCredentialList()  {
-
-		System.out.println("************************************{GET CREDENTIAL LIST}************************************");
-		Response response= CommonServicesEndpoints.getIssuedCredentialList(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 36)
-	public void testGenerateCredential()  {
-
-		System.out.println("************************************{GENERATE CREDENTIAL}************************************");
-		Response response= CommonServicesEndpoints.getGenerateVerifiableCredential(auth_token, credential);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 37)
-	public void testVerifyCredentialByjwk()  {
-
-		System.out.println("************************************{VERIFY CREDENTIAL BY jwk}************************************");
-		Response response= CommonServicesEndpoints.postVerifyCredential(auth_token, verifyCredentialBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 38)
-	public void testRevokeCredentialByjwk()  {
-
-		System.out.println("************************************{REVOKE CREDENTIAL}************************************");
-		Response response= CommonServicesEndpoints.postRevokeVerifiableCredential(auth_token, revokeCredentialBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 39)
-	public void testSubscribeIssuer()  {
-
-		System.out.println("************************************{SUBSCRIBE THE ISSUER}************************************");
-		Response response= CommonServicesEndpoints.getSubscribeIssuer(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("*************************DATA OBTAINED: " + data + "*******************************************");
-	}
-
-	@Test(priority = 40)
-	public void testUnsubscribeIssuer()  {
-
-		System.out.println("************************************{UNSUBSCRIBE THE ISSUER}************************************");
-		Response response= CommonServicesEndpoints.getUnsubscribeIssuer(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 41)
-	public void testVerifyIssuerSubscription()  {
-
-		System.out.println("************************************{VERIFY ISSUER SUBSCRIPTION}************************************");
-		Response response= CommonServicesEndpoints.getVerifyIssuerSubscription(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 35)
+//	public void testGetIssuedCredentialList()  {
+//
+//		System.out.println("************************************{GET CREDENTIAL LIST}************************************");
+//		Response response= CommonServicesEndpoints.getIssuedCredentialList(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 36)
+//	public void testGenerateCredential()  {
+//
+//		System.out.println("************************************{GENERATE CREDENTIAL}************************************");
+//		Response response= CommonServicesEndpoints.getGenerateVerifiableCredential(access_token, id_token, credential);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 37)
+//	public void testVerifyCredentialByjwk()  {
+//
+//		System.out.println("************************************{VERIFY CREDENTIAL BY jwk}************************************");
+//		Response response= CommonServicesEndpoints.postVerifyCredential(access_token, id_token, verifyCredentialBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 38)
+//	public void testRevokeCredentialByjwk()  {
+//
+//		System.out.println("************************************{REVOKE CREDENTIAL}************************************");
+//		Response response= CommonServicesEndpoints.postRevokeVerifiableCredential(access_token, id_token, revokeCredentialBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 39)
+//	public void testSubscribeIssuer()  {
+//
+//		System.out.println("************************************{SUBSCRIBE THE ISSUER}************************************");
+//		Response response= CommonServicesEndpoints.getSubscribeIssuer(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("*************************DATA OBTAINED: " + data + "*******************************************");
+//	}
+//
+//	@Test(priority = 40)
+//	public void testUnsubscribeIssuer()  {
+//
+//		System.out.println("************************************{UNSUBSCRIBE THE ISSUER}************************************");
+//		Response response= CommonServicesEndpoints.getUnsubscribeIssuer(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 41)
+//	public void testVerifyIssuerSubscription()  {
+//
+//		System.out.println("************************************{VERIFY ISSUER SUBSCRIPTION}************************************");
+//		Response response= CommonServicesEndpoints.getVerifyIssuerSubscription(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////// EXCHANGE ///////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 42)
-	public void testCreateInvoice()  {
-
-		System.out.println("************************************{GENERATE INVOICE}************************************");
-		Response response= CommonServicesEndpoints.postCreateInvoice(auth_token, bearedToken, fromDate, toDate);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 43)
-	public void testDecryptCipherblock()  {
-
-		System.out.println("************************************{DECRYPT CIPHERBLOCK}************************************");
-		Response response= CommonServicesEndpoints.postDecryptCipherblock(auth_token, cipherblock, jwk);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 44)
-	public void testDownloadFile()  {
-
-		System.out.println("************************************{DOWNLOAD FILE}************************************");
-		Response response= CommonServicesEndpoints.postDownloadFile(auth_token, data);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 45)
-	public void testGetDataBlock()  {
-
-		System.out.println("************************************{GET DATA BLOCK}************************************");
-		Response response= CommonServicesEndpoints.postGetDataBlock(auth_token, bearedToken, data, blockId, blockAck);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 46)
-	public void testGetFile()  {
-
-		System.out.println("************************************{GET FILE}************************************");
-		Response response= CommonServicesEndpoints.postGetFile(auth_token, bearedToken, data);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 47)
-	public void testGetjwk()  {
-
-		System.out.println("************************************{GET JWK}************************************");
-		Response response= CommonServicesEndpoints.getJwk(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "*************************************");
-	}
-
-	@Test(priority = 48)
-	public void testDeleteFile()  {
-
-		System.out.println("************************************{DELETE FILE}************************************");
-		Response response= CommonServicesEndpoints.deleteFile(auth_token, data);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 42)
+//	public void testCreateInvoice()  {
+//
+//		System.out.println("************************************{GENERATE INVOICE}************************************");
+//		Response response= CommonServicesEndpoints.postCreateInvoice(access_token, id_token, bearedToken, fromDate, toDate);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 43)
+//	public void testDecryptCipherblock()  {
+//
+//		System.out.println("************************************{DECRYPT CIPHERBLOCK}************************************");
+//		Response response= CommonServicesEndpoints.postDecryptCipherblock(access_token, id_token, cipherblock, jwk);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 44)
+//	public void testDownloadFile()  {
+//
+//		System.out.println("************************************{DOWNLOAD FILE}************************************");
+//		Response response= CommonServicesEndpoints.postDownloadFile(access_token, id_token, data);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 45)
+//	public void testGetDataBlock()  {
+//
+//		System.out.println("************************************{GET DATA BLOCK}************************************");
+//		Response response= CommonServicesEndpoints.postGetDataBlock(access_token, id_token, bearedToken, data, blockId, blockAck);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 46)
+//	public void testGetFile()  {
+//
+//		System.out.println("************************************{GET FILE}************************************");
+//		Response response= CommonServicesEndpoints.postGetFile(access_token, id_token, bearedToken, data);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 47)
+//	public void testGetjwk()  {
+//
+//		System.out.println("************************************{GET JWK}************************************");
+//		Response response= CommonServicesEndpoints.getJwk(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "*************************************");
+//	}
+//
+//	@Test(priority = 48)
+//	public void testDeleteFile()  {
+//
+//		System.out.println("************************************{DELETE FILE}************************************");
+//		Response response= CommonServicesEndpoints.deleteFile(access_token, id_token, data);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// MANAGEMENT //////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 49)
-	public void testGetConfigurationInfo()  {
-
-		System.out.println("************************************{GET SDK-RI CONFIG INFO}************************************");
-		Response response= CommonServicesEndpoints.getSdkriConfigInfo(auth_token);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 49)
+//	public void testGetConfigurationInfo()  {
+//
+//		System.out.println("************************************{GET SDK-RI CONFIG INFO}************************************");
+//		Response response= CommonServicesEndpoints.getSdkriConfigInfo(access_token, id_token);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////// TOKEN ////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Test(priority = 50)
-	public void testAddMarketplaceToTreasury()  {
-
-		System.out.println("************************************{ADD MARKETPLACE TO TREASURY}************************************");
-		Response response= CommonServicesEndpoints.postAddMarketplace(auth_token, newMarketplaceBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 51)
-	public void testMarketplaceBalance1()  {
-
-		System.out.println("************************************{GET MARKETPLACE1 BALANCE}************************************");
-		Response response= CommonServicesEndpoints.getMarketplaceBalanceByAddress(auth_token,marketplaceAddressSender2);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 52)
-	public void testMarketplaceBalance2()  {
-
-		System.out.println("************************************{GET MARKETPLACE2 BALANCE}************************************");
-		Response response= CommonServicesEndpoints.getMarketplaceBalanceByAddress(auth_token,marketplaceAddressReceiver);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 53)
-	public void testExchangeIn()  {
-
-		System.out.println("************************************{MARKETPLACE EXCHANGE IN}************************************");
-		Response response= CommonServicesEndpoints.postExchangeIn(auth_token,exchangeInBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 54)
-	public void testExchangeOut()  {
-
-		System.out.println("************************************{MARKETPLACE EXCHANGE OUT}************************************");
-		Response response= CommonServicesEndpoints.postExchangeOut(auth_token,exchangeOutBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 55)
-	public void testDeployOperation()  {
-
-		System.out.println("************************************{MARKETPLACE DEPLOY OPERATION}************************************");
-		Response response= CommonServicesEndpoints.postDeployTransaction(auth_token, deployOperationBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 56)
-	public void testClearingOperation()  {
-
-		System.out.println("************************************{MARKETPLACE CLEARING OPERATION}************************************");
-		Response response= CommonServicesEndpoints.postClearingOperation(auth_token, marketplaceClearingBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 57)
-	public void testMarketplaceIndexByAddress()  {
-
-		System.out.println("************************************{MARKETPLACE INDEX BY ADDRESS}************************************");
-		Response response= CommonServicesEndpoints.postClearingOperation(auth_token, marketplaceAddressSender1);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 58)
-	public void testTokenPayment()  {
-
-		System.out.println("************************************{MARKETPLACE TOKEN PAYMENT OPERATION}************************************");
-		Response response= CommonServicesEndpoints.postTokenPaymentOperation(auth_token, paymentOperationBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 58)
-	public void testSetPaidStatus()  {
-
-		System.out.println("************************************{MARKETPLACE SET PAID STATUS}************************************");
-		Response response= CommonServicesEndpoints.postSetPaidStatusOperation(auth_token, setPaidOperationBody.toString());
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 59)
-	public void testGetTransactionStatusById()  {
-
-		System.out.println("************************************{MARKETPLACE GET TRANSACTION STATUS BY TRANSFER ID}************************************");
-		Response response= CommonServicesEndpoints.getTransactionStatusByTransferId(auth_token, transferId);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
-
-	@Test(priority = 60)
-	public void testTransactionStatusByHash()  {
-
-		System.out.println("************************************{MARKETPLACE GET TRANSACTION STATUS BY TRANSACTION HASH}************************************");
-		Response response= CommonServicesEndpoints.getTransactionByTransactionHash(auth_token, transactionHash);
-		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
-		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
-	}
+//	@Test(priority = 50)
+//	public void testAddMarketplaceToTreasury()  {
+//
+//		System.out.println("************************************{ADD MARKETPLACE TO TREASURY}************************************");
+//		Response response= CommonServicesEndpoints.postAddMarketplace(access_token, id_token, newMarketplaceBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 51)
+//	public void testMarketplaceBalance1()  {
+//
+//		System.out.println("************************************{GET MARKETPLACE1 BALANCE}************************************");
+//		Response response= CommonServicesEndpoints.getMarketplaceBalanceByAddress(access_token, id_token,marketplaceAddressSender2);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 52)
+//	public void testMarketplaceBalance2()  {
+//
+//		System.out.println("************************************{GET MARKETPLACE2 BALANCE}************************************");
+//		Response response= CommonServicesEndpoints.getMarketplaceBalanceByAddress(access_token, id_token,marketplaceAddressReceiver);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 53)
+//	public void testExchangeIn()  {
+//
+//		System.out.println("************************************{MARKETPLACE EXCHANGE IN}************************************");
+//		Response response= CommonServicesEndpoints.postExchangeIn(access_token, id_token,exchangeInBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 54)
+//	public void testExchangeOut()  {
+//
+//		System.out.println("************************************{MARKETPLACE EXCHANGE OUT}************************************");
+//		Response response= CommonServicesEndpoints.postExchangeOut(access_token, id_token,exchangeOutBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 55)
+//	public void testDeployOperation()  {
+//
+//		System.out.println("************************************{MARKETPLACE DEPLOY OPERATION}************************************");
+//		Response response= CommonServicesEndpoints.postDeployTransaction(access_token, id_token, deployOperationBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 56)
+//	public void testClearingOperation()  {
+//
+//		System.out.println("************************************{MARKETPLACE CLEARING OPERATION}************************************");
+//		Response response= CommonServicesEndpoints.postClearingOperation(access_token, id_token, marketplaceClearingBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 57)
+//	public void testMarketplaceIndexByAddress()  {
+//
+//		System.out.println("************************************{MARKETPLACE INDEX BY ADDRESS}************************************");
+//		Response response= CommonServicesEndpoints.postClearingOperation(access_token, id_token, marketplaceAddressSender1);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 58)
+//	public void testTokenPayment()  {
+//
+//		System.out.println("************************************{MARKETPLACE TOKEN PAYMENT OPERATION}************************************");
+//		Response response= CommonServicesEndpoints.postTokenPaymentOperation(access_token, id_token, paymentOperationBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 58)
+//	public void testSetPaidStatus()  {
+//
+//		System.out.println("************************************{MARKETPLACE SET PAID STATUS}************************************");
+//		Response response= CommonServicesEndpoints.postSetPaidStatusOperation(access_token, id_token, setPaidOperationBody.toString());
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 59)
+//	public void testGetTransactionStatusById()  {
+//
+//		System.out.println("************************************{MARKETPLACE GET TRANSACTION STATUS BY TRANSFER ID}************************************");
+//		Response response= CommonServicesEndpoints.getTransactionStatusByTransferId(access_token, id_token, transferId);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
+//
+//	@Test(priority = 60)
+//	public void testTransactionStatusByHash()  {
+//
+//		System.out.println("************************************{MARKETPLACE GET TRANSACTION STATUS BY TRANSACTION HASH}************************************");
+//		Response response= CommonServicesEndpoints.getTransactionByTransactionHash(access_token, id_token, transactionHash);
+//		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
+//		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+//	}
 	
 }

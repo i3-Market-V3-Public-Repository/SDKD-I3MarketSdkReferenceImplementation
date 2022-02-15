@@ -40,6 +40,8 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 /**
  * Implemented by: Chi-Hung Le
  * @email: chi-hung.le@insight-centre.org
@@ -48,15 +50,22 @@ import java.util.List;
 
 public class RetrieveContractParametersByOfferingId {
 	
-    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(HttpHeaders httpHeaders, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 

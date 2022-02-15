@@ -45,6 +45,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONObject;
@@ -193,6 +195,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveTotalOfferingAndOfferingList(
 
+			@Context HttpHeaders httpHeaders,
 			@QueryParam("providerId") @DefaultValue("All") String providerId,
 			@QueryParam("category") @DefaultValue("All") String category,
 			@QueryParam("page") @DefaultValue("0") Integer page,
@@ -205,7 +208,7 @@ public class SdkRiHub {
 		mapper.configure(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveTotalOfferingAndOfferingList().getTotalOfferingAndOfferingList(providerId, category, page, size, sortBy, orderBy));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveTotalOfferingAndOfferingList().getTotalOfferingAndOfferingList(httpHeaders, providerId, category, page, size, sortBy, orderBy));
 					
 		} catch (ProcessingException | JsonProcessingException e) {
 			e.printStackTrace();
@@ -220,15 +223,16 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveCategoryList(
-										   @QueryParam("page") @DefaultValue("0") Integer page,
-										   @QueryParam("size") @DefaultValue("5") Integer size,
-										   @QueryParam("sort") List<String> sort) throws ApiException {
+									   @Context HttpHeaders httpHeaders,   
+			                           @QueryParam("page") @DefaultValue("0") Integer page,
+									   @QueryParam("size") @DefaultValue("5") Integer size,
+									   @QueryParam("sort") List<String> sort) throws ApiException {
 
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveCategoryList().getOfferingByCategory(page, size, sort));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveCategoryList().getOfferingByCategory(httpHeaders, page, size, sort));
 		} catch (ProcessingException | JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -242,7 +246,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve contract parameters by offeringId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveOfferingContractParametersByOfferingId(@PathParam("offeringId") String offeringId,
+	public String retrieveOfferingContractParametersByOfferingId(@Context HttpHeaders httpHeaders,
+										   @PathParam("offeringId") String offeringId,
 										   @QueryParam("page") @DefaultValue("0") Integer page,
 										   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
@@ -252,7 +257,7 @@ public class SdkRiHub {
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveContractParametersByOfferingId()
-					.getOfferingContractsByOfferingId(offeringId, page, size, sort));
+					.getOfferingContractsByOfferingId(httpHeaders, offeringId, page, size, sort));
 		} catch (ProcessingException | JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -267,8 +272,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@RequestBody DataOffering dataOffering) throws ApiException {
-		return new CreateOffering().createOffering(dataOffering);
+	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@Context HttpHeaders httpHeaders, @RequestBody DataOffering dataOffering) throws ApiException {
+		return new CreateOffering().createOffering(httpHeaders, dataOffering);
 	}
 
 
@@ -277,8 +282,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "delete a data offering by offeringId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete offering")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse deleteDataOffering(@PathParam("id") String id) throws ApiException {
-		return new DeleteOfferingById().deleteOffering(id);
+	public com.i3m.api.ApiResponse deleteDataOffering(@Context HttpHeaders httpHeaders, @PathParam("id") String id) throws ApiException {
+		return new DeleteOfferingById().deleteOffering(httpHeaders, id);
 	}
 
 
@@ -287,8 +292,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get a template for data offering", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to fetch offering template")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<String> getDataOfferingTemplate() throws ApiException {
-		return new RetrieveOfferingTemplate().getDataOfferingTemplate();
+	public com.i3m.api.ApiResponse<String> getDataOfferingTemplate(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new RetrieveOfferingTemplate().getDataOfferingTemplate(httpHeaders);
 	}
 
 
@@ -298,7 +303,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve a data offering by offering id", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveDataOfferingById(@PathParam("id") String id,
+	public String retrieveDataOfferingById(@Context HttpHeaders httpHeaders,
+										   @PathParam("id") String id,
 										   @QueryParam("page") @DefaultValue("0") Integer page,
 										   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
@@ -306,8 +312,9 @@ public class SdkRiHub {
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingById().getDataOfferingById(id, page, size, sort));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingById().getDataOfferingById(httpHeaders, id, page, size, sort));
 		} catch (ProcessingException | JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -323,7 +330,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all data offerings by a data providerId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve offerings registered by this user")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveAllDataOfferingsByProviderId(@PathParam("id") String id,
+	public String retrieveAllDataOfferingsByProviderId(@Context HttpHeaders httpHeaders,
+													   @PathParam("id") String id,
 													   @QueryParam("page") @DefaultValue("0") Integer page,
 													   @QueryParam("size") @DefaultValue("5") Integer size,
 													   @QueryParam("sort") List<String> sort) throws ApiException  {
@@ -331,7 +339,7 @@ public class SdkRiHub {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByProviderId().getOfferingByProviderId(id, page,size,sort));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByProviderId().getOfferingByProviderId(httpHeaders, id, page,size,sort));
 		} catch (ProcessingException | JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -346,7 +354,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve data offerings by a category", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveDataOfferingByCategory(@PathParam("category") String category,
+	public String retrieveDataOfferingByCategory(@Context HttpHeaders httpHeaders,
+												 @PathParam("category") String category,
 												 @QueryParam("page") @DefaultValue("0") Integer page,
 												 @QueryParam("size") @DefaultValue("5") Integer size,
 												 @QueryParam("sort") List<String> sort) throws ApiException {
@@ -355,7 +364,7 @@ public class SdkRiHub {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByCategory().getOfferingByCategory(category, page, size, sort));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByCategory().getOfferingByCategory(httpHeaders, category, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -371,16 +380,16 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve offering list from internal database only", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveDataOfferingList(
-												 @QueryParam("page") @DefaultValue("0") Integer page,
-												 @QueryParam("size") @DefaultValue("5") Integer size,
-												 @QueryParam("sort") List<String> sort) throws ApiException {
+	public String retrieveDataOfferingList(@Context HttpHeaders httpHeaders,
+										   @QueryParam("page") @DefaultValue("0") Integer page,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
 
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingList().getDataOfferingList(page, size, sort));
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingList().getDataOfferingList(httpHeaders, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
@@ -396,7 +405,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve  provider list by category from internal database only", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveProviderIdListByCategory(@PathParam("category") String category,
+	public String retrieveProviderIdListByCategory(@Context HttpHeaders httpHeaders,
+			                               @PathParam("category") String category,
 										   @QueryParam("page") @DefaultValue("0") Integer page,
 										   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
@@ -407,7 +417,7 @@ public class SdkRiHub {
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().
 					writeValueAsString(new RetrieveListOfProvider().
-							getProviderListByCategory(category,page, size, sort));
+							getProviderListByCategory(httpHeaders, category,page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
@@ -422,7 +432,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve  data provider list from internal database", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveAllProviders(@QueryParam("page") @DefaultValue("0") Integer page,
+	public String retrieveAllProviders(@Context HttpHeaders httpHeaders, @QueryParam("page") @DefaultValue("0") Integer page,
 												   @QueryParam("size") @DefaultValue("5") Integer size,
 												   @QueryParam("sort") List<String> sort) throws ApiException {
 
@@ -433,7 +443,7 @@ public class SdkRiHub {
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().
 					writeValueAsString(new RetrieveListOfProvider().
-							getAllProviders(page, size, sort));
+							getAllProviders(httpHeaders, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
@@ -449,8 +459,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> registerDataProvider(@RequestBody DataProvider dataProvider) throws ApiException {
-		return new RegisterDataProvider().saveDataProviderInfo(dataProvider);
+	public com.i3m.api.ApiResponse<Void> registerDataProvider(@Context HttpHeaders httpHeaders, @RequestBody DataProvider dataProvider) throws ApiException {
+		return new RegisterDataProvider().saveDataProviderInfo(httpHeaders, dataProvider);
 	}
 
 
@@ -460,8 +470,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to delete data provider")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> deleteDataProvider(@PathParam("providerId") String dataProviderId) throws ApiException {
-		return new DeleteDataProvider().deleteProvider(dataProviderId);
+	public com.i3m.api.ApiResponse<Void> deleteDataProvider(@Context HttpHeaders httpHeaders, @PathParam("providerId") String dataProviderId) throws ApiException {
+		return new DeleteDataProvider().deleteProvider(httpHeaders, dataProviderId);
 	}
 	
     @PATCH
@@ -469,8 +479,8 @@ public class SdkRiHub {
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@RequestBody DataOfferingDto dataOffering) throws ApiException {
-          return new UpdateOffering().updateOffering(dataOffering);
+    public com.i3m.api.ApiResponse updateDataOffering(@Context HttpHeaders httpHeaders, @RequestBody DataOfferingDto dataOffering) throws ApiException {
+          return new UpdateOffering().updateOffering(httpHeaders, dataOffering);
     }
 
 /**
@@ -483,12 +493,12 @@ public class SdkRiHub {
 	@ApiOperation(value = "get data block", tags = "common-services: exchange")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get data block") })
 	@Produces({ "application/json", "application/xml" })
-	public String accountDataBlock(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data, @QueryParam("block_id") String block_id, @QueryParam("block_ack") String block_ack)
+	public String accountDataBlock(@Context HttpHeaders httpHeaders, @QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data, @QueryParam("block_id") String block_id, @QueryParam("block_ack") String block_ack)
 	throws ApiException {
 		InlineObject blockIdAck = new InlineObject();
 		blockIdAck.setBlockId(block_id);
 		blockIdAck.setBlockAck(block_ack);
-		return new AccountDataBlock().accountDataBlock(bearerToken, blockIdAck, data);
+		return new AccountDataBlock().accountDataBlock(httpHeaders, bearerToken, blockIdAck, data);
 	}
 
 	@POST
@@ -496,12 +506,12 @@ public class SdkRiHub {
 	@ApiOperation(value = "get file", tags = "common-services: exchange")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get file") })
 	@Produces({ "text/plain" })
-	public String accountDataFile(@QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data)
+	public String accountDataFile(@Context HttpHeaders httpHeaders, @QueryParam("bearerToken") String bearerToken, @QueryParam("data") String data)
 	throws ApiException {
 		InlineObject blockIdAck = new InlineObject();
 		blockIdAck.setBlockId("null");
 		blockIdAck.setBlockAck("null");
-		return new AccountDataBlock().getFile(bearerToken, blockIdAck, data);
+		return new AccountDataBlock().getFile(httpHeaders, bearerToken, blockIdAck, data);
 	}
 
 	@POST
@@ -520,9 +530,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "create invoice", tags = "common-services: exchange")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get invoice") })
 	@Produces({ "application/json", "application/xml" })
-	public Invoice createInvoice(@QueryParam("bearerToken") String bearerToken, @QueryParam("fromDate") String fromDate, @QueryParam("toDate") String toDate)
+	public Invoice createInvoice(@Context HttpHeaders httpHeaders, @QueryParam("bearerToken") String bearerToken, @QueryParam("fromDate") String fromDate, @QueryParam("toDate") String toDate)
 	throws ApiException {
-		return new AccountDataBlock().createInvoice(bearerToken, fromDate, toDate);
+		return new AccountDataBlock().createInvoice(httpHeaders, bearerToken, fromDate, toDate);
 	}
 
 	@GET
@@ -563,8 +573,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to execute payment")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Payment payment(@RequestBody DataProviderPayment inlineObject5) throws ApiException {
-		return new Token().payment(inlineObject5);
+	public Payment payment(@Context HttpHeaders httpHeaders, @RequestBody DataProviderPayment inlineObject5) throws ApiException {
+		return new Token().payment(httpHeaders, inlineObject5);
 	}
 
 	@POST
@@ -573,8 +583,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ExchangeIn exchangeIn(@RequestBody ExchangeMoneyForTokens inlineObject3) throws ApiException {
-		return new Token().exchangeIn(inlineObject3);
+	public ExchangeIn exchangeIn(@Context HttpHeaders httpHeaders, @RequestBody ExchangeMoneyForTokens inlineObject3) throws ApiException {
+		return new Token().exchangeIn(httpHeaders, inlineObject3);
 	}
 
 	@POST
@@ -583,8 +593,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ExchangeOut exchangeOut(@RequestBody ExchangeTokensForMoney inlineObject4) throws ApiException {
-		return new Token().exchangeOut(inlineObject4);
+	public ExchangeOut exchangeOut(@Context HttpHeaders httpHeaders, @RequestBody ExchangeTokensForMoney inlineObject4) throws ApiException {
+		return new Token().exchangeOut(httpHeaders, inlineObject4);
 	}
 
 	@POST
@@ -593,8 +603,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ClearingBalance clearing(@RequestBody ClearBalance inlineObject1) throws ApiException {
-		return new Token().clearing(inlineObject1);
+	public ClearingBalance clearing(@Context HttpHeaders httpHeaders, @RequestBody ClearBalance inlineObject1) throws ApiException {
+		return new Token().clearing(httpHeaders, inlineObject1);
 	}
 
 	@POST
@@ -603,8 +613,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public DeployedSignedTransaction deployTransaction(@RequestBody DeployTransactionToBesu inlineObject2) throws ApiException {
-		return new Token().deployTransaction(inlineObject2);
+	public DeployedSignedTransaction deployTransaction(@Context HttpHeaders httpHeaders, @RequestBody DeployTransactionToBesu inlineObject2) throws ApiException {
+		return new Token().deployTransaction(httpHeaders, inlineObject2);
 	}
 
 	@POST
@@ -613,8 +623,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SetPaid setPaid(@RequestBody MarkTokenAsPaid inlineObject6) throws ApiException {
-		return new Token().setPaid(inlineObject6);
+	public SetPaid setPaid(@Context HttpHeaders httpHeaders, @RequestBody MarkTokenAsPaid inlineObject6) throws ApiException {
+		return new Token().setPaid(httpHeaders, inlineObject6);
 	}
 
 	@POST
@@ -623,8 +633,8 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RegisterMarketplace1 addMarketplace(@RequestBody RegisterMarketplace inlineObject) throws ApiException {
-		return new Token().createMarketplace(inlineObject);
+	public RegisterMarketplace1 addMarketplace(@Context HttpHeaders httpHeaders, @RequestBody RegisterMarketplace inlineObject) throws ApiException {
+		return new Token().createMarketplace(httpHeaders, inlineObject);
 	}
 
 	@GET
@@ -632,8 +642,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace balance by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public Balances getBalanceByAddress(@QueryParam("address") String address) throws ApiException {
-		return new Token().getBalanceByAddress(address);
+	public Balances getBalanceByAddress(@Context HttpHeaders httpHeaders, @QueryParam("address") String address) throws ApiException {
+		return new Token().getBalanceByAddress(httpHeaders, address);
 	}
 
 	@GET
@@ -641,8 +651,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace index by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public MarketplaceIndex getMarketplaceByAddress(@QueryParam("address") String address) throws ApiException {
-		return new Token().getMarketplaceByAddress(address);
+	public MarketplaceIndex getMarketplaceByAddress(@Context HttpHeaders httpHeaders, @QueryParam("address") String address) throws ApiException {
+		return new Token().getMarketplaceByAddress(httpHeaders, address);
 	}
 
 	@GET
@@ -650,8 +660,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get transaction with transaction hash", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction with this transactionHash") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse2004 getTransactionsByTransactionHash(@QueryParam("transactionHash") String transactionHash) throws ApiException {
-		return new Token().getTransactionsByTransactionHash(transactionHash);
+	public InlineResponse2004 getTransactionsByTransactionHash(@Context HttpHeaders httpHeaders, @QueryParam("transactionHash") String transactionHash) throws ApiException {
+		return new Token().getTransactionsByTransactionHash(httpHeaders, transactionHash);
 	}
 
 	@GET
@@ -659,8 +669,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get transaction status object with transfer identifier", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse2003 getTokenTransfersByTransferId(@QueryParam("transferId") String transferId) throws ApiException {
-		return new Token().getTokenTransfersByTransferId(transferId);
+	public InlineResponse2003 getTokenTransfersByTransferId(@Context HttpHeaders httpHeaders, @QueryParam("transferId") String transferId) throws ApiException {
+		return new Token().getTokenTransfersByTransferId(httpHeaders, transferId);
 	}
 
 	/////// Verifiable Credential API ///////
@@ -670,8 +680,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getIssueVerifiableCredential(@PathParam("did") String did, @PathParam("credential") String credential) throws ApiException {
-		return new VerifiableCredentials().getIssueVerifiableCredential(did, credential);
+	public Object getIssueVerifiableCredential(@Context HttpHeaders httpHeaders, @PathParam("did") String did, @PathParam("credential") String credential) throws ApiException {
+		return new VerifiableCredentials().getIssueVerifiableCredential(httpHeaders, did, credential);
 	}
 
 	@POST
@@ -680,8 +690,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object revokeVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject credential) throws ApiException {
-		return new VerifiableCredentials().postRevokeCredentialByJWT(credential);
+	public Object revokeVerifiableCredentialByJWT(@Context HttpHeaders httpHeaders, @RequestBody com.i3m.model.backplane.InlineObject credential) throws ApiException {
+		return new VerifiableCredentials().postRevokeCredentialByJWT(httpHeaders, credential);
 	}
 
 	@POST
@@ -690,8 +700,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object verifyVerifiableCredentialByJWT(@RequestBody com.i3m.model.backplane.InlineObject1 credential) throws ApiException {
-		return new VerifiableCredentials().postVerifyCredentialByJWT(credential);
+	public Object verifyVerifiableCredentialByJWT(@Context HttpHeaders httpHeaders, @RequestBody com.i3m.model.backplane.InlineObject1 credential) throws ApiException {
+		return new VerifiableCredentials().postVerifyCredentialByJWT(httpHeaders, credential);
 	}
 
 	@GET
@@ -699,8 +709,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "get the issued credential list", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the credential list") })
 	@Produces({ "application/json", "application/xml" })
-	public List<String> getCredentialsList() throws ApiException {
-		return new VerifiableCredentials().getCredentialList();
+	public List<String> getCredentialsList(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new VerifiableCredentials().getCredentialList(httpHeaders);
 	}
 
 	@GET
@@ -708,8 +718,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "subscribe the issuer", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to subscribe the issuer") })
 	@Produces({ "application/json", "application/xml" })
-	public Object getSubscribeIssuer() throws ApiException {
-		return new VerifiableCredentials().getSubscribeIssuer();
+	public Object getSubscribeIssuer(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new VerifiableCredentials().getSubscribeIssuer(httpHeaders);
 	}
 
 	@GET
@@ -717,8 +727,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "unsubscribe the issuer", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to unsubscribe the issuer") })
 	@Produces({ "application/json", "application/xml" })
-	public Object getUnsubscribeIssuer() throws ApiException {
-		return new VerifiableCredentials().getUnsubscribeIssuer();
+	public Object getUnsubscribeIssuer(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new VerifiableCredentials().getUnsubscribeIssuer(httpHeaders);
 	}
 
 	@GET
@@ -726,8 +736,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "verify the issuer subscription", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to verify the issuer subscription") })
 	@Produces({ "application/json", "application/xml" })
-	public Object getVerifyIssuerSubscription() throws ApiException {
-		return new VerifiableCredentials().getVerifyIssuerSubscription();
+	public Object getVerifyIssuerSubscription(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new VerifiableCredentials().getVerifyIssuerSubscription(httpHeaders);
 	}
 
 	///////////////////////////// Notifications /////////////////////////////
@@ -738,8 +748,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createServiceNotification(@RequestBody ServiceNotification body) throws ApiException {
-		return new CreateNotification().createServiceNotification(body);
+	public com.i3m.api.ApiResponse<Object> createServiceNotification(@Context HttpHeaders httpHeaders, @RequestBody ServiceNotification body) throws ApiException {
+		return new CreateNotification().createServiceNotification(httpHeaders, body);
 	}
 
 	@POST
@@ -748,8 +758,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> createUserNotification(@RequestBody UserNotification body) throws ApiException {
-		return new CreateNotification().createUserNotification(body);
+	public com.i3m.api.ApiResponse<Notification> createUserNotification(@Context HttpHeaders httpHeaders, @RequestBody UserNotification body) throws ApiException {
+		return new CreateNotification().createUserNotification(httpHeaders, body);
 	}
 
 	@DELETE
@@ -758,8 +768,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> deleteNotification(@PathParam("notification_id") String notification_id) throws ApiException {
-		return new DeleteNotification().deleteNotification(notification_id);
+	public com.i3m.api.ApiResponse<Notification> deleteNotification(@Context HttpHeaders httpHeaders, @PathParam("notification_id") String notification_id) throws ApiException {
+		return new DeleteNotification().deleteNotification(httpHeaders, notification_id);
 	}
 
 	@GET
@@ -768,9 +778,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the stored notifications", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveAllNotifications() throws ApiException {
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveAllNotifications(@Context HttpHeaders httpHeaders) throws ApiException {
 
-		return new RetrieveNotifications().getAllNotifications();
+		return new RetrieveNotifications().getAllNotifications(httpHeaders);
 
 	}
 
@@ -780,9 +790,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> getAllUnreadNotifications() throws ApiException {
+	public com.i3m.api.ApiResponse<List<Notification>> getAllUnreadNotifications(@Context HttpHeaders httpHeaders) throws ApiException {
 
-		return new RetrieveNotifications().getAllUnreadNotifications();
+		return new RetrieveNotifications().getAllUnreadNotifications(httpHeaders);
 
 	}
 
@@ -792,9 +802,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveNotificationsByUserId(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id) throws ApiException {
 
-		return new RetrieveNotifications().getUserNotifications(user_id);
+		return new RetrieveNotifications().getUserNotifications(httpHeaders, user_id);
 
 	}
 
@@ -804,9 +814,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveUnreadNotificationsByUserId(@PathParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<Notification>> retrieveUnreadNotificationsByUserId(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id) throws ApiException {
 
-		return new RetrieveNotifications().getUserUnreadNotifications(user_id);
+		return new RetrieveNotifications().getUserUnreadNotifications(httpHeaders, user_id);
 
 	}
 
@@ -816,9 +826,9 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<Notification> retrieveNotificationsByNotificationId(@PathParam("notification_id") String notification_id) throws ApiException {
+	public com.i3m.api.ApiResponse<Notification> retrieveNotificationsByNotificationId(@Context HttpHeaders httpHeaders, @PathParam("notification_id") String notification_id) throws ApiException {
 
-		return new RetrieveNotifications().getNotificationsByNotificationId(notification_id);
+		return new RetrieveNotifications().getNotificationsByNotificationId(httpHeaders, notification_id);
 
 	}
 
@@ -828,8 +838,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> markAsReadNotification(@PathParam("notification_id") String notification_id) throws ApiException {
-		return new ModifyNotification().markAsReadNotification(notification_id);
+	public com.i3m.api.ApiResponse<Notification> markAsReadNotification(@Context HttpHeaders httpHeaders, @PathParam("notification_id") String notification_id) throws ApiException {
+		return new ModifyNotification().markAsReadNotification(httpHeaders, notification_id);
 	}
 
 	@PATCH
@@ -838,8 +848,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> markAsUnreadNotification(@PathParam("notification_id") String notification_id) throws ApiException {
-		return new ModifyNotification().markAsUnreadNotification(notification_id);
+	public com.i3m.api.ApiResponse<Notification> markAsUnreadNotification(@Context HttpHeaders httpHeaders, @PathParam("notification_id") String notification_id) throws ApiException {
+		return new ModifyNotification().markAsUnreadNotification(httpHeaders, notification_id);
 	}
 	
 	/////// Smart Contract Manager ///////
@@ -849,8 +859,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
-		return new BackplaneClient().getTemplate(token, idOffering);
+	public Object getContractTemplate(@Context HttpHeaders httpHeaders, @HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
+		return new BackplaneClient().getTemplate(httpHeaders, token, idOffering);
 	}
 
 	/////// Alerts Subscriptions ///////
@@ -861,8 +871,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions() throws ApiException {
-		return new GetSubscriptions().getSubscriptions();
+	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions(@Context HttpHeaders httpHeaders) throws ApiException {
+		return new GetSubscriptions().getSubscriptions(httpHeaders);
 	}
 
 	@GET
@@ -871,8 +881,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@PathParam("user_id") String user_id) throws ApiException {
-		return new GetSubscriptions().getSubscriptionByUserID(user_id);
+	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserID(httpHeaders, user_id);
 	}
 
 	@GET
@@ -881,8 +891,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
-		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(user_id, subscription_id);
+	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(httpHeaders, user_id, subscription_id);
 	}
 
 	@POST
@@ -895,8 +905,8 @@ public class SdkRiHub {
 	})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@PathParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
-		return new CreateUserSubscription().createUserSubscription(user_id, sub);
+	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
+		return new CreateUserSubscription().createUserSubscription(httpHeaders, user_id, sub);
 	}
 
 	@PATCH
@@ -905,8 +915,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
-		return new ModifyUserSubscription().activateUserSubscription(user_id, subscription_id);
+	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().activateUserSubscription(httpHeaders, user_id, subscription_id);
 	}
 
 	@PATCH
@@ -915,8 +925,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
-		return new ModifyUserSubscription().deactivateUserSubscription(user_id, subscription_id);
+	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+		return new ModifyUserSubscription().deactivateUserSubscription(httpHeaders, user_id, subscription_id);
 	}
 
 	@DELETE
@@ -925,8 +935,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
-		return new DeleteUserSubscription().deleteUserSubscription(user_id, subscription_id);
+	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@Context HttpHeaders httpHeaders, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+		return new DeleteUserSubscription().deleteUserSubscription(httpHeaders, user_id, subscription_id);
 	}
 
 }

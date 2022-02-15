@@ -7,20 +7,20 @@
     
 <module-name>SDK-RI_Client</module-name>
 
-<security-constraint>
+   <security-constraint>
         <web-resource-collection>
             <web-resource-name>All Resources</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
+        <!-- <auth-constraint>
             <role-name>user-i3market</role-name>
             <role-name>admin</role-name>
-        </auth-constraint>
+        </auth-constraint> -->
     </security-constraint>
 
 
 
-    <login-config>
+    <!--  <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>i3market</realm-name>
     </login-config>
@@ -31,7 +31,7 @@
 
     <security-role>
         <role-name>user-i3market</role-name>
-    </security-role>
+    </security-role> -->
 
 
 
