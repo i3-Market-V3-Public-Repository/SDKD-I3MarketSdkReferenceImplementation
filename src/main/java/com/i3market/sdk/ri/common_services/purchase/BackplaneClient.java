@@ -46,10 +46,8 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class BackplaneClient {
 	
-	public Template getTemplate (HttpHeaders httpHeaders, String bearerToken, String idTemplate) throws ApiException {
+	public Template getTemplate (String access_token, String id_token, String bearerToken, String idTemplate) throws ApiException {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 		
 		// Get default client from Configuration
 		ApiClient defaultClient = Configuration.getDefaultApiClient();

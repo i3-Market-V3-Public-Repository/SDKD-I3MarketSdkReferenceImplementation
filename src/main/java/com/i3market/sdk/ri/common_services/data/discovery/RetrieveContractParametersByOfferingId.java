@@ -50,13 +50,10 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveContractParametersByOfferingId {
 	
-    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(HttpHeaders httpHeaders, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(String access_token, String id_token, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

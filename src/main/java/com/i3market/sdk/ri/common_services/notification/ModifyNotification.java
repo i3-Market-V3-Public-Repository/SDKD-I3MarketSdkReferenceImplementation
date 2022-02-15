@@ -45,12 +45,10 @@ import org.slf4j.LoggerFactory;
 public class ModifyNotification {
     private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.notification.ModifyNotification.class);
 
-    public ApiResponse<Notification> markAsReadNotification (HttpHeaders httpHeaders, String notification_id) throws ApiException {
+    public ApiResponse<Notification> markAsReadNotification (String access_token, String id_token, String notification_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -66,12 +64,10 @@ public class ModifyNotification {
         return notificationsApi.patchApiV1NotificationByNotificationIdReadWithHttpInfo(notification_id);
 
     }
-    public ApiResponse<Notification> markAsUnreadNotification (HttpHeaders httpHeaders, String notification_id) throws ApiException {
+    public ApiResponse<Notification> markAsUnreadNotification (String access_token, String id_token, String notification_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

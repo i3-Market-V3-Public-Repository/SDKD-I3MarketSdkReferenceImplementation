@@ -46,12 +46,10 @@ public class Token {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public DeployedSignedTransaction deployTransaction (HttpHeaders httpHeaders, DeployTransactionToBesu deployTransactionToBesu) throws ApiException {
+    public DeployedSignedTransaction deployTransaction (String access_token, String id_token, DeployTransactionToBesu deployTransactionToBesu) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -70,12 +68,10 @@ public class Token {
 
     }
 
-    public RegisterMarketplace1 createMarketplace (HttpHeaders httpHeaders, RegisterMarketplace registerMarketplace) throws ApiException {
+    public RegisterMarketplace1 createMarketplace (String access_token, String id_token, RegisterMarketplace registerMarketplace) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -93,11 +89,9 @@ public class Token {
 
     }
 
-    public ExchangeIn exchangeIn (HttpHeaders httpHeaders, ExchangeMoneyForTokens exchangeMoneyForTokens) throws ApiException {
+    public ExchangeIn exchangeIn (String access_token, String id_token, ExchangeMoneyForTokens exchangeMoneyForTokens) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
@@ -116,12 +110,10 @@ public class Token {
 
     }
 
-    public ClearingBalance clearing (HttpHeaders httpHeaders, ClearBalance clearBalance) throws ApiException {
+    public ClearingBalance clearing (String access_token, String id_token, ClearBalance clearBalance) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -140,12 +132,10 @@ public class Token {
 
     }
 
-    public ExchangeOut exchangeOut (HttpHeaders httpHeaders, ExchangeTokensForMoney exchangeTokensForMoney) throws ApiException {
+    public ExchangeOut exchangeOut (String access_token, String id_token, ExchangeTokensForMoney exchangeTokensForMoney) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -163,12 +153,10 @@ public class Token {
 
     }
 
-    public Payment payment (HttpHeaders httpHeaders, DataProviderPayment dataProviderPayment) throws ApiException {
+    public Payment payment (String access_token, String id_token, DataProviderPayment dataProviderPayment) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -186,12 +174,10 @@ public class Token {
 
     }
 
-    public SetPaid setPaid (HttpHeaders httpHeaders, MarkTokenAsPaid markTokenAsPaid) throws ApiException {
+    public SetPaid setPaid (String access_token, String id_token, MarkTokenAsPaid markTokenAsPaid) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -210,12 +196,10 @@ public class Token {
 
     }
 
-    public Balances getBalanceByAddress(HttpHeaders httpHeaders, String address) throws ApiException {
+    public Balances getBalanceByAddress(String access_token, String id_token, String address) throws ApiException {
         
     	String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-    	String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+    	
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -232,12 +216,9 @@ public class Token {
         return tokenizerApi.getBalance(address);
     }
 
-    public MarketplaceIndex getMarketplaceByAddress(HttpHeaders httpHeaders, String address) throws ApiException {
+    public MarketplaceIndex getMarketplaceByAddress(String access_token, String id_token, String address) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -254,11 +235,9 @@ public class Token {
         return tokenizerApi.getMarketplaceIndex(address);
     }
 
-    public InlineResponse2003 getTokenTransfersByTransferId(HttpHeaders httpHeaders, String transferId) throws ApiException {
+    public InlineResponse2003 getTokenTransfersByTransferId(String access_token, String id_token, String transferId) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -275,11 +254,9 @@ public class Token {
         return tokenizerApi.getTokenTransfer(transferId);
     }
 
-    public InlineResponse2004 getTransactionsByTransactionHash(HttpHeaders httpHeaders, String transactionHash) throws ApiException {
+    public InlineResponse2004 getTransactionsByTransactionHash(String access_token, String id_token, String transactionHash) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

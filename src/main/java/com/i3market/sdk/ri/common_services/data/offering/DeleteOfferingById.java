@@ -50,13 +50,10 @@ public class DeleteOfferingById {
 
     private static final Logger _log = LoggerFactory.getLogger(DeleteOfferingById.class);
 
-    public ApiResponse<Void> deleteOffering(HttpHeaders httpHeaders, String offeringId) throws ApiException {
+    public ApiResponse<Void> deleteOffering(String access_token, String id_token, String offeringId) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

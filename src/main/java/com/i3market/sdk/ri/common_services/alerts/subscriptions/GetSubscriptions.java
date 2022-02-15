@@ -51,12 +51,10 @@ public class GetSubscriptions {
     public GetSubscriptions() {
     }
 
-    public ApiResponse<List<UserSubscriptionList>> getSubscriptions (HttpHeaders httpHeaders) throws ApiException {
+    public ApiResponse<List<UserSubscriptionList>> getSubscriptions (String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -73,12 +71,10 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersSubscriptionsWithHttpInfo();
     }
 
-    public ApiResponse<List<Subscription>> getSubscriptionByUserID (HttpHeaders httpHeaders, String user_id) throws ApiException {
+    public ApiResponse<List<Subscription>> getSubscriptionByUserID (String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -95,13 +91,10 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersByUserIdSubscriptionsWithHttpInfo(user_id);
     }
 
-    public ApiResponse<Subscription> getSubscriptionByUserIDSubscriptionId (HttpHeaders httpHeaders, String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> getSubscriptionByUserIDSubscriptionId (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

@@ -51,12 +51,10 @@ public class CreateNotification {
     //public CreateNotification() {
     //}
 
-    public ApiResponse<Object> createServiceNotification (HttpHeaders httpHeaders, ServiceNotification body) throws ApiException {
+    public ApiResponse<Object> createServiceNotification (String access_token, String id_token, ServiceNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -73,12 +71,10 @@ public class CreateNotification {
 
     }
 
-    public ApiResponse<Notification> createUserNotification (HttpHeaders httpHeaders, UserNotification body) throws ApiException {
+    public ApiResponse<Notification> createUserNotification (String access_token, String id_token, UserNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
