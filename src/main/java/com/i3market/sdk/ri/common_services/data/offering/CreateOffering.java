@@ -53,13 +53,10 @@ public class CreateOffering {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public  ApiResponse<List<DataOfferingId>> createOffering (HttpHeaders httpHeaders, DataOffering dataOfferingDto) throws ApiException {
+    public  ApiResponse<List<DataOfferingId>> createOffering (String access_token, String id_token, DataOffering dataOfferingDto) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

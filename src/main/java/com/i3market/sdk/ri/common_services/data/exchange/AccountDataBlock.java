@@ -117,7 +117,7 @@ public class AccountDataBlock {
 		}
 	}
 
-	public String accountDataBlock(HttpHeaders httpHeaders, String bearerToken, InlineObject blockIdAck, String data)
+	public String accountDataBlock(String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data)
 			throws ApiException {
 
 		// local
@@ -128,9 +128,7 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
@@ -155,12 +153,10 @@ public class AccountDataBlock {
 		return response;
 	}
 
-	public Invoice createInvoice(HttpHeaders httpHeaders, String bearerToken, String fromDate, String toDate) throws ApiException {
+	public Invoice createInvoice(String access_token, String id_token, String bearerToken, String fromDate, String toDate) throws ApiException {
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
@@ -245,7 +241,7 @@ public class AccountDataBlock {
 	}
 
 	// Test to fetch entire file
-	public String getFile (HttpHeaders httpHeaders, String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
+	public String getFile (String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
 
 		String check = "not null";
 		String response = null;
@@ -268,9 +264,7 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-		String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);

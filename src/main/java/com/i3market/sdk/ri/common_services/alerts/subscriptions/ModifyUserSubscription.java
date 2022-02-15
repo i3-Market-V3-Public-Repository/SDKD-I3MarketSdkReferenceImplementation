@@ -49,12 +49,10 @@ public class ModifyUserSubscription {
     public ModifyUserSubscription() {
     }
 
-    public ApiResponse<Subscription> activateUserSubscription (HttpHeaders httpHeaders, String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> activateUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -71,12 +69,10 @@ public class ModifyUserSubscription {
         return subscriptionsApi.patchApiV1UsersByUserIdSubscriptionsBySubscriptionIdActivateWithHttpInfo(user_id, subscription_id);
 
     }
-    public ApiResponse<Subscription> deactivateUserSubscription (HttpHeaders httpHeaders, String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> deactivateUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

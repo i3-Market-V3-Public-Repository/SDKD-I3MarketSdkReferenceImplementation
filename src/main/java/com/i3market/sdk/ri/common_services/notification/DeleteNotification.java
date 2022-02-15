@@ -45,13 +45,10 @@ import org.slf4j.LoggerFactory;
 public class DeleteNotification {
     private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.notification.DeleteNotification.class);
 
-    public ApiResponse<Notification> deleteNotification (HttpHeaders httpHeaders, String notification_id) throws ApiException {
+    public ApiResponse<Notification> deleteNotification (String access_token, String id_token, String notification_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

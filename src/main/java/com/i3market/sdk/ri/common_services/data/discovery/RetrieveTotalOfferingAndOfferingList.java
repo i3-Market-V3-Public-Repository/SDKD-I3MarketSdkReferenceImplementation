@@ -24,13 +24,11 @@ public class RetrieveTotalOfferingAndOfferingList {
     private static final Logger _log = LoggerFactory.getLogger(RetrieveTotalOfferingAndOfferingList.class);
 
     public  ApiResponse<Offerings> getTotalOfferingAndOfferingList(
-            HttpHeaders httpHeaders, String providerId, String category,
+    		String access_token, String id_token, String providerId, String category,
             Integer page, Integer size, String sortBy, String orderBy) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

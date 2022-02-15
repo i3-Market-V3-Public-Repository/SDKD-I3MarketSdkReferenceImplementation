@@ -50,12 +50,9 @@ public class CreateUserSubscription {
     public CreateUserSubscription() {
     }
 
-    public ApiResponse<Subscription> createUserSubscription (HttpHeaders httpHeaders, String user_id, CreateSubscription sub) throws ApiException {
+    public ApiResponse<Subscription> createUserSubscription (String access_token, String id_token, String user_id, CreateSubscription sub) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

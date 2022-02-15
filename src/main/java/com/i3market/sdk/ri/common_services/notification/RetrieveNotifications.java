@@ -43,12 +43,9 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveNotifications {
 
-    public ApiResponse<List<Notification>> getAllNotifications(HttpHeaders httpHeaders) throws ApiException {
+    public ApiResponse<List<Notification>> getAllNotifications(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
@@ -66,13 +63,10 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getAllUnreadNotifications(HttpHeaders httpHeaders) throws ApiException {
+    public ApiResponse<List<Notification>> getAllUnreadNotifications(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -89,13 +83,10 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getUserNotifications(HttpHeaders httpHeaders, String user_id) throws ApiException {
+    public ApiResponse<List<Notification>> getUserNotifications(String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -112,13 +103,10 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getUserUnreadNotifications(HttpHeaders httpHeaders, String user_id) throws ApiException {
+    public ApiResponse<List<Notification>> getUserUnreadNotifications(String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -135,13 +123,10 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<Notification> getNotificationsByNotificationId(HttpHeaders httpHeaders, String notification_id) throws ApiException {
+    public ApiResponse<Notification> getNotificationsByNotificationId(String access_token, String id_token, String notification_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);

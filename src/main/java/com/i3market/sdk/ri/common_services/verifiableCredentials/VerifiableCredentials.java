@@ -52,12 +52,10 @@ VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public Object getIssueVerifiableCredential(HttpHeaders httpHeaders, String did, String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(String access_token, String id_token, String did, String credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -74,12 +72,10 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredentialIssueByDidByCredential(did, credential);
     }
 
-    public Object postRevokeCredentialByJWT(HttpHeaders httpHeaders, InlineObject credential) throws ApiException {
+    public Object postRevokeCredentialByJWT(String access_token, String id_token, InlineObject credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -97,12 +93,10 @@ VerifiableCredentials {
 
     }
 
-    public Object postVerifyCredentialByJWT(HttpHeaders httpHeaders, InlineObject1 credential) throws ApiException {
+    public Object postVerifyCredentialByJWT(String access_token, String id_token, InlineObject1 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -119,12 +113,10 @@ VerifiableCredentials {
         return credentialApi.postRelease2VcCredentialVerify(credential);
     }
 
-    public List<String> getCredentialList(HttpHeaders httpHeaders) throws ApiException {
+    public List<String> getCredentialList(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -141,12 +133,10 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredential();
     }
 
-    public Object getSubscribeIssuer(HttpHeaders httpHeaders) throws ApiException {
+    public Object getSubscribeIssuer(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -163,12 +153,10 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerSubscribe();
     }
 
-    public Object getUnsubscribeIssuer(HttpHeaders httpHeaders) throws ApiException {
+    public Object getUnsubscribeIssuer(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
@@ -185,11 +173,9 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerUnsubscribe();
     }
 
-    public Object getVerifyIssuerSubscription(HttpHeaders httpHeaders) throws ApiException {
+    public Object getVerifyIssuerSubscription(String access_token, String id_token) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
-        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
