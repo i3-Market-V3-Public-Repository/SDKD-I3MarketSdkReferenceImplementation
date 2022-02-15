@@ -36,6 +36,9 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.DataProvider;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
+import javax.ws.rs.core.HttpHeaders;
+
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,15 +55,21 @@ public class RegisterDataProvider {
     public RegisterDataProvider() {
     }
 
-    public ApiResponse saveDataProviderInfo (DataProvider dataProvider) throws ApiException {
+    public ApiResponse saveDataProviderInfo (HttpHeaders httpHeaders, DataProvider dataProvider) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("storing provider information {} ", dataProvider);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();

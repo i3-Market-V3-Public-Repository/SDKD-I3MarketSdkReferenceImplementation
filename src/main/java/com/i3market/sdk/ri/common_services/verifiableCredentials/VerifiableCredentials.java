@@ -45,20 +45,28 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class
 VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public Object getIssueVerifiableCredential(String did, String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(HttpHeaders httpHeaders, String did, String credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get issue verifiable credential by credential string");
         CredentialApi credentialApi = new CredentialApi();
@@ -66,15 +74,21 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredentialIssueByDidByCredential(did, credential);
     }
 
-    public Object postRevokeCredentialByJWT(InlineObject credential) throws ApiException {
+    public Object postRevokeCredentialByJWT(HttpHeaders httpHeaders, InlineObject credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("post revoke verifiable credential by credential JWT");
         CredentialApi credentialApi = new CredentialApi();
@@ -83,9 +97,11 @@ VerifiableCredentials {
 
     }
 
-    public Object postVerifyCredentialByJWT(InlineObject1 credential) throws ApiException {
+    public Object postVerifyCredentialByJWT(HttpHeaders httpHeaders, InlineObject1 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
@@ -93,21 +109,31 @@ VerifiableCredentials {
 
         apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
         _log.debug("post revoke verifiable credential by credential JWT");
         CredentialApi credentialApi = new CredentialApi();
 
         return credentialApi.postRelease2VcCredentialVerify(credential);
     }
 
-    public List<String> getCredentialList() throws ApiException {
+    public List<String> getCredentialList(HttpHeaders httpHeaders) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get issued verifiable credential list");
         CredentialApi credentialApi = new CredentialApi();
@@ -115,15 +141,21 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredential();
     }
 
-    public Object getSubscribeIssuer() throws ApiException {
+    public Object getSubscribeIssuer(HttpHeaders httpHeaders) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get subscribe the issuer");
         IssuerApi issuerApi = new IssuerApi();
@@ -131,15 +163,21 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerSubscribe();
     }
 
-    public Object getUnsubscribeIssuer() throws ApiException {
+    public Object getUnsubscribeIssuer(HttpHeaders httpHeaders) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get unsubscribe the issuer");
         IssuerApi issuerApi = new IssuerApi();
@@ -147,14 +185,20 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerUnsubscribe();
     }
 
-    public Object getVerifyIssuerSubscription() throws ApiException {
+    public Object getVerifyIssuerSubscription(HttpHeaders httpHeaders) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get verify the issuer subscription");
         IssuerApi issuerApi = new IssuerApi();

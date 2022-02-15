@@ -38,6 +38,9 @@ import com.i3m.api.backplane.SubscriptionsApi;
 import com.i3m.model.backplane.CreateSubscription;
 import com.i3m.model.backplane.Subscription;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
+import javax.ws.rs.core.HttpHeaders;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,15 +50,22 @@ public class CreateUserSubscription {
     public CreateUserSubscription() {
     }
 
-    public ApiResponse<Subscription> createUserSubscription (String user_id, CreateSubscription sub) throws ApiException {
+    public ApiResponse<Subscription> createUserSubscription (HttpHeaders httpHeaders, String user_id, CreateSubscription sub) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
         _log.debug("creating a user subscription for {} {}", user_id, sub);
 
         SubscriptionsApi subscriptionApi = new SubscriptionsApi();

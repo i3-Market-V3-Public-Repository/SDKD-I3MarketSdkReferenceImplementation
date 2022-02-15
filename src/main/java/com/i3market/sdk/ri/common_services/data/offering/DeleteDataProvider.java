@@ -29,6 +29,8 @@
 */
 package com.i3market.sdk.ri.common_services.data.offering;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,15 +49,21 @@ public class DeleteDataProvider {
     public DeleteDataProvider() {
     }
 
-    public ApiResponse<Void> deleteProvider (String dataProviderId) throws ApiException {
+    public ApiResponse<Void> deleteProvider (HttpHeaders httpHeaders, String dataProviderId) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        String access_token = httpHeaders.getRequestHeader("access_token")!=null? httpHeaders.getRequestHeader("access_token").get(0):null;
+        String id_token = httpHeaders.getRequestHeader("id_token")!=null? httpHeaders.getRequestHeader("id_token").get(0):null;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("deleting provider with Id: ", dataProviderId);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
