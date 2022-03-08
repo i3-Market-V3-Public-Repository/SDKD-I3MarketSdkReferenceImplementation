@@ -272,7 +272,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<DataOfferingId>> registerDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataOffering dataOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<DataOfferingDto> registerDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(access_token, id_token, dataOffering);
 	}
 

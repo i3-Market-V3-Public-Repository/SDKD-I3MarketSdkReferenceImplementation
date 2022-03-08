@@ -53,7 +53,7 @@ public class CreateOffering {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public  ApiResponse<List<DataOfferingId>> createOffering (String access_token, String id_token, DataOffering dataOfferingDto) throws ApiException {
+    public  ApiResponse<DataOfferingDto> createOffering (String access_token, String id_token, DataOffering dataOfferingDto) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
