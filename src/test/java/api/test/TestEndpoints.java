@@ -41,6 +41,8 @@ import org.json.JSONObject;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.i3m.model.backplane.DataOfferingDto;
+
 /**
  * Perform API Testing for the services using CRUD Design Pattern
  */
@@ -65,77 +67,68 @@ public class TestEndpoints {
 			"  \"category\": \"Energy\",\n" +
 			"  \"status\": \"activated\",\n" +
 			"  \"dataOfferingExpirationTime\": \"1month\",\n" +
-			"  \"contractParameters\": [\n" +
+			"  \"contractParameters\": " +
 			"    {\n" +
 			"      \"interestOfProvider\": \"Chi\",\n" +
 			"      \"interestDescription\": \"Test\",\n" +
 			"      \"hasGoverningJurisdiction\": \"Test data\",\n" +
 			"      \"purpose\": \"Test data\",\n" +
 			"      \"purposeDescription\": \"Test data\",\n" +
-			"      \"hasIntendedUse\": [\n" +
+			"      \"hasIntendedUse\": " +
 			"        {\n" +
-			"          \"processData\": \"true OR false\",\n" +
-			"          \"shareDataWithThirdParty\": \"true OR false\",\n" +
-			"          \"editData\": \"true OR false\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasLicenseGrant\": [\n" +
+			"          \"processData\": \"true\",\n" +
+			"          \"shareDataWithThirdParty\": \"true\",\n" +
+			"          \"editData\": \"true\"\n" +
+			"        },\n" +
+			"      \"hasLicenseGrant\": " +
 			"        {\n" +
-			"          \"copyData\": \"true OR false\",\n" +
-			"          \"transferable\": \"true OR false\",\n" +
-			"          \"exclusiveness\": \"true OR false\",\n" +
-			"          \"revocable\": \"true OR false\"\n" +
+			"          \"copyData\": \"true\",\n" +
+			"          \"transferable\": \"true\",\n" +
+			"          \"exclusiveness\": \"true\",\n" +
+			"          \"revocable\": \"true\"\n" +
 			"        }\n" +
-			"      ]\n" +
-			"    }\n" +
-			"  ],\n" +
-			"  \"hasPricingModel\": [\n" +
+			"    },\n" +
+			"  \"hasPricingModel\": " +
 			"    {\n" +
 			"      \"pricingModelName\": \"Test data1\",\n" +
-			"      \"basicPrice\": \"Test data\",\n" +
+			"      \"basicPrice\": \"101390\",\n" +
 			"      \"currency\": \"Test data\",\n" +
-			"      \"hasPaymentOnSubscription\": [\n" +
+			"      \"hasPaymentOnSubscription\": " +
 			"        {\n" +
 			"          \"paymentOnSubscriptionName\": \"Test data\",\n" +
 			"          \"paymentType\": \"Test data\",\n" +
 			"          \"timeDuration\": \"Test data\",\n" +
 			"          \"description\": \"Test data\",\n" +
 			"          \"repeat\": \"DAILY\",\n" +
-			"          \"hasSubscriptionPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnApi\": [\n" +
+			"          \"hasSubscriptionPrice\": \"43634634\"\n" +
+			"        },\n" +
+			"      \"hasPaymentOnApi\": " +
 			"        {\n" +
 			"          \"paymentOnApiName\": \"Test data\",\n" +
 			"          \"description\": \"Test data\",\n" +
-			"          \"numberOfObject\": \"Test data\",\n" +
-			"          \"hasApiPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnUnit\": [\n" +
+			"          \"numberOfObject\": \"5\",\n" +
+			"          \"hasApiPrice\": \"534\"\n" +
+			"        },\n" +
+			"      \"hasPaymentOnUnit\": " +
 			"        {\n" +
 			"          \"paymentOnUnitName\": \"Test data\",\n" +
 			"          \"description\": \"Test data\",\n" +
-			"          \"dataUnit\": \"Test data\",\n" +
-			"          \"hasUnitPrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasPaymentOnSize\": [\n" +
+			"          \"dataUnit\": \"213123\",\n" +
+			"          \"hasUnitPrice\": \"999\"\n" +
+			"        },\n" +
+			"      \"hasPaymentOnSize\": " +
 			"        {\n" +
 			"          \"paymentOnSizeName\": \"Test data\",\n" +
 			"          \"description\": \"Test data\",\n" +
 			"          \"dataSize\": \"Test data\",\n" +
-			"          \"hasSizePrice\": \"Test data\"\n" +
-			"        }\n" +
-			"      ],\n" +
-			"      \"hasFreePrice\": [\n" +
+			"          \"hasSizePrice\": \"543534\"\n" +
+			"        },\n" +
+			"      \"hasFreePrice\": " +
 			"        {\n" +
-			"          \"hasPriceFree\": \"FREE\"\n" +
+			"          \"hasPriceFree\": \"true\"\n" +
 			"        }\n" +
-			"      ]\n" +
-			"    }\n" +
-			"  ],\n" +
-			"  \"hasDataset\": [\n" +
+			"    }, \n" +
+			"  \"hasDataset\": " +
 			"    {\n" +
 			"      \"title\": \"Test data\",\n" +
 			"      \"keyword\": \"Test data\",\n" +
@@ -161,7 +154,7 @@ public class TestEndpoints {
 			"          \"conformsTo\": \"Test data\",\n" +
 			"          \"mediaType\": \"Test data\",\n" +
 			"          \"packageFormat\": \"Test data\",\n" +
-			"          \"accessService\": [\n" +
+			"          \"accessService\": " +
 			"            {\n" +
 			"              \"conformsTo\": \"Test data\",\n" +
 			"              \"endpointDescription\": \"Test data\",\n" +
@@ -169,7 +162,6 @@ public class TestEndpoints {
 			"              \"servesDataset\": \"Test data\",\n" +
 			"              \"serviceSpecs\": \"Test data\"\n" +
 			"            }\n" +
-			"          ]\n" +
 			"        }\n" +
 			"      ],\n" +
 			"      \"datasetInformation\": [\n" +
@@ -183,7 +175,6 @@ public class TestEndpoints {
 			"        }\n" +
 			"      ]\n" +
 			"    }\n" +
-			"  ]\n" +
 			"}\n";
 	JSONObject newOfferingBody = new JSONObject(newOfferingString);
 	String dataOfferingId = "";
@@ -328,7 +319,7 @@ public class TestEndpoints {
 
 		System.out.println("************************************{OFFERING CREATION}************************************");
 		Response response= CommonServicesEndpoints.postDataOffering(access_token, id_token, newOfferingBody.toString());
-		dataOfferingId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data[0].dataOfferingId").toString();
+		dataOfferingId = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data.dataOfferingId").toString();
 		response.then().log().body().statusCode(200);
 
 		System.out.println("******************************************************************************************");
@@ -341,8 +332,9 @@ public class TestEndpoints {
 		Response response= CommonServicesEndpoints.searchOfferingByOfferingId(access_token, id_token, dataOfferingId);
 		response.then().log().body().statusCode(200);
 		JsonPath jsonPathEvaluator = response.jsonPath();
-		JSONArray data = new JSONArray((Collection<?>)jsonPathEvaluator.get("data"));
-		obtainedOfferingBody = data.getJSONObject(0);
+		//JSONArray data = new JSONArray((Collection<?>)jsonPathEvaluator.get("data"));
+		obtainedOfferingBody = new JSONObject(jsonPathEvaluator.getObject("data", DataOfferingDto.class));
+		//obtainedOfferingBody = data.getJSONObject(0);
 		System.out.println("*************************DATA OBTAINED: " + obtainedOfferingBody.toString()+ "*******************************************");
 	}
 

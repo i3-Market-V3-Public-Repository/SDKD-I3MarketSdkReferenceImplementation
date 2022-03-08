@@ -50,7 +50,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveContractParametersByOfferingId {
 	
-    public ApiResponse<List<ContractsParametersForOfferings>> getOfferingContractsByOfferingId(String access_token, String id_token, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<ContractsParametersForOfferings> getOfferingContractsByOfferingId(String access_token, String id_token, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

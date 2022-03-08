@@ -54,7 +54,7 @@ public class RetrieveOfferingById {
     private static final Logger _log = LoggerFactory.getLogger(RetrieveOfferingById.class);
 
 
-    public  ApiResponse<List<DataOfferingDto>> getDataOfferingById(String access_token, String id_token, String id, int page, int size, List<String> sort) throws ApiException {
+    public  ApiResponse<DataOfferingDto> getDataOfferingById(String access_token, String id_token, String id, int page, int size, List<String> sort) throws ApiException {
 
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
