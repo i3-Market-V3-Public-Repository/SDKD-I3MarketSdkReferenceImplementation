@@ -1,5 +1,9 @@
-FROM maven:3.8.3-jdk-8 as initial
+FROM maven:3.8.4-jdk-8 as initial
 ARG TEST
+ARG BACKPLANE_URL
+ARG OIDC_URL
+ARG VC_URL
+ARG DATA_ACCESS_URL
 
 RUN mkdir -p /root/.m2 \
     && mkdir /root/.m2/repository
@@ -10,7 +14,10 @@ COPY . /sdk-ri
 
 WORKdir /sdk-ri
 
-RUN mvn clean install $TEST
+RUN chmod +x setup-sdk-ri.sh
+RUN bash setup-sdk-ri.sh
+
+RUN mvn clean install -U $TEST
 
 FROM jetty:9.4-jdk8
 
