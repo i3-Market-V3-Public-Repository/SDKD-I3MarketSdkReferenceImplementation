@@ -7,20 +7,20 @@
     
 <module-name>SDK-RI_Client</module-name>
 
-<security-constraint>
+   <security-constraint>
         <web-resource-collection>
             <web-resource-name>All Resources</web-resource-name>
             <url-pattern>/*</url-pattern>
         </web-resource-collection>
-        <auth-constraint>
+        <!-- <auth-constraint>
             <role-name>user-i3market</role-name>
             <role-name>admin</role-name>
-        </auth-constraint>
+        </auth-constraint> -->
     </security-constraint>
 
 
 
-    <login-config>
+    <!--  <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>i3market</realm-name>
     </login-config>
@@ -31,7 +31,7 @@
 
     <security-role>
         <role-name>user-i3market</role-name>
-    </security-role>
+    </security-role> -->
 
 
 
@@ -49,8 +49,7 @@
       <init-param>
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>
-            io.swagger.annotations;
-            com.i3market.sdk.ri.resource;
+            com.i3market.sdk.ri
         </param-value>
       </init-param>
       
@@ -63,6 +62,26 @@
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
     
+    <filter>
+	    <filter-name>cross-origin</filter-name>
+	    <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+	    <init-param>
+	        <param-name>allowedOrigins</param-name>
+	        <param-value>*</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>allowedMethods</param-name>
+	        <param-value>GET,POST,DELETE,PUT,HEAD</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>allowedHeaders</param-name>
+	        <param-value>origin, content-type, accept</param-value>
+	    </init-param>
+	</filter>
+	<filter-mapping>
+	   <filter-name>cross-origin</filter-name>
+	   <url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 
 </web-app>

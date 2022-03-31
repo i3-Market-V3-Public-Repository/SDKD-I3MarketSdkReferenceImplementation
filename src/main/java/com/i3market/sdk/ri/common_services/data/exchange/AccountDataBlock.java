@@ -1,6 +1,37 @@
+/*
+  Copyright 2020-2022 i3-MARKET Consortium:
+
+  ATHENS UNIVERSITY OF ECONOMICS AND BUSINESS - RESEARCH CENTER
+  ATOS SPAIN SA
+  EUROPEAN DIGITAL SME ALLIANCE
+  GFT ITALIA SRL
+  GUARDTIME OU
+  HOP UBIQUITOUS SL
+  IBM RESEARCH GMBH
+  IDEMIA FRANCE
+  SIEMENS AKTIENGESELLSCHAFT
+  SIEMENS SRL
+  TELESTO TECHNOLOGIES PLIROFORIKIS KAI EPIKOINONION EPE
+  UNIVERSITAT POLITECNICA DE CATALUNYA
+  UNPARALLEL INNOVATION LDA
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 package com.i3market.sdk.ri.common_services.data.exchange;
 
 import java.util.Map;
+
+import javax.ws.rs.core.HttpHeaders;
 
 import java.util.Base64;
 import java.util.Date;
@@ -86,7 +117,7 @@ public class AccountDataBlock {
 		}
 	}
 
-	public String accountDataBlock(String bearerToken, InlineObject blockIdAck, String data)
+	public String accountDataBlock(String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data)
 			throws ApiException {
 
 		// local
@@ -97,13 +128,17 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
 		String jwt = "Bearer " + bearerToken;
 
 		Map<String, Authentication> authentications = apiClient.getAuthentications();
@@ -118,15 +153,19 @@ public class AccountDataBlock {
 		return response;
 	}
 
-	public Invoice createInvoice(String bearerToken, String fromDate, String toDate) throws ApiException {
+	public Invoice createInvoice(String access_token, String id_token, String bearerToken, String fromDate, String toDate) throws ApiException {
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 
@@ -202,7 +241,7 @@ public class AccountDataBlock {
 	}
 
 	// Test to fetch entire file
-	public String getFile (String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
+	public String getFile (String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
 
 		String check = "not null";
 		String response = null;
@@ -225,12 +264,16 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 

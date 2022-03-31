@@ -17,11 +17,11 @@ default config file is palced in /src/main/wabapp/WEB-INF/keycloak.json
 
 {
   "realm": "i3market",
-  "auth-server-url": "http://83.149.125.78:8080/auth/",
+  "auth-server-url": "http://X.X.X.X",
   "ssl-required": "none",
   "resource": "SDK-RI_Client",
   "credentials": {
-    "secret": "703e0db9-a646-4f1d-bdc6-2b3fe20db08a"
+    "secret": "XXXXXXXXXXXXX"
   },
   "use-resource-role-mappings": true,
   "confidential-port": 0
@@ -75,8 +75,22 @@ Finally just go to http:/$deploy_host/SdkRefImpl for accesing to SDK-RI REST API
 	
 - An example of setup could be the following:
 	
-	- backplane.url =  http://95.211.3.244:3000/
-	- oidc.url =  https://identity1.i3-market.eu/
-	- verifiable_credentials.url = https://identity1.i3-market.eu/vc/api-spec/ui/
+	- backplane.url =  xxxx
+	- oidc.url =  xxxx
+	- verifiable_credentials.url = xxxxx
 
+# Contact us if you have any issue with the SDK-RI
+Ivan Martinez: ivan.martinez@atos.net
+or
+Nines : maria.sanguino@atos.net
 
+# License
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

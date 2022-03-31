@@ -1,3 +1,32 @@
+/*
+  Copyright 2020-2022 i3-MARKET Consortium:
+
+  ATHENS UNIVERSITY OF ECONOMICS AND BUSINESS - RESEARCH CENTER
+  ATOS SPAIN SA
+  EUROPEAN DIGITAL SME ALLIANCE
+  GFT ITALIA SRL
+  GUARDTIME OU
+  HOP UBIQUITOUS SL
+  IBM RESEARCH GMBH
+  IDEMIA FRANCE
+  SIEMENS AKTIENGESELLSCHAFT
+  SIEMENS SRL
+  TELESTO TECHNOLOGIES PLIROFORIKIS KAI EPIKOINONION EPE
+  UNIVERSITAT POLITECNICA DE CATALUNYA
+  UNPARALLEL INNOVATION LDA
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 package com.i3market.sdk.ri.common_services.verifiableCredentials;
 
 import com.i3m.api.ApiClient;
@@ -16,36 +45,46 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class
 VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public Object getIssueVerifiableCredential(String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(String access_token, String id_token, String did, String credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get issue verifiable credential by credential string");
         CredentialApi credentialApi = new CredentialApi();
 
-        return credentialApi.getRelease2VcCredentialIssueByCredential(credential);
+        return credentialApi.getRelease2VcCredentialIssueByDidByCredential(did, credential);
     }
 
-    public Object postRevokeCredentialByJWT(InlineObject credential) throws ApiException {
+    public Object postRevokeCredentialByJWT(String access_token, String id_token, InlineObject credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("post revoke verifiable credential by credential JWT");
         CredentialApi credentialApi = new CredentialApi();
@@ -54,31 +93,39 @@ VerifiableCredentials {
 
     }
 
-    public Object postVerifyCredentialByJWT(InlineObject1 credential) throws ApiException {
+    public Object postVerifyCredentialByJWT(String access_token, String id_token, InlineObject1 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
         _log.debug("post revoke verifiable credential by credential JWT");
         CredentialApi credentialApi = new CredentialApi();
 
         return credentialApi.postRelease2VcCredentialVerify(credential);
     }
 
-    public List<String> getCredentialList() throws ApiException {
+    public List<String> getCredentialList(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get issued verifiable credential list");
         CredentialApi credentialApi = new CredentialApi();
@@ -86,15 +133,19 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredential();
     }
 
-    public Object getSubscribeIssuer() throws ApiException {
+    public Object getSubscribeIssuer(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get subscribe the issuer");
         IssuerApi issuerApi = new IssuerApi();
@@ -102,15 +153,19 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerSubscribe();
     }
 
-    public Object getUnsubscribeIssuer() throws ApiException {
+    public Object getUnsubscribeIssuer(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get unsubscribe the issuer");
         IssuerApi issuerApi = new IssuerApi();
@@ -118,14 +173,18 @@ VerifiableCredentials {
         return issuerApi.getRelease2VcIssuerUnsubscribe();
     }
 
-    public Object getVerifyIssuerSubscription() throws ApiException {
+    public Object getVerifyIssuerSubscription(String access_token, String id_token) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("get verify the issuer subscription");
         IssuerApi issuerApi = new IssuerApi();
