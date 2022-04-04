@@ -5,6 +5,8 @@ ARG OIDC_URL
 ARG VC_URL
 ARG DATA_ACCESS_URL
 
+ENV NODE_VERSION=17.7.1
+
 RUN mkdir -p /root/.m2 \
     && mkdir /root/.m2/repository
 
