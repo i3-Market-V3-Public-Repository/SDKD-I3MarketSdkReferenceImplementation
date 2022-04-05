@@ -24,8 +24,8 @@ RUN mvn clean install -U $TEST
 FROM jetty:9.4-jdk8
 
 USER root
-ADD https://github.com/keycloak/keycloak/releases/download/12.0.4/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz /var/lib/jetty/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz
-RUN tar -xzf /var/lib/jetty/keycloak-oidc-jetty94-adapter-12.0.4.tar.gz
+ADD https://github.com/keycloak/keycloak/releases/download/13.0.0/keycloak-oidc-jetty94-adapter-13.0.0.tar.gz /var/lib/jetty/keycloak-oidc-jetty94-adapter-13.0.0.tar.gz
+RUN tar -xzf /var/lib/jetty/keycloak-oidc-jetty94-adapter-13.0.0.tar.gz
 USER jetty
 RUN echo $JETTY_HOME
 RUN java -jar "$JETTY_HOME/start.jar" --add-to-start=keycloak
