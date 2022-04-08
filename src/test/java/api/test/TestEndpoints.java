@@ -283,6 +283,65 @@ public class TestEndpoints {
 
 	String transferId = "6fa4973b-11ce-56d8-8544-660e1a334b23";
 	String transactionHash = "";
+	
+	String templatePurchaseRequestBody = "{\n"
+			+ "  \"DataOfferingDescription\": {\n"
+			+ "    \"dataOfferingId\": \"62291a1531829d611d3590de\",\n"
+			+ "    \"provider\": \"chi\",\n"
+			+ "    \"description\": \"average speed velocity data\",\n"
+			+ "    \"title\": \"string\",\n"
+			+ "    \"category\": \"Automotive\",\n"
+			+ "    \"isActive\": true\n"
+			+ "  },\n"
+			+ "  \"Purpose\": \"string\",\n"
+			+ "  \"hasParties\": {\n"
+			+ "    \"Parties\": {\n"
+			+ "      \"dataProvider\": \"chi\",\n"
+			+ "      \"dataConsumer\": \"Nines\"\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"hasDuration\": {\n"
+			+ "    \"Duration\": {\n"
+			+ "      \"creationDate\": \"2022-04-01 00:00:00.000\",\n"
+			+ "      \"startDate\": \"2022-04-04 00:00:00.000\",\n"
+			+ "      \"endDate\": \"2022-04-12 00:00:00.000\"\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"hasDuties/Obligations\": {\n"
+			+ "    \"Duties/Obligations\": {\n"
+			+ "      \"qualityofData\": \"string\",\n"
+			+ "      \"characteristics\": [\n"
+			+ "        \"string\"\n"
+			+ "      ],\n"
+			+ "      \"dataAvailability\": true\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"hasDescriptionOfData\": {\n"
+			+ "    \"DescriptionOfData\": {\n"
+			+ "      \"dataType\": \"csv\",\n"
+			+ "      \"dataFormat\": \"csv\",\n"
+			+ "      \"dataSource\": \"csv\"\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"hasIntendedUse\": {\n"
+			+ "    \"IntendedUse\": {\n"
+			+ "      \"processData\": true,\n"
+			+ "      \"shareDataWithThirdParty\": false,\n"
+			+ "      \"editData\": true\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"hasLicenseGrant\": {\n"
+			+ "    \"LicenseGrant\": {\n"
+			+ "      \"copyData\": true,\n"
+			+ "      \"transferable\": true,\n"
+			+ "      \"exclusiveness\": false,\n"
+			+ "      \"revocable\": true\n"
+			+ "    }\n"
+			+ "  },\n"
+			+ "  \"DataStream\": true\n"
+			+ "}";
+	String destinyService = "";
+	String origin_market_id = "NinesMarketplace";
 	// -----------------------------------------------------------------TESTS
 	@BeforeTest
 	public void beforeTest()  {
@@ -897,5 +956,16 @@ public class TestEndpoints {
 //		Object data = response.then().log().body().statusCode(200).extract().path("data").toString();
 //		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 //	}
+	
+	@Test(priority = 61)
+	public void testPurchaseCreation()  {
+
+		System.out.println("************************************{PURCHASE CREATION}************************************");
+		Response response= CommonServicesEndpoints.createDataPurchaseByTemplate(access_token, id_token, origin_market_id, templatePurchaseRequestBody.toString());
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
 	
 }
