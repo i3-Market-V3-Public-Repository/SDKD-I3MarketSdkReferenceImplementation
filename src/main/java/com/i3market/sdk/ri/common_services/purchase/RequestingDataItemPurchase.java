@@ -78,7 +78,7 @@ public class RequestingDataItemPurchase {
 		
         // Fill the elements of notification
 		ServiceNotification sNot = new ServiceNotification();
-        sNot.setReceiverId(ReceiverIdEnum.OFFERING_NEW);
+        sNot.setReceiverId(ReceiverIdEnum.AGREEMENT_PENDING);
         sNot.setMessage(message);
 		
         // Send the notification
