@@ -38,7 +38,7 @@ public class Routes {
 	public static String security_token_uri= "http://83.149.125.78:8080/auth/realms/i3market/protocol/openid-connect/token";
 	
 	// The base uri is the resource where all the common services are running.
-	public static String base_uri  ="http://localhost:9191/SdkRefImpl";
+	public static String base_uri  ="http://localhost:8181/SdkRefImpl";
 	//public static String base_uri  ="http://172.17.0.2:8080/SdkRefImpl";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
