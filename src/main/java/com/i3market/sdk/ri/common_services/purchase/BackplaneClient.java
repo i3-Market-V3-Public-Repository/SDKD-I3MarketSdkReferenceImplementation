@@ -72,7 +72,7 @@ public class BackplaneClient {
 		authentications.put("bearerAuth", bearerAuth);
 		
 		AgreementApi controller = new AgreementApi();
-		return  controller.templateTemplateIdGet(idTemplate);
+		return controller.templateOfferingIdGet(idTemplate);
 	}
 
 }
