@@ -87,6 +87,7 @@ import com.i3m.model.backplane.UserNotification;
 import com.i3m.model.backplane.UserSubscriptionList;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
+import com.i3m.model.smart_contract.Template;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
@@ -111,6 +112,7 @@ import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
 import com.i3market.sdk.ri.common_services.notification.ModifyNotification;
 import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
 import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
+import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -861,6 +863,16 @@ public class SdkRiHub {
 	@Produces({ "text/html", "application/xml" })
 	public Object getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
 		return new BackplaneClient().getTemplate(access_token, id_token, token, idOffering);
+	}
+	
+	@POST
+	@Path("/contract/create-data-purchase")
+	@ApiOperation(value = "create a data purchase request", tags = "common-services: contract")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to generate the notification")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
+		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, token, origin_market_id, contractualParameters);
 	}
 
 	/////// Alerts Subscriptions ///////
