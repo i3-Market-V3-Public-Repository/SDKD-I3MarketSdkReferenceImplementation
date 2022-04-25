@@ -62,6 +62,9 @@ public class TestEndpoints {
 			"  \"provider\": \"id123456789\",\n" +
 			"  \"marketId\" : \"UIOT-M\",\n" +
 			"  \"owner\": \"Owner webri node 249\",\n" +
+			"   \"providerDid\": \"null\",\n" +
+			"   \"marketDid\": \"null\",\n" +
+			"   \"ownerDid\": \"null\",\n" +
 			"  \"dataOfferingTitle\": \"Offsore Wind Turbine\",\n" +
 			"  \"dataOfferingDescription\": \"This is offshore wind turbine data\",\n" +
 			"  \"category\": \"Energy\",\n" +
