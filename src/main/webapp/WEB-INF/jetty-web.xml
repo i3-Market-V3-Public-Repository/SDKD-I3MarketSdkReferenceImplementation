@@ -10,13 +10,13 @@
                 <New class="org.keycloak.representations.adapters.config.AdapterConfig">
                     <Set name="realm">i3market</Set>
                     <Set name="resource">SDK-RI_Client</Set>
-                    <Set name="authServerUrl">http://83.149.125.78:8080/auth/</Set>
+                    <Set name="authServerUrl">http://XX.XX.XX.XX:XXXX/auth/</Set>
                     <Set name="sslRequired">none</Set>
                     <Set name="credentials">
                         <Map>
                             <Entry>
                                 <Item>secret</Item>
-                                <Item>703e0db9-a646-4f1d-bdc6-2b3fe20db08a</Item>
+                                <Item></Item>
                             </Entry>
                         </Map>
                     </Set>
