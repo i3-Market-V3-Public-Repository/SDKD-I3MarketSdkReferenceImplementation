@@ -86,9 +86,9 @@ public class AccountDataBlock {
 	private static Payload decrypted_cipherblock;
 	private static String sendJwk;
 
-	static String privateKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\",\"d\": \"-VAvKlK5_0-B4c82klsXri28pGbYx2iwKPryoKEE1f4\"}";
-	static String publicKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\"}";
-	static String publicKeyStrProvider = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\"}";
+	static String privateKeyStrConsumer = "{}";
+	static String publicKeyStrConsumer = "{}";
+	static String publicKeyStrProvider = "{}";
 
 	static ECKey publicKeyProvider;
 	static {
