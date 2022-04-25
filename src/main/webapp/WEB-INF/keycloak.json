@@ -1,6 +1,6 @@
 {
   "realm": "i3market",
-  "auth-server-url": "http://localhost:8080/auth/",
+  "auth-server-url": "http://localhost:XXXX/auth/",
   "ssl-required": "none",
   "resource": "SDK-RI_Client",
   "credentials": {
