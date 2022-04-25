@@ -51,8 +51,8 @@ public class TestEndpoints {
 	String auth_token = "";
 	
 	//TOKENS
-	String access_token = "erwe-4543645grf-grdytrey";
-	String id_token = "fewoptjwetn53-4356346,234.54654367";
+	String access_token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String id_token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
 	// OFFERINGS
 	String newProviderString = "{\"providerId\":\"id123456789\",\"name\":\"provider test\",\"description\":\"this is a test\",\"organization\":[{\"organizationId\":\"organizationTest123\",\"name\":\"this organization is a test\",\"description\":\"this organization is a test plus description\",\"address\":\"this is an optional address\",\"contactPoint\":\"this is an optional contact point\"}]}";
@@ -233,12 +233,12 @@ public class TestEndpoints {
 	String blockAck = "";
 	
 	// TOKEN
-	String marketplaceAddressSender1 = "0xD94f3239185C27937367B9A1A17aB70f4F631667";
-	String marketplaceAddressSender2 = "0xD94f3239185C27937367B9A1A17aB70f4F631883";
-	String marketplaceAddressReceiver = "0x79CD92CD7c1e380c1a6Ba5E9EF09D2F7c4820D45";
-	String marketplaceClearingAddress = "0x79CD92CD7c1e380c1a6Ba5E9EF09D2F7c4820U5R";
-	String marketplaceAddress = "0xb8E0101259550765a5f1287d0F680Ee9B09b4235";
-	String userAddress = "0xb8E0101259550765a5f1287d0F680Ee9B09b41E7";
+	String marketplaceAddressSender1 = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String marketplaceAddressSender2 = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String marketplaceAddressReceiver = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String marketplaceClearingAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String marketplaceAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	String userAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
 	String marketplaceClearingOperation = "{\n" +
 			"  \"senderAddress\": \""+ marketplaceClearingAddress +"\"\n" +
@@ -272,15 +272,15 @@ public class TestEndpoints {
 
 	String paymentOperation = "{\n" +
 			"  \"senderAddress\": \""+marketplaceAddressSender1+"\",\n" +
-			"  \"providerAddress\": \"0xb13894b969ad9A69108684dA8004E53A32c6df66\",\n" +
+			"  \"providerAddress\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n" +
 			"  \"amount\": \"10\"\n" +
 			"}";
 	JSONObject paymentOperationBody = new JSONObject(paymentOperation);
 
 	String setPaidOperation = "{\n" +
-			"  \"senderAddress\": \"0x79CD92CD7c1e380c1a6Ba5E9EF09D2F7c4820T40\",\n" +
-			"  \"transferId\": \"6fa4973b-11ce-56d8-8544-660e1a334b23\",\n" +
-			"  \"transferCode\": \"GR99203205004989123400\"\n" +
+			"  \"senderAddress\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n" +
+			"  \"transferId\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\",\n" +
+			"  \"transferCode\": \"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"\n" +
 			"}";
 	JSONObject setPaidOperationBody = new JSONObject(setPaidOperation);
 
