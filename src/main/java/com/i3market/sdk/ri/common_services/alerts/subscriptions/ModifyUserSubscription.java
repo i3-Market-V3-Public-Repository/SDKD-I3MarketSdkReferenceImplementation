@@ -36,7 +36,10 @@ package com.i3market.sdk.ri.common_services.alerts.subscriptions;
         import com.i3m.api.backplane.SubscriptionsApi;
         import com.i3m.model.backplane.Subscription;
         import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-        import org.slf4j.Logger;
+
+import javax.ws.rs.core.HttpHeaders;
+
+import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
 
 public class ModifyUserSubscription {
@@ -46,15 +49,19 @@ public class ModifyUserSubscription {
     public ModifyUserSubscription() {
     }
 
-    public ApiResponse<Subscription> activateUserSubscription (String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> activateUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Enabling User {} subscription {} ", user_id, subscription_id);
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();
@@ -62,15 +69,19 @@ public class ModifyUserSubscription {
         return subscriptionsApi.patchApiV1UsersByUserIdSubscriptionsBySubscriptionIdActivateWithHttpInfo(user_id, subscription_id);
 
     }
-    public ApiResponse<Subscription> deactivateUserSubscription (String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> deactivateUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Disabling User {} subscription {} ", user_id, subscription_id);
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();

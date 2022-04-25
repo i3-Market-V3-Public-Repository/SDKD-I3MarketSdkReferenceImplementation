@@ -31,6 +31,8 @@ package com.i3market.sdk.ri.common_services.data.exchange;
 
 import java.util.Map;
 
+import javax.ws.rs.core.HttpHeaders;
+
 import java.util.Base64;
 import java.util.Date;
 import java.io.File;
@@ -84,9 +86,9 @@ public class AccountDataBlock {
 	private static Payload decrypted_cipherblock;
 	private static String sendJwk;
 
-	static String privateKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"xxxx\",\"y\": \"xxxx\",\"d\": \"xxxxx\"}";
-	static String publicKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"xxx\",\"y\": \"xxxxx\"}";
-	static String publicKeyStrProvider = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"xxxx\",\"y\": \"xxxxx\"}";
+	static String privateKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\",\"d\": \"-VAvKlK5_0-B4c82klsXri28pGbYx2iwKPryoKEE1f4\"}";
+	static String publicKeyStrConsumer = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\"}";
+	static String publicKeyStrProvider = "{\"kty\":\"EC\",\"crv\": \"P-256\",\"x\": \"NjyNt9n_QEsjwPDQJp45vNn7dn3JeMc8Qj1ffDWfxLA\",\"y\": \"hzj_0heDulDkvAR_u1SqkKVi98_K1MX0GztJggAQ8PQ\"}";
 
 	static ECKey publicKeyProvider;
 	static {
@@ -115,7 +117,7 @@ public class AccountDataBlock {
 		}
 	}
 
-	public String accountDataBlock(String bearerToken, InlineObject blockIdAck, String data)
+	public String accountDataBlock(String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data)
 			throws ApiException {
 
 		// local
@@ -126,13 +128,17 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
 
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+        
 		String jwt = "Bearer " + bearerToken;
 
 		Map<String, Authentication> authentications = apiClient.getAuthentications();
@@ -147,15 +153,19 @@ public class AccountDataBlock {
 		return response;
 	}
 
-	public Invoice createInvoice(String bearerToken, String fromDate, String toDate) throws ApiException {
+	public Invoice createInvoice(String access_token, String id_token, String bearerToken, String fromDate, String toDate) throws ApiException {
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 
@@ -231,7 +241,7 @@ public class AccountDataBlock {
 	}
 
 	// Test to fetch entire file
-	public String getFile (String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
+	public String getFile (String access_token, String id_token, String bearerToken, InlineObject blockIdAck, String data) throws ApiException {
 
 		String check = "not null";
 		String response = null;
@@ -254,12 +264,16 @@ public class AccountDataBlock {
 		connection.createTable(conn);
 
 		String dataAccessPath = SdkRiConstants.DATA_ACCESS_ENDPOINT;
-
+		
 		ApiClient apiClient = Configuration.getDefaultApiClient();
 
 		apiClient.setBasePath(dataAccessPath);
 
 		apiClient.setServerIndex(null);
+		
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
 		String jwt = "Bearer " + bearerToken;
 

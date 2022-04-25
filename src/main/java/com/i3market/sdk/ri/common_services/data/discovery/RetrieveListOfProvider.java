@@ -40,33 +40,43 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class RetrieveListOfProvider {
 
-    public ApiResponse<List<ProvidersList>> getProviderListByCategory(String category, Integer page, Integer size, List<String> sort) throws ApiException {
+    public List<ProvidersList> getProviderListByCategory(String access_token, String id_token, String category, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return  registrationOfferingApi.getProvidersListByCategoryGETWithHttpInfo(category, page, size, sort);
+        return registrationOfferingApi.getProvidersListByCategoryGET(category, page, size, sort);
 
     }
 
-    public ApiResponse<List<ProvidersList>> getAllProviders(Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<ProvidersList>> getAllProviders(String access_token, String id_token, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 

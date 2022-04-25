@@ -36,6 +36,17 @@
 				<updatePolicy>always</updatePolicy>
 			</releases>
 		</repository>
+		 
+		 <repository> 
+		  <id>central</id> 
+		  <name>Central Repository</name> 
+		  <url>https://repo.maven.apache.org/maven2</url> 
+		  <layout>default</layout> 
+		  <snapshots> 
+		   <enabled>false</enabled> 
+		  </snapshots> 
+		 </repository> 
+
 	</repositories>
 	<distributionManagement>
 		<repository>
@@ -55,7 +66,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.13.1</version>
 		</dependency>
 
 <!--		// https://gitlab.com/i3-market/code/wp3/t3.3/non-repudiable-exchange/non-repudiable-proofs-java/-/packages/3043423-->
@@ -114,7 +125,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.4.1</version>
+			<version>4.5.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
@@ -160,6 +171,12 @@
 					<groupId>com.fasterxml.jackson.core</groupId>
 				</exclusion>
 			</exclusions> -->
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.openapitools/jackson-databind-nullable -->
@@ -167,14 +184,24 @@
 		    <groupId>org.openapitools</groupId>
 		    <artifactId>jackson-databind-nullable</artifactId>
 		    <version>0.2.1</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-databind</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
-		
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.11.3</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
+			<version>2.7</version>
 		</dependency>
 
 
@@ -186,7 +213,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.10.2</version>
+			<version>2.11.3</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
@@ -196,7 +223,15 @@
 				<exclusion>
 					<groupId>javax.ws.rs</groupId>
 					<artifactId>jsr311-api</artifactId>
-				</exclusion> 
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.yaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -216,11 +251,23 @@
 			<groupId>com.github.joschi.jackson</groupId>
 			<artifactId>jackson-datatype-threetenbp</artifactId>
 			<version>2.8.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
 		    <artifactId>jackson-datatype-jsr310</artifactId>
-		    <version>2.10.2</version>
+		    <version>2.11.3</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>com.fasterxml.jackson.core</groupId>
+		    		<artifactId>jackson-databind</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.brsanthu</groupId>
@@ -230,7 +277,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>5.2.5.RELEASE</version>
+            <version>5.3.18</version>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
@@ -261,6 +308,12 @@
             <artifactId>testng</artifactId>
             <version>7.3.0</version>
             <scope>test</scope>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.yaml</groupId>
+            		<artifactId>snakeyaml</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
@@ -275,6 +328,12 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.2</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.yaml</groupId>
+            		<artifactId>snakeyaml</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
        <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
@@ -294,13 +353,12 @@
 	   <dependency>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-servlets</artifactId>
-          <version>9.4.0.M0</version>
+          <version>9.4.41.v20210516</version>
        </dependency>
+  
+  </dependencies>
 
-    </dependencies>
-
-	<build>
-
+	<build>       
 		<plugins>
 
 			<plugin>
@@ -342,6 +400,7 @@
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>2.0.2.Final</version>
 				<configuration>
 					<skip>false</skip>
 				</configuration>
@@ -350,7 +409,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
@@ -360,6 +419,7 @@
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.9.Final</version>
 				<configuration>
 					<skip>false</skip>
 				</configuration>

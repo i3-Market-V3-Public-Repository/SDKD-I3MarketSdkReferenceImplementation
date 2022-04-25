@@ -39,13 +39,15 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
 
+import javax.ws.rs.core.HttpHeaders;
+
 /**
  * Implemented by: Chi-Hung Le
  * @email: chi-hung.le@insight-centre.org
  */
 
 public class RetrieveCategoryList {
-    public ApiResponse<List<CategoriesList>> getOfferingByCategory(Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<CategoriesList>> getOfferingByCategory(String access_token, String id_token, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -54,6 +56,10 @@ public class RetrieveCategoryList {
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 

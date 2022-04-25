@@ -42,9 +42,11 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
 
+import javax.ws.rs.core.HttpHeaders;
+
 public class BackplaneClient {
 	
-	public Template getTemplate (String bearerToken, String idTemplate) throws ApiException {
+	public Template getTemplate (String access_token, String id_token, String bearerToken, String idTemplate) throws ApiException {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 		
 		// Get default client from Configuration
@@ -55,6 +57,10 @@ public class BackplaneClient {
 		
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
+		
+        //Add token as headers
+		defaultClient.addDefaultHeader("access_token", access_token);
+		defaultClient.addDefaultHeader("id_token", access_token);
 
 	    // Setup authentications (JWT).
 		String jwt = "Bearer " + bearerToken;
@@ -66,7 +72,7 @@ public class BackplaneClient {
 		authentications.put("bearerAuth", bearerAuth);
 		
 		AgreementApi controller = new AgreementApi();
-		return  controller.templateTemplateIdGet(idTemplate);
+		return controller.templateOfferingIdGet(idTemplate);
 	}
 
 }

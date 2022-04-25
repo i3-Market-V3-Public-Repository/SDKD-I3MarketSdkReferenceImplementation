@@ -27,29 +27,29 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-package com.i3market.sdk.ri.common_services.data.discovery;
+package com.i3market.sdk.ri.common_services.data.offering;
+
+import javax.ws.rs.core.HttpHeaders;
+
+import org.apache.http.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataOfferingDto;
+import com.i3m.model.backplane.DataProvider;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
-import java.util.Collections;
-import java.util.List;
+public class DeleteDataProvider {
+	
+	private static final Logger _log = LoggerFactory.getLogger(RegisterDataProvider.class);
+    public DeleteDataProvider() {
+    }
 
-import javax.ws.rs.core.HttpHeaders;
-
-/**
- * @author qaiser
- * @email: qaiser.mehmood@insight-centre.org
- * @project i3-sdk-ri
- */
-public class RetrieveOfferingByCategory {
-
-    public  ApiResponse<List<DataOfferingDto>> getOfferingByCategory(String access_token, String id_token, String category, int page, int size, List<String> sort) throws ApiException {
+    public ApiResponse<Void> deleteProvider (String access_token, String id_token, String dataProviderId) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -63,9 +63,13 @@ public class RetrieveOfferingByCategory {
         apiClient.addDefaultHeader("access_token", access_token);
         apiClient.addDefaultHeader("id_token", access_token);
 
+        _log.debug("deleting provider with Id: ", dataProviderId);
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return  registrationOfferingApi.getAllRegisteredOfferingsByCategoryUsingGETWithHttpInfo(category, page, size, sort);
+        return registrationOfferingApi.deleteProviderByProviderIdUsingDELETEWithHttpInfo(dataProviderId);
+
+        //return new ApiResponse(HttpStatus.SC_OK, null);
 
     }
+
 }
