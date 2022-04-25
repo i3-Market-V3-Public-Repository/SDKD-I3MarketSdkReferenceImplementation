@@ -18,7 +18,7 @@
 	<repositories>
 		<repository>
 			<id>i3m-nexus</id>
-			<url>http://95.211.3.251:8081/repository/i3m-maven-snapshots</url>
+			<url>http://XX.XX.XX.XX:XXXX/repository/i3m-maven-snapshots</url>
 			<snapshots>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
