@@ -6,7 +6,7 @@
             <id>i3m-nexus-unblocked</id>
             <mirrorOf>i3m-nexus</mirrorOf>
             <name></name>
-            <url>http://95.211.3.251:8081/repository/i3m-maven-snapshots</url>
+            <url>http://XX.XX.XX.XX:XXXX/repository/i3m-maven-snapshots</url>
             <blocked>false</blocked>
         </mirror>
     </mirrors>
