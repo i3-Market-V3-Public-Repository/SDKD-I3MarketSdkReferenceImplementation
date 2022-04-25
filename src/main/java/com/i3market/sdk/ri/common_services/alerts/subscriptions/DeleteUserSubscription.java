@@ -36,7 +36,10 @@ package com.i3market.sdk.ri.common_services.alerts.subscriptions;
         import com.i3m.api.backplane.SubscriptionsApi;
         import com.i3m.model.backplane.Subscription;
         import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-        import org.slf4j.Logger;
+
+import javax.ws.rs.core.HttpHeaders;
+
+import org.slf4j.Logger;
         import org.slf4j.LoggerFactory;
 
 public class DeleteUserSubscription {
@@ -46,15 +49,19 @@ public class DeleteUserSubscription {
     public DeleteUserSubscription() {
     }
 
-    public ApiResponse<Subscription> deleteUserSubscription (String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<Subscription> deleteUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
 
         _log.debug("Deleting User {} subscription {} ", user_id, subscription_id);
         SubscriptionsApi subscriptionsApi = new SubscriptionsApi();

@@ -35,6 +35,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.json.JSONObject;
+
 import com.i3m.api.ApiException;
  
 @Provider
@@ -44,9 +46,16 @@ public class GenericExceptionMapper  extends Exception implements ExceptionMappe
 	public Response toResponse(ApiException ex) {
         Response.StatusType type = getStatusType(ex);
 
+//        Error error = new Error(
+//                type.getStatusCode(),
+//                type.getReasonPhrase(),
+//                ex.getLocalizedMessage());
+        String message;
+        JSONObject json = new JSONObject(ex.getMessage());
+
         Error error = new Error(
-                type.getStatusCode(),
-                type.getReasonPhrase(),
+                ex.getCode(),
+                json.getJSONObject("error").getString("message"),
                 ex.getLocalizedMessage());
 
         return Response.status(error.getStatusCode())

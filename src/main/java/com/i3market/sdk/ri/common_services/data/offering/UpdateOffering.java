@@ -34,8 +34,12 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataOfferingDTO;
+import com.i3m.model.backplane.DataOffering;
+import com.i3m.model.backplane.DataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
+import javax.ws.rs.core.HttpHeaders;
+
 import org.apache.http.HttpStatus;
 
 /**
@@ -45,15 +49,20 @@ import org.apache.http.HttpStatus;
  */
 public class UpdateOffering {
 
-    public ApiResponse updateOffering(DataOfferingDTO dataOffering) throws ApiException {
+    public ApiResponse updateOffering(String access_token, String id_token, DataOfferingDto dataOffering) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-
+        
         ApiClient apiClient = Configuration.getDefaultApiClient();
 
         apiClient.setBasePath(backPlanePath);
 
         apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 

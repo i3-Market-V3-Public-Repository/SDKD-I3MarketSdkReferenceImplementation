@@ -80,7 +80,7 @@ public class PocOIDC {
 	    OidcCoreApi oidcController = new OidcCoreApi();
 		LOGGER.info(" ### ApiClient Base path: " + oidcController.getApiClient().getBasePath());
 		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("jwt")).getBearerToken());
-		return  oidcController.oidcJwksGetWithHttpInfo();
+		return  oidcController.release2OidcJwksGetWithHttpInfo();
 		
 	}
 
