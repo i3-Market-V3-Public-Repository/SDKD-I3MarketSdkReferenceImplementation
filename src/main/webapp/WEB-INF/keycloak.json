@@ -1,0 +1,11 @@
+{
+  "realm": "i3market",
+  "auth-server-url": "http://localhost:XXXX/auth/",
+  "ssl-required": "none",
+  "resource": "SDK-RI_Client",
+  "credentials": {
+    "secret": "xxxxx"
+  },
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

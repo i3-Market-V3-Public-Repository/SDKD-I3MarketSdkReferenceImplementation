@@ -1,0 +1,26 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd">
+    <mirrors>
+        <mirror>
+            <id>i3m-nexus-unblocked</id>
+            <mirrorOf>i3m-nexus</mirrorOf>
+            <name></name>
+            <url>http://XX.XX.XX.XX:XXXX/repository/i3m-maven-snapshots</url>
+            <blocked>false</blocked>
+        </mirror>
+    </mirrors>
+    <servers>
+    <server>
+      <id>gitlab-maven</id>
+      <configuration>
+        <httpHeaders>
+          <property>
+            <name>Private-Token</name>
+            <value>XXXXXX</value>
+          </property>
+        </httpHeaders>
+      </configuration>
+    </server>
+  </servers>
+</settings>
