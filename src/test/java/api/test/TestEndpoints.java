@@ -349,10 +349,10 @@ public class TestEndpoints {
 	@BeforeTest
 	public void beforeTest()  {
 	
-		System.out.println("**********************************GETTING AUTH TOKEN UNDER TEST**********************************");
+		/*System.out.println("**********************************GETTING AUTH TOKEN UNDER TEST**********************************");
 		Response response= CommonServicesEndpoints.getAuthToken();
 		auth_token = response.then().log().body().statusCode(200).extract().path("access_token");
-		System.out.println("********************************** TOKEN OBTAINED: " + auth_token + " **********************************");
+		System.out.println("********************************** TOKEN OBTAINED: " + auth_token + " **********************************");*/
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// OFFERINGS ///////////////////////////////////////////////////////
