@@ -32,10 +32,17 @@ package com.i3market.sdk.ri.common_services.purchase;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
+import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.smart_contract.AgreementApi;
+import com.i3m.api.auth.Authentication;
+import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.model.smart_contract.Template;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
+import java.util.Map;
+
+import javax.ws.rs.core.HttpHeaders;
 
 public class BackplaneClient {
 	
@@ -54,6 +61,15 @@ public class BackplaneClient {
         //Add token as headers
 		defaultClient.addDefaultHeader("access_token", access_token);
 		defaultClient.addDefaultHeader("id_token", id_token);
+
+	    // Setup authentications (JWT).
+		String jwt = "Bearer " + access_token;
+
+		Map<String, Authentication> authentications = defaultClient.getAuthentications();
+		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
+		bearerAuth.setBearerToken(jwt);
+		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
+		authentications.put("bearerAuth", bearerAuth);
 		
 		AgreementApi controller = new AgreementApi();
 		return controller.templateOfferingIdGet(idTemplate);
