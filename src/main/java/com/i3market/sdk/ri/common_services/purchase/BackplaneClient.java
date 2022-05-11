@@ -39,7 +39,7 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 public class BackplaneClient {
 	
-	public Template getTemplate (String access_token, String id_token, String bearerToken, String idTemplate) throws ApiException {
+	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 		
 		// Get default client from Configuration

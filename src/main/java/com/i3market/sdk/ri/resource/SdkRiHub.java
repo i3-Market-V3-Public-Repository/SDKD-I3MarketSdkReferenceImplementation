@@ -861,8 +861,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
-		return new BackplaneClient().getTemplate(access_token, id_token, token, idOffering);
+	public Object getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
+		return new BackplaneClient().getTemplate(access_token, id_token, idOffering);
 	}
 	
 	@POST
