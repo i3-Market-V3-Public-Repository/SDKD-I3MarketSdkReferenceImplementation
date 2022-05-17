@@ -69,7 +69,7 @@ public class PricingManager {
         _log.debug("GET /pricingManager/fee/getfee  -  get I3M fee");
         CostControllerApi costApi = new CostControllerApi();
 
-        return costApi.get(price);
+        return costApi.getFee(price);
     }
 
     /*
@@ -92,7 +92,7 @@ public class PricingManager {
         _log.debug("PUT /pricingManager/fee/setfee  -  set I3M fee");
         CostControllerApi costApi = new CostControllerApi();
 
-        return costApi.put(fee);
+        return costApi.putFee(fee);
     }
 
     /*
@@ -144,7 +144,7 @@ public class PricingManager {
     /*
      *   GET /price/getprice  -  Get the price of data
      */
-    public Object getPrice(String access_token, String id_token, Map<String, String> parameters) throws ApiException {
+    public Object getPrice(String access_token, String id_token, String parameters) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 

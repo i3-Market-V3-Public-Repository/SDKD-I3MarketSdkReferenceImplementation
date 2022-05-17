@@ -693,14 +693,14 @@ public class SdkRiHub {
 						   @HeaderParam("id_token") String id_token,
 						   @QueryParam("parameters") String parameters) throws ApiException {
 
-		ObjectMapper mapper = new ObjectMapper();
-		Map<String, String> paramsMap = null;
-		try {
-			paramsMap = mapper.readValue(parameters, Map.class);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return new PricingManager().getPrice(access_token, id_token, paramsMap);
+//		ObjectMapper mapper = new ObjectMapper();
+//		Map<String, String> paramsMap = null;
+//		try {
+//			paramsMap = mapper.readValue(parameters, Map.class);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+		return new PricingManager().getPrice(access_token, id_token, parameters);
 	}
 
 	@PUT
