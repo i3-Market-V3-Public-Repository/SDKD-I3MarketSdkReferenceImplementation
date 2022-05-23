@@ -34,10 +34,10 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.smart_contract.AgreementApi;
+import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
-import com.i3m.model.smart_contract.Template;
+import com.i3m.model.backplane.Template;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
@@ -47,7 +47,7 @@ import javax.ws.rs.core.HttpHeaders;
 public class BackplaneClient {
 	
 	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
-		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT + "/sc-manager-oas";
+		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 		
 		// Get default client from Configuration
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -72,7 +72,7 @@ public class BackplaneClient {
 		authentications.put("bearerAuth", bearerAuth);
 		
 		AgreementApi controller = new AgreementApi();
-		return controller.templateOfferingIdGet(idTemplate);
+		return controller.getTemplateByOfferingId(idTemplate);
 	}
 
 }

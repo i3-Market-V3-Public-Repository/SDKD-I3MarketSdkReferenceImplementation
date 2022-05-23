@@ -51,7 +51,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3m.model.smart_contract.Template;
+import com.i3m.model.backplane.Template;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
@@ -81,8 +81,6 @@ import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-import com.i3m.model.smart_contract.Template;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
