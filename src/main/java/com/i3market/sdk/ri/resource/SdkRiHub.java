@@ -81,6 +81,7 @@ import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import com.i3m.model.smart_contract.Template;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -944,7 +945,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
+	public Template getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
 		return new BackplaneClient().getTemplate(access_token, id_token, idOffering);
 	}
 	
