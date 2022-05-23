@@ -47,7 +47,7 @@ import javax.ws.rs.core.HttpHeaders;
 public class BackplaneClient {
 	
 	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
-		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT + "/sc-manager-oas";
 		
 		// Get default client from Configuration
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
