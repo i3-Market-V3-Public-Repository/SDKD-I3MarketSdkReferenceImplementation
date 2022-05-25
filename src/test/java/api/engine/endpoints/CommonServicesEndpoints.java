@@ -403,6 +403,66 @@ public class CommonServicesEndpoints {
 		return response;
 	}
 	
+	public static Response getAgreementByAgreementId(String access_token, String id_token, String agreement_id){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("access_token", access_token).
+				given().header("id_token", id_token).
+				pathParam("agreement_id", agreement_id).
+				contentType("application/json").
+				when().get(Routes.get_agreement_by_agreement_id);
+			
+		return response;
+	}
+	
+	public static Response getCheckAgreementsByConsumerId(String access_token, String id_token, String consumer_id){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("access_token", access_token).
+				given().header("id_token", id_token).
+				pathParam("agreement_id", consumer_id).
+				contentType("application/json").
+				when().get(Routes.get_agreements_by_consumer_id);
+			
+		return response;
+	}
+	
+	public static Response getCheckAgreementsByProviderID(String access_token, String id_token, String provider_id){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("access_token", access_token).
+				given().header("id_token", id_token).
+				pathParam("agreement_id", provider_id).
+				contentType("application/json").
+				when().get(Routes.get_agreements_by_provider_id);
+			
+		return response;
+	}
+	
+	public static Response getCheckActiveAgreements(String access_token, String id_token){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("access_token", access_token).
+				given().header("id_token", id_token).
+				contentType("application/json").
+				when().get(Routes.get_active_agreements);
+			
+		return response;
+	}
+	
+	public static Response getStateByAgreementId(String access_token, String id_token, String agreement_id){
+		RestAssured.baseURI= Routes.base_uri;
+		Response response=RestAssured.
+				given().header("access_token", access_token).
+				given().header("id_token", id_token).
+				pathParam("agreement_id", agreement_id).
+				contentType("application/json").
+				when().get(Routes.get_state_by_agreements_id);
+			
+		return response;
+	}
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// CREDENTIAL //////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

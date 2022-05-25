@@ -38,8 +38,8 @@ public class Routes {
 	public static String security_token_uri= "http://83.149.125.78:8080/auth/realms/i3market/protocol/openid-connect/token";
 	
 	// The base uri is the resource where all the common services are running.
-	public static String base_uri  ="http://localhost:8181/SdkRefImpl";
-	//public static String base_uri  ="http://172.17.0.2:8080/SdkRefImpl";
+	//public static String base_uri  ="http://localhost:8181/SdkRefImpl";
+	public static String base_uri  ="http://172.17.0.2:8080/SdkRefImpl";
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// OFFERINGS ///////////////////////////////////////////////////////
@@ -146,6 +146,23 @@ public class Routes {
 	
 	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
 	public static String post_purchase_data_request="/api/sdk-ri/contract/create-data-purchase";
+	
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
+	public static String get_agreement_by_agreement_id="/api/sdk-ri/contract/get_agreement/{agreement_id}";
+	
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
+	public static String get_agreements_by_consumer_id="/api/sdk-ri/contract/check_agreements_by_consumer/{consumer_id}";
+	
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
+	public static String get_agreements_by_provider_id="/api/sdk-ri/contract/check_agreements_by_provider/{provider_id}";
+	
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
+	public static String get_active_agreements="/api/sdk-ri/contract/check_active_agreements";
+	
+	// The get method routes the request to respective services to retrieve the contract template of an offering by offering id
+	public static String get_state_by_agreements_id="/api/sdk-ri/contract/state/{agreement_id}";
+	
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////// CREDENTIAL //////////////////////////////////////////////////////
