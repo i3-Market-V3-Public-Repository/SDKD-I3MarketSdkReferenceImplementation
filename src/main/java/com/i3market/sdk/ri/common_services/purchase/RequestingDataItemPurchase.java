@@ -53,16 +53,27 @@ public class RequestingDataItemPurchase {
 		defaultClient.addDefaultHeader("id_token", access_token);
 
 	    // Setup authentications (JWT).
-		String jwt = "Bearer " + bearerToken;
+		//String jwt = "Bearer " + bearerToken;
 		
 		
-	    // Setup authentications (JWT).		
+	    // Setup authentications (JWT).	
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
-		bearerAuth.setBearerToken(jwt);
-		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
-		System.out.println("The BACKPLANE_ENDPOINT basePath: " + basePath);
-		authentications.put("bearerAuth", bearerAuth);
+		HttpBearerAuth jwt = new HttpBearerAuth(null);
+		jwt.setBearerToken(id_token);
+		
+		HttpBearerAuth jwtAccess = new HttpBearerAuth(null);
+		jwtAccess.setBearerToken(access_token);
+		
+		// System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
+		authentications.put("jwt", jwt);
+		authentications.put("jwtAccess ", jwtAccess);
+		
+//		Map<String, Authentication> authentications = defaultClient.getAuthentications();
+//		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
+//		bearerAuth.setBearerToken(jwt);
+//		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
+//		System.out.println("The BACKPLANE_ENDPOINT basePath: " + basePath);
+//		authentications.put("bearerAuth", bearerAuth);
 	    
 		
 		// Get the market_id
