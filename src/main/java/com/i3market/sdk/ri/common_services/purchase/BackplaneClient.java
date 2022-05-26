@@ -67,6 +67,13 @@ public class BackplaneClient {
 		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
+	public RawTransactionTemplate updateAgreement (String access_token, String id_token, String agreementId, String senderAddress, Template template) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
+	}
+
 	private void handleAuthentication (String access_token, String id_token) {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
