@@ -32,12 +32,16 @@ package com.i3market.sdk.ri.common_services.purchase;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
+import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
+import com.i3m.model.backplane.ActiveAgreements;
+import com.i3m.model.backplane.AgreementTemplate;
 import com.i3m.model.backplane.RawTransactionTemplate;
 import com.i3m.model.backplane.SignedTransaction;
+import com.i3m.model.backplane.State;
 import com.i3m.model.backplane.Template;
 import com.i3m.model.backplane.TransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -67,11 +71,50 @@ public class BackplaneClient {
 		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
-	public RawTransactionTemplate updateAgreement (String access_token, String id_token, String agreementId, String senderAddress, Template template) throws ApiException {
+	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Integer agreementId, String senderAddress, Template template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
+	}
+
+	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, String agreement_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getGetAgreementByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
+	}
+
+	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
+			String id_token, String consumer_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckAgreementsByConsumerByConsumerIdWithHttpInfo(consumer_id);
+	}
+
+	public ApiResponse<ActiveAgreements> checkAgreementsByProvider(String access_token,
+			String id_token, String provider_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckAgreementsByProviderByProviderIdWithHttpInfo(provider_id);
+	}
+
+	public ApiResponse<ActiveAgreements> checkActiveAgreements(String access_token,
+			String id_token) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckActiveAgreementsWithHttpInfo();
+	}
+
+	public ApiResponse<State> getState(String access_token,
+			String id_token, String agreement_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getGetStateByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
 	}
 
 	private void handleAuthentication (String access_token, String id_token) {

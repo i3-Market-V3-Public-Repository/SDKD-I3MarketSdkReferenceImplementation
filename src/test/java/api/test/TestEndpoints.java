@@ -345,6 +345,7 @@ public class TestEndpoints {
 			+ "}";
 	String destinyService = "";
 	String origin_market_id = "NinesMarketplace";
+	String agreement_id = "";
 	// -----------------------------------------------------------------TESTS
 	@BeforeTest
 	public void beforeTest()  {
@@ -971,4 +972,58 @@ public class TestEndpoints {
 		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
 	}
 	
+	@Test(priority = 62)
+	public void testGet_agreement()  {
+
+		System.out.println("************************************{get agreement by agreement_id}************************************");
+		Response response= CommonServicesEndpoints.getAgreementByAgreementId(access_token, id_token, agreement_id);
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
+	
+	@Test(priority = 63)
+	public void testGetCheckAgreementsByConsumer()  {
+
+		System.out.println("************************************{get agreements by consumer}************************************");
+		Response response= CommonServicesEndpoints.getAgreementByAgreementId(access_token, id_token, agreement_id);
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
+	
+	@Test(priority = 64)
+	public void testGetCheckAgreementsByProvider()  {
+
+		System.out.println("************************************{get agreements by provider}************************************");
+		Response response= CommonServicesEndpoints.getAgreementByAgreementId(access_token, id_token, agreement_id);
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
+	
+	@Test(priority = 65)
+	public void testGetCheck_active_agreements()  {
+
+		System.out.println("************************************{get active_agreements}************************************");
+		Response response= CommonServicesEndpoints.getCheckActiveAgreements(access_token, id_token);
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
+	
+	@Test(priority = 66)
+	public void testGetCheck_status_agreement()  {
+
+		System.out.println("************************************{get status_agreement by agreement_id}************************************");
+		Response response= CommonServicesEndpoints.getStateByAgreementId(access_token, id_token, agreement_id);
+		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
+		response.then().log().body().statusCode(200);
+
+		System.out.println("************************************DATA OBTAINED: " + data + "************************************");
+	}
 }

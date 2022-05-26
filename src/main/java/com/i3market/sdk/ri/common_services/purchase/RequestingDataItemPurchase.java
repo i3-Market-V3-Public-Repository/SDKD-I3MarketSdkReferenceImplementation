@@ -35,47 +35,34 @@ public class RequestingDataItemPurchase {
 	private static Logger LOGGER = Logger.getLogger(RequestingDataItemPurchase.class.getName());
 		
 	
-	public ApiResponse<Object> requestDataItemPurchase (String access_token, String id_token, String bearerToken, String originMarketId, Template template) throws ApiException{
+	public ApiResponse<Object> requestDataItemPurchase (String access_token, String id_token, String originMarketId, Template template) throws ApiException{
 		// Include here the logic under the service
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-		
+
 		// Get default client from Configuration
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
-	    
+
 		// Set basePath to http request
 		defaultClient.setBasePath(basePath);
-		
+
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
-		
-        //Add token as headers
-		defaultClient.addDefaultHeader("access_token", access_token);
-		defaultClient.addDefaultHeader("id_token", access_token);
 
-	    // Setup authentications (JWT).
-		//String jwt = "Bearer " + bearerToken;
-		
-		
-	    // Setup authentications (JWT).	
+		//Add token as headers
+		defaultClient.addDefaultHeader("access_token", access_token);
+		defaultClient.addDefaultHeader("id_token", id_token);
+
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
 		HttpBearerAuth jwt = new HttpBearerAuth(null);
 		jwt.setBearerToken(id_token);
-		
+
 		HttpBearerAuth jwtAccess = new HttpBearerAuth(null);
 		jwtAccess.setBearerToken(access_token);
-		
+
 		// System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
 		authentications.put("jwt", jwt);
 		authentications.put("jwtAccess ", jwtAccess);
-		
-//		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-//		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
-//		bearerAuth.setBearerToken(jwt);
-//		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
-//		System.out.println("The BACKPLANE_ENDPOINT basePath: " + basePath);
-//		authentications.put("bearerAuth", bearerAuth);
-	    
-		
+			    
 		// Get the market_id
 		List<String> sort = null;
 		RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
