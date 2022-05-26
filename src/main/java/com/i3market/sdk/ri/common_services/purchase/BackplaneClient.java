@@ -75,14 +75,14 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, new Integer(agreementId), senderAddress);
+		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, Long.valueOf(agreementId), senderAddress);
 	}
 
 	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, String agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 		
 		AgreementApi controller = new AgreementApi();
-		return controller.getGetAgreementByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
+		return controller.getGetAgreementByAgreementIdWithHttpInfo(Long.valueOf(agreement_id));
 	}
 
 	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
@@ -114,7 +114,7 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 		
 		AgreementApi controller = new AgreementApi();
-		return controller.getGetStateByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
+		return controller.getGetStateByAgreementIdWithHttpInfo(Long.valueOf(agreement_id));
 	}
 	
 	private void handleAuthentication (String access_token, String id_token) {
