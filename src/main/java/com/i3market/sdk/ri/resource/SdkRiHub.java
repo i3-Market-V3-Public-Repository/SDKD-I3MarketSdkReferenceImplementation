@@ -51,7 +51,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3m.model.backplane.Template;
+import com.i3m.model.smart_contract.AgreementTemplate;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
@@ -953,9 +953,56 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to generate the notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
-		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, token, origin_market_id, contractualParameters);
+	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
+		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, origin_market_id, contractualParameters);
 	}
+	
+	@GET
+	@Path("/contract/get_agreement/{agreement_id}")
+	@ApiOperation(value = "retrieve the agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreement") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
+	}
+	
+	@GET
+	@Path("/contract/check_agreements_by_consumer/{consumer_id}")
+	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id);
+	}
+	
+	@GET
+	@Path("/contract/check_agreements_by_provider/{provider_id}")
+	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id);
+	}
+	
+	@GET
+	@Path("/contract/check_active_agreements")
+	@ApiOperation(value = "retrieve the active agreements", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkActiveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+		return new BackplaneClient().checkActiveAgreements(access_token, id_token);
+	}
+	
+	@GET
+	@Path("/contract/state/{agreement_id}")
+	@ApiOperation(value = "retrieve the status", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the status") })
+	@Produces({"application/json"})
+	public  com.i3m.api.ApiResponse<State> getState(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+		return new BackplaneClient().getState(access_token, id_token, agreement_id);
+	}
+	
+	
 
 	/////// Alerts Subscriptions ///////
 	
