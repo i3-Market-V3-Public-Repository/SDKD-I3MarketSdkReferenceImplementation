@@ -961,7 +961,7 @@ public class SdkRiHub {
 	@Path("/contract/get_agreement/{agreement_id}")
 	@ApiOperation(value = "retrieve the agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreement") })
-	@Produces({ "text/html", "application/xml" })
+	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
 		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
 	}
@@ -970,7 +970,7 @@ public class SdkRiHub {
 	@Path("/contract/check_agreements_by_consumer/{consumer_id}")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
-	@Produces({ "text/html", "application/xml" })
+	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
 		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id);
 	}
@@ -979,7 +979,7 @@ public class SdkRiHub {
 	@Path("/contract/check_agreements_by_provider/{provider_id}")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
-	@Produces({ "text/html", "application/xml" })
+	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
 		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id);
 	}
@@ -988,7 +988,7 @@ public class SdkRiHub {
 	@Path("/contract/check_active_agreements")
 	@ApiOperation(value = "retrieve the active agreements", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
-	@Produces({ "text/html", "application/xml" })
+	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ActiveAgreements> checkActiveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new BackplaneClient().checkActiveAgreements(access_token, id_token);
 	}
@@ -997,7 +997,7 @@ public class SdkRiHub {
 	@Path("/contract/state/{agreement_id}")
 	@ApiOperation(value = "retrieve the status", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the status") })
-	@Produces({ "text/html", "application/xml" })
+	@Produces({"application/json"})
 	public  com.i3m.api.ApiResponse<State> getState(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
 		return new BackplaneClient().getState(access_token, id_token, agreement_id);
 	}
