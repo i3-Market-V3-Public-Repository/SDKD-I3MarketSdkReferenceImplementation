@@ -32,52 +32,61 @@ package com.i3market.sdk.ri.common_services.purchase;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
-import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
+import com.i3m.model.backplane.RawTransactionTemplate;
 import com.i3m.model.backplane.Template;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
 
-import javax.ws.rs.core.HttpHeaders;
-
 public class BackplaneClient {
 	
 	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
-		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+		handleAuthentication(access_token, id_token);
 		
+		AgreementApi controller = new AgreementApi();
+		return controller.getTemplateByOfferingId(idTemplate);
+	}
+
+	public RawTransactionTemplate createAgreement (String access_token, String id_token, String senderAddress, Template template) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postCreateAgreementRawTransactionBySenderAddress(template, senderAddress);
+	}
+
+	private void handleAuthentication (String access_token, String id_token) {
+		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+
 		// Get default client from Configuration
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
-        
+
 		// Set basePath to http request
 		defaultClient.setBasePath(basePath);
-		
+
 		// Avoiding default server conf based on localhost url
 		defaultClient.setServerIndex(null);
-		
-        //Add token as headers
+
+		//Add token as headers
 		defaultClient.addDefaultHeader("access_token", access_token);
 		defaultClient.addDefaultHeader("id_token", id_token);
 
-	    // Setup authentications (JWT).
+		// Setup authentications (JWT).
 		// String jwt = "Bearer " + access_token;
 
 		Map<String, Authentication> authentications = defaultClient.getAuthentications();
 		HttpBearerAuth jwt = new HttpBearerAuth(null);
 		jwt.setBearerToken(id_token);
-		
+
 		HttpBearerAuth jwtAccess = new HttpBearerAuth(null);
 		jwtAccess.setBearerToken(access_token);
-		
+
 		// System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
 		authentications.put("jwt", jwt);
 		authentications.put("jwtAccess ", jwtAccess);
-		
-		AgreementApi controller = new AgreementApi();
-		return controller.getTemplateByOfferingId(idTemplate);
 	}
 
 }
