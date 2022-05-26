@@ -37,7 +37,9 @@ import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.model.backplane.RawTransactionTemplate;
+import com.i3m.model.backplane.SignedTransaction;
 import com.i3m.model.backplane.Template;
+import com.i3m.model.backplane.TransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
@@ -56,6 +58,13 @@ public class BackplaneClient {
 
 		AgreementApi controller = new AgreementApi();
 		return controller.postCreateAgreementRawTransactionBySenderAddress(template, senderAddress);
+	}
+
+	public TransactionObject deploySignedTransaction (String access_token, String id_token, SignedTransaction signedTransaction) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
 	private void handleAuthentication (String access_token, String id_token) {
