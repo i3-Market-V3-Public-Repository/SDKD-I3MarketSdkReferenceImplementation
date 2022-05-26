@@ -71,16 +71,16 @@ public class BackplaneClient {
 		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
-	public RawTransactionTemplate updateAgreement (String access_token, String id_token, String agreementId, String senderAddress, Template template) throws ApiException {
+	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Integer agreementId, String senderAddress, Template template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, new Integer(agreementId), senderAddress);
+		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
 	}
 
 	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, String agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
-		
+
 		AgreementApi controller = new AgreementApi();
 		return controller.getGetAgreementByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
 	}
@@ -88,7 +88,7 @@ public class BackplaneClient {
 	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
 			String id_token, String consumer_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
-		
+
 		AgreementApi controller = new AgreementApi();
 		return controller.getCheckAgreementsByConsumerByConsumerIdWithHttpInfo(consumer_id);
 	}
@@ -96,7 +96,7 @@ public class BackplaneClient {
 	public ApiResponse<ActiveAgreements> checkAgreementsByProvider(String access_token,
 			String id_token, String provider_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
-		
+
 		AgreementApi controller = new AgreementApi();
 		return controller.getCheckAgreementsByProviderByProviderIdWithHttpInfo(provider_id);
 	}
@@ -104,19 +104,19 @@ public class BackplaneClient {
 	public ApiResponse<ActiveAgreements> checkActiveAgreements(String access_token,
 			String id_token) throws ApiException {
 		handleAuthentication(access_token, id_token);
-		
+
 		AgreementApi controller = new AgreementApi();
 		return controller.getCheckActiveAgreementsWithHttpInfo();
 	}
-	
+
 	public ApiResponse<State> getState(String access_token,
 			String id_token, String agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
-		
+
 		AgreementApi controller = new AgreementApi();
 		return controller.getGetStateByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
 	}
-	
+
 	private void handleAuthentication (String access_token, String id_token) {
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
