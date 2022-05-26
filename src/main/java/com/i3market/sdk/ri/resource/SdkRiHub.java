@@ -1004,6 +1004,24 @@ public class SdkRiHub {
 	
 	
 
+	@POST
+	@Path("/contract/create_agreement_raw_transaction/{sender_address}")
+	@ApiOperation(value = "create agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to create agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public RawTransactionTemplate createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+		return new BackplaneClient().createAgreement(access_token, id_token, senderAddress, contractualParameters);
+	}
+
+	@POST
+	@Path("/contract/deploy_signed_transaction")
+	@ApiOperation(value = "deploy signed transaction", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to deploy signed transaction") })
+	@Produces({ "application/json", "application/xml" })
+	public TransactionObject deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignedTransaction signedTransaction) throws ApiException {
+		return new BackplaneClient().deploySignedTransaction(access_token, id_token, signedTransaction);
+	}
+
 	/////// Alerts Subscriptions ///////
 	
 	@GET
