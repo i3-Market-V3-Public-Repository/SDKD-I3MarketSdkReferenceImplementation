@@ -647,6 +647,44 @@
         }
       }
     },
+    "/sdk-ri/contract/sign_agreement_raw_transaction" : {
+      "put" : {
+        "tags" : [ "common-services: contract" ],
+        "summary" : "sign agreement",
+        "description" : "",
+        "operationId" : "signAgreement",
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "access_token",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "id_token",
+          "in" : "header",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SignAgreement"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/RawTransactionTemplate"
+            }
+          },
+          "400" : {
+            "description" : "failed to sign agreement"
+          }
+        }
+      }
+    },
     "/sdk-ri/contract/state/{agreement_id}" : {
       "get" : {
         "tags" : [ "common-services: contract" ],
@@ -4786,6 +4824,24 @@
       "properties" : {
         "transactionObject" : {
           "$ref" : "#/definitions/RawTransaction5"
+        }
+      }
+    },
+    "SignAgreement" : {
+      "type" : "object",
+      "properties" : {
+        "agreement_id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "consumer_id" : {
+          "type" : "string"
+        },
+        "consumer_public_key" : {
+          "type" : "string"
+        },
+        "consumer_ethereum_address" : {
+          "type" : "string"
         }
       }
     },

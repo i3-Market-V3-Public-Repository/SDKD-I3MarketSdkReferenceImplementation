@@ -1023,6 +1023,15 @@ public class SdkRiHub {
 	}
 
 	@PUT
+	@Path("/contract/sign_agreement_raw_transaction")
+	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public RawTransactionTemplate signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignAgreement signAgreement) throws ApiException {
+		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
+	}
+
+	@PUT
 	@Path("/contract/update_agreement_raw_transaction/{agreement_id}/{sender_address}")
 	@ApiOperation(value = "update agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
