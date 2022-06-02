@@ -152,7 +152,7 @@ public class BackplaneClient {
 
 		// System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
 		authentications.put("jwt", jwt);
-		authentications.put("jwtAccess ", jwtAccess);
+		authentications.put("jwtAccess", jwtAccess);
 	}
 
 }
