@@ -40,6 +40,7 @@ import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.model.backplane.ActiveAgreements;
 import com.i3m.model.backplane.AgreementTemplate;
 import com.i3m.model.backplane.RawTransactionTemplate;
+import com.i3m.model.backplane.SignAgreement;
 import com.i3m.model.backplane.SignedTransaction;
 import com.i3m.model.backplane.State;
 import com.i3m.model.backplane.Template;
@@ -69,6 +70,13 @@ public class BackplaneClient {
 
 		AgreementApi controller = new AgreementApi();
 		return controller.postDeploySignedTransaction(signedTransaction);
+	}
+
+	public RawTransactionTemplate signAgreement (String access_token, String id_token, SignAgreement signAgreement) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putSignAgreementRawTransaction(signAgreement);
 	}
 
 	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, Template template) throws ApiException {
