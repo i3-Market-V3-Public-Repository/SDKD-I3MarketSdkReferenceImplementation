@@ -71,18 +71,25 @@ public class BackplaneClient {
 		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
-	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Integer agreementId, String senderAddress, Template template) throws ApiException {
+	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, Template template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
 	}
 
-	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, String agreement_id) throws ApiException {
+	public ActiveAgreements retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getGetAgreementByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
+		return controller.getRetrieveAgreementsByConsumerPublicKey(consumerPublicKey);
+	}
+
+	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, Long agreement_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getGetAgreementByAgreementIdWithHttpInfo(agreement_id);
 	}
 
 	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
@@ -114,7 +121,7 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getGetStateByAgreementIdWithHttpInfo(Integer.valueOf(agreement_id));
+		return controller.getGetStateByAgreementIdWithHttpInfo(Long.valueOf(agreement_id));
 	}
 
 	private void handleAuthentication (String access_token, String id_token) {

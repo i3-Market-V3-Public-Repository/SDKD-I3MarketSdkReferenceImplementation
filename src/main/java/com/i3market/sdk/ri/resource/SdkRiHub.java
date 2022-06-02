@@ -962,7 +962,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreement") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
 		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
 	}
 	
@@ -1027,8 +1027,17 @@ public class SdkRiHub {
 	@ApiOperation(value = "update agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public RawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Integer agreementId, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+	public RawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
 		return new BackplaneClient().updateAgreement(access_token, id_token, agreementId, senderAddress, contractualParameters);
+	}
+
+	@GET
+	@Path("/contract/retrieve_agreements/{consumer_public_key}")
+	@ApiOperation(value = "retrieve agreements", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve agreements") })
+	@Produces({ "application/json", "application/xml" })
+	public ActiveAgreements retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
+		return new BackplaneClient().retrieveAgreements(access_token, id_token, consumerPublicKey);
 	}
 
 	/////// Alerts Subscriptions ///////
