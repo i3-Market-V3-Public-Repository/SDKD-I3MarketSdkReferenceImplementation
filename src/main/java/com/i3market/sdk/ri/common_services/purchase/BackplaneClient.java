@@ -34,45 +34,133 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.smart_contract.AgreementApi;
+import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
-import com.i3m.model.smart_contract.Template;
+import com.i3m.model.backplane.ActiveAgreements;
+import com.i3m.model.backplane.AgreementTemplate;
+import com.i3m.model.backplane.RawTransactionTemplate;
+import com.i3m.model.backplane.SignAgreement;
+import com.i3m.model.backplane.SignedTransaction;
+import com.i3m.model.backplane.State;
+import com.i3m.model.backplane.Template;
+import com.i3m.model.backplane.TransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
 
-import javax.ws.rs.core.HttpHeaders;
-
 public class BackplaneClient {
 	
-	public Template getTemplate (String access_token, String id_token, String bearerToken, String idTemplate) throws ApiException {
-		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-		
-		// Get default client from Configuration
-		ApiClient defaultClient = Configuration.getDefaultApiClient();
-        
-		// Set basePath to http request
-		defaultClient.setBasePath(basePath);
-		
-		// Avoiding default server conf based on localhost url
-		defaultClient.setServerIndex(null);
-		
-        //Add token as headers
-		defaultClient.addDefaultHeader("access_token", access_token);
-		defaultClient.addDefaultHeader("id_token", access_token);
-
-	    // Setup authentications (JWT).
-		String jwt = "Bearer " + bearerToken;
-
-		Map<String, Authentication> authentications = defaultClient.getAuthentications();
-		HttpBearerAuth bearerAuth = new HttpBearerAuth(null);
-		bearerAuth.setBearerToken(jwt);
-		System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
-		authentications.put("bearerAuth", bearerAuth);
+	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
+		handleAuthentication(access_token, id_token);
 		
 		AgreementApi controller = new AgreementApi();
-		return  controller.templateTemplateIdGet(idTemplate);
+		return controller.getTemplateByOfferingId(idTemplate);
+	}
+
+	public RawTransactionTemplate createAgreement (String access_token, String id_token, String senderAddress, Template template) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postCreateAgreementRawTransactionBySenderAddress(template, senderAddress);
+	}
+
+	public TransactionObject deploySignedTransaction (String access_token, String id_token, SignedTransaction signedTransaction) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postDeploySignedTransaction(signedTransaction);
+	}
+
+	public RawTransactionTemplate signAgreement (String access_token, String id_token, SignAgreement signAgreement) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putSignAgreementRawTransaction(signAgreement);
+	}
+
+	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, Template template) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
+	}
+
+	public ActiveAgreements retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getRetrieveAgreementsByConsumerPublicKey(consumerPublicKey);
+	}
+
+	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, Long agreement_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getGetAgreementByAgreementIdWithHttpInfo(agreement_id);
+	}
+
+	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
+			String id_token, String consumer_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckAgreementsByConsumerByConsumerIdWithHttpInfo(consumer_id);
+	}
+
+	public ApiResponse<ActiveAgreements> checkAgreementsByProvider(String access_token,
+			String id_token, String provider_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckAgreementsByProviderByProviderIdWithHttpInfo(provider_id);
+	}
+
+	public ApiResponse<ActiveAgreements> checkActiveAgreements(String access_token,
+			String id_token) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckActiveAgreementsWithHttpInfo();
+	}
+
+	public ApiResponse<State> getState(String access_token,
+			String id_token, String agreement_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getGetStateByAgreementIdWithHttpInfo(Long.valueOf(agreement_id));
+	}
+
+	private void handleAuthentication (String access_token, String id_token) {
+		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+
+		// Get default client from Configuration
+		ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+		// Set basePath to http request
+		defaultClient.setBasePath(basePath);
+
+		// Avoiding default server conf based on localhost url
+		defaultClient.setServerIndex(null);
+
+		//Add token as headers
+		defaultClient.addDefaultHeader("access_token", access_token);
+		defaultClient.addDefaultHeader("id_token", id_token);
+
+		// Setup authentications (JWT).
+		// String jwt = "Bearer " + access_token;
+
+		Map<String, Authentication> authentications = defaultClient.getAuthentications();
+		HttpBearerAuth jwt = new HttpBearerAuth(null);
+		jwt.setBearerToken(id_token);
+
+		HttpBearerAuth jwtAccess = new HttpBearerAuth(null);
+		jwtAccess.setBearerToken(access_token);
+
+		// System.out.println("The bearer token is: " + bearerAuth.getBearerToken());
+		authentications.put("jwt", jwt);
+		authentications.put("jwtAccess", jwtAccess);
 	}
 
 }

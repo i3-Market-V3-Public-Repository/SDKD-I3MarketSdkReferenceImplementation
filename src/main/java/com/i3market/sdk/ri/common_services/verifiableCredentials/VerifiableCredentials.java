@@ -52,7 +52,7 @@ VerifiableCredentials {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public Object getIssueVerifiableCredential(String access_token, String id_token, String did, String credential) throws ApiException {
+    public Object getIssueVerifiableCredential(String access_token, String id_token, String credential, String callbackUrl) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -62,6 +62,26 @@ VerifiableCredentials {
 
         apiClient.setServerIndex(null);
         
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+
+        _log.debug("get issue verifiable credential by credential string");
+        CredentialApi credentialApi = new CredentialApi();
+
+        return credentialApi.getRelease2VcCredentialIssueByCredentialCallbackUrlByCallbackUrl(credential, callbackUrl);
+    }
+
+    public Object getIssueVerifiableCredentialByDid(String access_token, String id_token, String credential, String did) throws ApiException {
+
+        String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+
+        ApiClient apiClient = Configuration.getDefaultApiClient();
+
+        apiClient.setBasePath(backPlanePath);
+
+        apiClient.setServerIndex(null);
+
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
         apiClient.addDefaultHeader("id_token", access_token);

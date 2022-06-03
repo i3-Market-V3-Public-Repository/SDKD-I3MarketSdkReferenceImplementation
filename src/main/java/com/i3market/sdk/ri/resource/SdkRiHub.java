@@ -31,24 +31,16 @@ package com.i3market.sdk.ri.resource;
 
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.PATCH;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
+
+import com.i3m.model.backplane.*;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -57,37 +49,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
-import com.i3m.model.backplane.Balances;
-import com.i3m.model.backplane.ClearBalance;
-import com.i3m.model.backplane.ClearingBalance;
-import com.i3m.model.backplane.CreateSubscription;
-import com.i3m.model.backplane.DataOffering;
-import com.i3m.model.backplane.DataOfferingDto;
-import com.i3m.model.backplane.DataOfferingId;
-import com.i3m.model.backplane.DataProvider;
-import com.i3m.model.backplane.DataProviderPayment;
-import com.i3m.model.backplane.DeployTransactionToBesu;
-import com.i3m.model.backplane.DeployedSignedTransaction;
-import com.i3m.model.backplane.ExchangeIn;
-import com.i3m.model.backplane.ExchangeMoneyForTokens;
-import com.i3m.model.backplane.ExchangeOut;
-import com.i3m.model.backplane.ExchangeTokensForMoney;
-import com.i3m.model.backplane.InlineResponse2003;
-import com.i3m.model.backplane.InlineResponse2004;
-import com.i3m.model.backplane.MarkTokenAsPaid;
-import com.i3m.model.backplane.MarketplaceIndex;
-import com.i3m.model.backplane.Notification;
-import com.i3m.model.backplane.Payment;
-import com.i3m.model.backplane.RegisterMarketplace;
-import com.i3m.model.backplane.RegisterMarketplace1;
-import com.i3m.model.backplane.ServiceNotification;
-import com.i3m.model.backplane.SetPaid;
-import com.i3m.model.backplane.Subscription;
-import com.i3m.model.backplane.UserNotification;
-import com.i3m.model.backplane.UserSubscriptionList;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3m.model.smart_contract.Template;
+import com.i3m.model.smart_contract.AgreementTemplate;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
@@ -115,8 +79,8 @@ import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
 import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.common_services.tokenizer.Token;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
+import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -675,15 +639,131 @@ public class SdkRiHub {
 		return new Token().getTokenTransfersByTransferId(access_token, id_token, transferId);
 	}
 
+	/////// Pricing Manager API ///////
+
+	@GET
+	@Path("/pricingManager/cost/getfee")
+	@ApiOperation(value = "get i3M fee", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed") })
+	@Produces({ "application/json", "application/xml" })
+	public Object getFee(@HeaderParam("access_token") String access_token,
+								@HeaderParam("id_token") String id_token,
+								@QueryParam("price") String price) throws ApiException {
+		return new PricingManager().getFee(access_token, id_token, price);
+	}
+
+	@PUT
+	@Path("/pricingManager/cost/setfee")
+	@ApiOperation(value = "set I3M fee", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to set the fee") })
+	@Produces({ "application/json", "application/xml" })
+	public Object setFee(@HeaderParam("access_token") String access_token,
+							@HeaderParam("id_token") String id_token,
+							@QueryParam("fee") String fee) throws ApiException {
+		return new PricingManager().setFee(access_token, id_token, fee);
+	}
+
+	@GET
+	@Path("/pricingManager/price/checkformulaconfiguration")
+	@ApiOperation(value = "Check formula and parameters consistency", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to check the formula and parameters consistency") })
+	@Produces({ "application/json", "application/xml" })
+	public Object checkFormulaConfiguration(@HeaderParam("access_token") String access_token,
+											   @HeaderParam("id_token") String id_token) throws ApiException {
+		return new PricingManager().getCheckFormulaConfiguration(access_token, id_token);
+	}
+
+	@GET
+	@Path("/pricingManager/price/getformulajsonconfiguration")
+	@ApiOperation(value = "Get configuration using Json format", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get configuration using Json format") })
+	@Produces({ "application/json", "application/xml" })
+	public Object getFormulaJsonConfiguration(@HeaderParam("access_token") String access_token,
+											  @HeaderParam("id_token") String id_token) throws ApiException {
+		return new PricingManager().getFormulaJsonConfiguration(access_token, id_token);
+	}
+
+	@GET
+	@Path("/pricingManager/price/getprice")
+	@ApiOperation(value = "Get the price of data", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the price of item") })
+	@Produces({ "application/json", "application/xml" })
+	public Object getPrice(@HeaderParam("access_token") String access_token,
+						   @HeaderParam("id_token") String id_token,
+						   @QueryParam("parameters") String parameters) throws ApiException {
+
+//		ObjectMapper mapper = new ObjectMapper();
+//		Map<String, String> paramsMap = null;
+//		try {
+//			paramsMap = mapper.readValue(parameters, Map.class);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+		return new PricingManager().getPrice(access_token, id_token, parameters);
+	}
+
+	@PUT
+	@Path("/pricingManager/price/setformulaconstant")
+	@ApiOperation(value = "Set formula constant", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to Set formula constant") })
+	@Produces({ "application/json", "application/xml" })
+	public Object setFormulaConstant(@HeaderParam("access_token") String access_token,
+									 @HeaderParam("id_token") String id_token,
+									 @RequestBody FormulaConstantConfiguration parameters) throws ApiException {
+		return new PricingManager().setFormulaConstant(access_token, id_token, parameters);
+	}
+
+	@PUT
+	@Path("/pricingManager/price/setformulajsonconfiguration")
+	@ApiOperation(value = "Set configuration using Json format", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to set the configuration") })
+	@Produces({ "application/json", "application/xml" })
+	public Object setFormulaJsonConfiguration(@HeaderParam("access_token") String access_token,
+											  @HeaderParam("id_token") String id_token,
+											  @RequestBody FormulaConfig parameters) throws ApiException {
+		return new PricingManager().setFormulajsonConfiguration(access_token, id_token, parameters);
+	}
+
+	@PUT
+	@Path("/pricingManager/price/setformulaparameter")
+	@ApiOperation(value = "Set formula parameter", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to set the formula parameter") })
+	@Produces({ "application/json", "application/xml" })
+	public Object setFormulaParameter(@HeaderParam("access_token") String access_token,
+									 @HeaderParam("id_token") String id_token,
+									 @RequestBody FormulaParameterConfiguration parameters) throws ApiException {
+		return new PricingManager().setFormulaParameter(access_token, id_token, parameters);
+	}
+
+	@PUT
+	@Path("/pricingManager/price/setformulawithdefaultconfiguration")
+	@ApiOperation(value = "Set formula with default values for constants and parameters", tags = "common-services: pricingManager")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to set the formula json configuration") })
+	@Produces({ "application/json", "application/xml" })
+	public Object setFormulaWithDefaultConfiguration(@HeaderParam("access_token") String access_token,
+									  @HeaderParam("id_token") String id_token,
+									  @RequestBody FormulaWithConfiguration parameters) throws ApiException {
+		return new PricingManager().setFormulaWithDefaultConfiguration(access_token, id_token, parameters);
+	}
+
 	/////// Verifiable Credential API ///////
+
+	@GET
+	@Path("/credential/issue/{credential}/callbackUrl/{callbackUrl}")
+	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
+	@Produces({ "text/html", "application/xml" })
+	public Object getIssueVerifiableCredential(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("credential") String credential, @PathParam("callbackUrl") String callbackUrl) throws ApiException {
+		return new VerifiableCredentials().getIssueVerifiableCredential(access_token, id_token, credential, callbackUrl);
+	}
 
 	@GET
 	@Path("/credential/issue/{did}/{credential}")
 	@ApiOperation(value = "generate a verifiable credential", tags = "common-services: credential")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the page to generate issue a credential") })
-	@Produces({ "text/html", "application/xml" })
-	public Object getIssueVerifiableCredential(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did, @PathParam("credential") String credential) throws ApiException {
-		return new VerifiableCredentials().getIssueVerifiableCredential(access_token, id_token, did, credential);
+	@Produces({ "application/json", "application/xml" })
+	public Object getIssueVerifiableCredentialByDid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did, @PathParam("credential") String credential) throws ApiException {
+		return new VerifiableCredentials().getIssueVerifiableCredentialByDid(access_token, id_token, credential, did);
 	}
 
 	@POST
@@ -706,6 +786,7 @@ public class SdkRiHub {
 		return new VerifiableCredentials().postVerifyCredentialByJWT(access_token, id_token, credential);
 	}
 
+	/*
 	@GET
 	@Path("/credential")
 	@ApiOperation(value = "get the issued credential list", tags = "common-services: credential")
@@ -714,6 +795,7 @@ public class SdkRiHub {
 	public List<String> getCredentialsList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new VerifiableCredentials().getCredentialList(access_token, id_token);
 	}
+	*/
 
 	@GET
 	@Path("/issuer/subscribe")
@@ -860,9 +942,9 @@ public class SdkRiHub {
 	@Path("/contract/get-contract-template/{idOffering}")
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
-	@Produces({ "text/html", "application/xml" })
-	public Object getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @PathParam("idOffering") String idOffering) throws ApiException {
-		return new BackplaneClient().getTemplate(access_token, id_token, token, idOffering);
+	@Produces({ "application/json", "application/xml" })
+	public Template getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
+		return new BackplaneClient().getTemplate(access_token, id_token, idOffering);
 	}
 	
 	@POST
@@ -871,8 +953,100 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to generate the notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @HeaderParam("Authorization") String token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
-		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, token, origin_market_id, contractualParameters);
+	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
+		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, origin_market_id, contractualParameters);
+	}
+	
+	@GET
+	@Path("/contract/get_agreement/{agreement_id}")
+	@ApiOperation(value = "retrieve the agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreement") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
+		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
+	}
+	
+	@GET
+	@Path("/contract/check_agreements_by_consumer/{consumer_id}")
+	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id);
+	}
+	
+	@GET
+	@Path("/contract/check_agreements_by_provider/{provider_id}")
+	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id);
+	}
+	
+	@GET
+	@Path("/contract/check_active_agreements")
+	@ApiOperation(value = "retrieve the active agreements", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ActiveAgreements> checkActiveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+		return new BackplaneClient().checkActiveAgreements(access_token, id_token);
+	}
+	
+	@GET
+	@Path("/contract/state/{agreement_id}")
+	@ApiOperation(value = "retrieve the status", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the status") })
+	@Produces({"application/json"})
+	public  com.i3m.api.ApiResponse<State> getState(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+		return new BackplaneClient().getState(access_token, id_token, agreement_id);
+	}
+	
+	
+
+	@POST
+	@Path("/contract/create_agreement_raw_transaction/{sender_address}")
+	@ApiOperation(value = "create agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to create agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public RawTransactionTemplate createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+		return new BackplaneClient().createAgreement(access_token, id_token, senderAddress, contractualParameters);
+	}
+
+	@POST
+	@Path("/contract/deploy_signed_transaction")
+	@ApiOperation(value = "deploy signed transaction", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to deploy signed transaction") })
+	@Produces({ "application/json", "application/xml" })
+	public TransactionObject deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignedTransaction signedTransaction) throws ApiException {
+		return new BackplaneClient().deploySignedTransaction(access_token, id_token, signedTransaction);
+	}
+
+	@PUT
+	@Path("/contract/sign_agreement_raw_transaction")
+	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public RawTransactionTemplate signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignAgreement signAgreement) throws ApiException {
+		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
+	}
+
+	@PUT
+	@Path("/contract/update_agreement_raw_transaction/{agreement_id}/{sender_address}")
+	@ApiOperation(value = "update agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public RawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+		return new BackplaneClient().updateAgreement(access_token, id_token, agreementId, senderAddress, contractualParameters);
+	}
+
+	@GET
+	@Path("/contract/retrieve_agreements/{consumer_public_key}")
+	@ApiOperation(value = "retrieve agreements", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve agreements") })
+	@Produces({ "application/json", "application/xml" })
+	public ActiveAgreements retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
+		return new BackplaneClient().retrieveAgreements(access_token, id_token, consumerPublicKey);
 	}
 
 	/////// Alerts Subscriptions ///////
