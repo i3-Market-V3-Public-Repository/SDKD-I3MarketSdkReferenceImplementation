@@ -953,8 +953,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to generate the notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @RequestBody Template contractualParameters) throws ApiException {
-		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, origin_market_id, contractualParameters);
+	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @QueryParam("consumer_did") String consumer_did, @RequestBody Template contractualParameters) throws ApiException {
+		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, origin_market_id, consumer_did, contractualParameters);
 	}
 	
 	@GET

@@ -346,6 +346,7 @@ public class TestEndpoints {
 	String destinyService = "";
 	String origin_market_id = "NinesMarketplace";
 	String agreement_id = "";
+	String consumer_did = "123456";
 	// -----------------------------------------------------------------TESTS
 	@BeforeTest
 	public void beforeTest()  {
@@ -965,7 +966,7 @@ public class TestEndpoints {
 	public void testPurchaseCreation()  {
 
 		System.out.println("************************************{PURCHASE CREATION}************************************");
-		Response response= CommonServicesEndpoints.createDataPurchaseByTemplate(access_token, id_token, origin_market_id, templatePurchaseRequestBody.toString());
+		Response response= CommonServicesEndpoints.createDataPurchaseByTemplate(access_token, id_token, origin_market_id, consumer_did, templatePurchaseRequestBody.toString());
 		Object data = response.then().log().body().statusCode(200).contentType("application/json").extract().path("data").toString();
 		response.then().log().body().statusCode(200);
 

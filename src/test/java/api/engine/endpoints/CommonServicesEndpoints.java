@@ -391,12 +391,13 @@ public class CommonServicesEndpoints {
 		return response;
 	}
 
-	public static Response createDataPurchaseByTemplate(String access_token, String id_token, String origin_market_id, String body){
+	public static Response createDataPurchaseByTemplate(String access_token, String id_token, String origin_market_id, String consumer_did, String body){
 		RestAssured.baseURI= Routes.base_uri;
 		Response response=RestAssured.
 				given().header("access_token", access_token).
 				given().header("id_token", id_token).
 				queryParam("origin_market_id", origin_market_id).
+				queryParam("consumer_did", consumer_did).
 				contentType("application/json").
 				when().body(body).post(Routes.post_purchase_data_request);
 			

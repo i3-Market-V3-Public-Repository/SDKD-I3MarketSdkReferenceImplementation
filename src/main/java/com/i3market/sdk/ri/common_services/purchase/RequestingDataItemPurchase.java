@@ -35,7 +35,7 @@ public class RequestingDataItemPurchase {
 	private static Logger LOGGER = Logger.getLogger(RequestingDataItemPurchase.class.getName());
 		
 	
-	public ApiResponse<Object> requestDataItemPurchase (String access_token, String id_token, String originMarketId, Template template) throws ApiException{
+	public ApiResponse<Object> requestDataItemPurchase (String access_token, String id_token, String originMarketId, String consumerDID, Template template) throws ApiException{
 		// Include here the logic under the service
 		String basePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -73,6 +73,8 @@ public class RequestingDataItemPurchase {
 		message.put ("marketId", offering.getMarketId());
 		message.put ("contractualParameters", template);
 		message.put ("originMarketId", originMarketId);
+		message.put ("providerDID", offering.getProviderDid());
+		message.put ("consumerDID", consumerDID);
 		
         // Fill the elements of notification
 		ServiceNotification sNot = new ServiceNotification();
