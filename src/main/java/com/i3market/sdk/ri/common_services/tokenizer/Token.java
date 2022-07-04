@@ -33,9 +33,8 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.TokenizerControllerApi;
-import com.i3m.model.backplane.*;
-import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import com.i3m.model.backplane.*;
 
 import javax.ws.rs.core.HttpHeaders;
 
@@ -44,9 +43,9 @@ import org.slf4j.LoggerFactory;
 
 public class Token {
 
-    private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
+    private static final Logger _log = LoggerFactory.getLogger(Token.class);
 
-    public DeployedSignedTransaction deployTransaction (String access_token, String id_token, DeployTransactionToBesu deployTransactionToBesu) throws ApiException {
+    public  InlineResponse2009 deployTransaction (String access_token, String id_token, InlineObject4 deployTransactionToBesu) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -64,11 +63,11 @@ public class Token {
         _log.debug("exchange_in operation {} ", deployTransactionToBesu);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.deployTransactionToBesu(deployTransactionToBesu);
+        return tokenizerApi.postApiV1TreasuryTransactionsDeploySignedTransaction(deployTransactionToBesu);
 
     }
 
-    public RegisterMarketplace1 createMarketplace (String access_token, String id_token, RegisterMarketplace registerMarketplace) throws ApiException {
+    public InlineResponse2006 createMarketplace (String access_token, String id_token,  InlineObject3 registerMarketplace) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -85,11 +84,11 @@ public class Token {
         _log.debug("exchange_in operation {} ", registerMarketplace);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.addMarketPlace(registerMarketplace);
+        return tokenizerApi.postApiV1TreasuryMarketplaces(registerMarketplace);
 
     }
 
-    public ExchangeIn exchangeIn (String access_token, String id_token, ExchangeMoneyForTokens exchangeMoneyForTokens) throws ApiException {
+    public InlineResponse2004 exchangeIn (String access_token, String id_token, InlineObject exchangeMoneyForTokens) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -106,11 +105,11 @@ public class Token {
         _log.debug("exchange_in operation {} ", exchangeMoneyForTokens);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.exchangeMoneyForTokens(exchangeMoneyForTokens);
+        return tokenizerApi.postApiV1OperationsExchangeIn(exchangeMoneyForTokens);
 
     }
 
-    public ClearingBalance clearing (String access_token, String id_token, ClearBalance clearBalance) throws ApiException {
+    public  InlineResponse2003 clearing (String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -125,14 +124,14 @@ public class Token {
         apiClient.addDefaultHeader("id_token", access_token);
 
 
-        _log.debug("clearing operation {} ", clearBalance);
+        _log.debug("clearing operation {} ");
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.clearBalance(clearBalance);
+        return tokenizerApi.postApiV1OperationsClearing();
 
     }
 
-    public ExchangeOut exchangeOut (String access_token, String id_token, ExchangeTokensForMoney exchangeTokensForMoney) throws ApiException {
+    public InlineResponse2004 exchangeOut (String access_token, String id_token, InlineObject1 exchangeTokensForMoney) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -149,12 +148,11 @@ public class Token {
         _log.debug("exchange_out operation {} ", exchangeTokensForMoney);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.exchangeTokensForMoney(exchangeTokensForMoney);
+        return tokenizerApi.postApiV1OperationsExchangeOut(exchangeTokensForMoney);
 
     }
 
-    public Payment payment (String access_token, String id_token, DataProviderPayment dataProviderPayment) throws ApiException {
-
+    public   InlineResponse2004 payment (String access_token, String id_token, TokenizationFeePay dataProviderPayment) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
@@ -170,11 +168,11 @@ public class Token {
         _log.debug("payment operation {} ", dataProviderPayment);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.dataProviderPayment(dataProviderPayment);
+        return tokenizerApi.postApiV1OperationsFeePayment(dataProviderPayment);
 
     }
 
-    public SetPaid setPaid (String access_token, String id_token, MarkTokenAsPaid markTokenAsPaid) throws ApiException {
+    public  InlineResponse2003 setPaid (String access_token, String id_token, TokenizationPay markTokenAsPaid) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -191,12 +189,12 @@ public class Token {
         _log.debug("set paid transaction operation {} ", markTokenAsPaid);
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.markTokenAsPaid(markTokenAsPaid);
+        return tokenizerApi.postApiV1OperationsSetPaid(markTokenAsPaid);
 
 
     }
 
-    public Balances getBalanceByAddress(String access_token, String id_token, String address) throws ApiException {
+    public InlineResponse2005 getBalanceByAddress(String access_token, String id_token, String address) throws ApiException {
         
     	String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
     	
@@ -213,10 +211,10 @@ public class Token {
         _log.debug("get balance of marketplace by address");
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.getBalance(address);
+        return tokenizerApi.getApiV1TreasuryBalancesByAddress(address);
     }
 
-    public MarketplaceIndex getMarketplaceByAddress(String access_token, String id_token, String address) throws ApiException {
+    public InlineResponse2007 getMarketplaceByAddress(String access_token, String id_token, String address) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
@@ -232,10 +230,10 @@ public class Token {
         _log.debug("get marketplace index by address");
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.getMarketplaceIndex(address);
+        return tokenizerApi.getApiV1TreasuryMarketplacesByAddress(address);
     }
 
-    public InlineResponse2003 getTokenTransfersByTransferId(String access_token, String id_token, String transferId) throws ApiException {
+    public InlineResponse2008 getTokenTransfersByTransferId(String access_token, String id_token, String transferId) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
@@ -251,10 +249,10 @@ public class Token {
         _log.debug("get token transfer object by transfer identifier");
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.getTokenTransfer(transferId);
+        return tokenizerApi.getApiV1TreasuryTokenTransfersByTransferId(transferId);
     }
 
-    public InlineResponse2004 getTransactionsByTransactionHash(String access_token, String id_token, String transactionHash) throws ApiException {
+    public InlineResponse20010 getTransactionsByTransactionHash(String access_token, String id_token, String transactionHash) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
         ApiClient apiClient = Configuration.getDefaultApiClient();
@@ -270,6 +268,6 @@ public class Token {
         _log.debug("get transaction by transaction hash");
         TokenizerControllerApi tokenizerApi = new TokenizerControllerApi();
 
-        return tokenizerApi.getReceipt(transactionHash);
+        return tokenizerApi.getApiV1TreasuryTransactionsByTransactionHash(transactionHash);
     }
 }

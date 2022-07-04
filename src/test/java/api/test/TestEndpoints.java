@@ -41,7 +41,7 @@ import org.json.JSONObject;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.i3m.model.backplane.DataOfferingDto;
+import com.i3m.model.backplane.SemanticEngineDataOfferingDto;
 
 /**
  * Perform API Testing for the services using CRUD Design Pattern
@@ -397,7 +397,7 @@ public class TestEndpoints {
 		response.then().log().body().statusCode(200);
 		JsonPath jsonPathEvaluator = response.jsonPath();
 		//JSONArray data = new JSONArray((Collection<?>)jsonPathEvaluator.get("data"));
-		obtainedOfferingBody = new JSONObject(jsonPathEvaluator.getObject("data", DataOfferingDto.class));
+		obtainedOfferingBody = new JSONObject(jsonPathEvaluator.getObject("data", SemanticEngineDataOfferingDto.class));
 		//obtainedOfferingBody = data.getJSONObject(0);
 		System.out.println("*************************DATA OBTAINED: " + obtainedOfferingBody.toString()+ "*******************************************");
 	}

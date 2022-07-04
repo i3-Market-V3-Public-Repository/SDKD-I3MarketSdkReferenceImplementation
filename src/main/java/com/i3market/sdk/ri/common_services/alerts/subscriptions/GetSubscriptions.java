@@ -34,8 +34,8 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.SubscriptionsApi;
-import com.i3m.model.backplane.Subscription;
-import com.i3m.model.backplane.UserSubscriptionList;
+import com.i3m.model.backplane.NotificationManagerOasSubscription;
+import com.i3m.model.backplane.NotificationManagerOasUserSubscriptionList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class GetSubscriptions {
     public GetSubscriptions() {
     }
 
-    public ApiResponse<List<UserSubscriptionList>> getSubscriptions (String access_token, String id_token) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasUserSubscriptionList>> getSubscriptions (String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -71,7 +71,7 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersSubscriptionsWithHttpInfo();
     }
 
-    public ApiResponse<List<Subscription>> getSubscriptionByUserID (String access_token, String id_token, String user_id) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasSubscription>> getSubscriptionByUserID (String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -91,7 +91,7 @@ public class GetSubscriptions {
         return subscriptionsApi.getApiV1UsersByUserIdSubscriptionsWithHttpInfo(user_id);
     }
 
-    public ApiResponse<Subscription> getSubscriptionByUserIDSubscriptionId (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<NotificationManagerOasSubscription> getSubscriptionByUserIDSubscriptionId (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 

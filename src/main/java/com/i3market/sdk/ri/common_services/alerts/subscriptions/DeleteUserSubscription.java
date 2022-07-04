@@ -29,13 +29,13 @@
 */
 package com.i3market.sdk.ri.common_services.alerts.subscriptions;
 
-        import com.i3m.api.ApiClient;
-        import com.i3m.api.ApiException;
-        import com.i3m.api.ApiResponse;
-        import com.i3m.api.Configuration;
-        import com.i3m.api.backplane.SubscriptionsApi;
-        import com.i3m.model.backplane.Subscription;
-        import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import com.i3m.api.ApiClient;
+import com.i3m.api.ApiException;
+import com.i3m.api.ApiResponse;
+import com.i3m.api.Configuration;
+import com.i3m.api.backplane.SubscriptionsApi;
+import com.i3m.model.backplane.NotificationManagerOasSubscription;
+import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import javax.ws.rs.core.HttpHeaders;
 
@@ -49,7 +49,7 @@ public class DeleteUserSubscription {
     public DeleteUserSubscription() {
     }
 
-    public ApiResponse<Subscription> deleteUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
+    public ApiResponse<NotificationManagerOasSubscription> deleteUserSubscription (String access_token, String id_token, String user_id, String subscription_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

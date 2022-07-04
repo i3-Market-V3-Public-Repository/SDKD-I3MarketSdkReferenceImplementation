@@ -34,9 +34,9 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.NotificationsApi;
-import com.i3m.model.backplane.ServiceNotification;
-import com.i3m.model.backplane.UserNotification;
-import com.i3m.model.backplane.Notification;
+import com.i3m.model.backplane.NotificationManagerOasServiceNotification;
+import com.i3m.model.backplane.NotificationManagerOasUserNotification;
+import com.i3m.model.backplane.NotificationManagerOasNotification;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -51,7 +51,7 @@ public class CreateNotification {
     //public CreateNotification() {
     //}
 
-    public ApiResponse<Object> createServiceNotification (String access_token, String id_token, ServiceNotification body) throws ApiException {
+    public ApiResponse<Object> createServiceNotification (String access_token, String id_token, NotificationManagerOasServiceNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -71,7 +71,7 @@ public class CreateNotification {
 
     }
 
-    public ApiResponse<Notification> createUserNotification (String access_token, String id_token, UserNotification body) throws ApiException {
+    public ApiResponse<NotificationManagerOasNotification> createUserNotification (String access_token, String id_token, NotificationManagerOasUserNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

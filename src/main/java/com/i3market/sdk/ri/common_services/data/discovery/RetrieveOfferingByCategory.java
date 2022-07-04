@@ -34,7 +34,7 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataOfferingDto;
+import com.i3m.model.backplane.SemanticEngineDataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Collections;
@@ -49,7 +49,7 @@ import javax.ws.rs.core.HttpHeaders;
  */
 public class RetrieveOfferingByCategory {
 
-    public  ApiResponse<List<DataOfferingDto>> getOfferingByCategory(String access_token, String id_token, String category, int page, int size, List<String> sort) throws ApiException {
+    public  ApiResponse<List<SemanticEngineDataOfferingDto>> getOfferingByCategory(String access_token, String id_token, String category, int page, int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

@@ -34,8 +34,8 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.ContractParameters;
-import com.i3m.model.backplane.ContractsParametersForOfferings;
+import com.i3m.model.backplane.SemanticEngineContractParameters;
+import com.i3m.model.backplane.SemanticEngineContractsParametersForOfferings;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
@@ -50,7 +50,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveContractParametersByOfferingId {
 	
-    public ApiResponse<ContractsParametersForOfferings> getOfferingContractsByOfferingId(String access_token, String id_token, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<SemanticEngineContractsParametersForOfferings> getOfferingContractsByOfferingId(String access_token, String id_token, String offeringId, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

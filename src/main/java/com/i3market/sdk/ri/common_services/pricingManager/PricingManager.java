@@ -34,10 +34,10 @@ import com.i3m.api.ApiException;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.CostControllerApi;
 import com.i3m.api.backplane.PriceControllerApi;
-import com.i3m.model.backplane.FormulaConfig;
-import com.i3m.model.backplane.FormulaConstantConfiguration;
-import com.i3m.model.backplane.FormulaParameterConfiguration;
-import com.i3m.model.backplane.FormulaWithConfiguration;
+import com.i3m.model.backplane.PricingManagerFormulaConfig;
+import com.i3m.model.backplane.PricingManagerFormulaConstantConfiguration;
+import com.i3m.model.backplane.PricingManagerFormulaParameterConfiguration;
+import com.i3m.model.backplane.PricingManagerFormulaWithConfiguration;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import org.slf4j.Logger;
@@ -167,7 +167,7 @@ public class PricingManager {
     /*
      *   PUT /price/setformulaconstant  -  Set formula constant
      */
-    public Object setFormulaConstant(String access_token, String id_token, FormulaConstantConfiguration formulaParameter) throws ApiException {
+    public Object setFormulaConstant(String access_token, String id_token, PricingManagerFormulaConstantConfiguration formulaParameter) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -190,7 +190,7 @@ public class PricingManager {
     /*
      *   PUT /price/setformulajsonconfiguration  -  Set configuration using Json format
      */
-    public Object setFormulajsonConfiguration(String access_token, String id_token, FormulaConfig formulaParameter) throws ApiException {
+    public Object setFormulajsonConfiguration(String access_token, String id_token, PricingManagerFormulaConfig formulaParameter) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -213,7 +213,7 @@ public class PricingManager {
     /*
      *   PUT /pricingManager/price/setformulaparameter  -  Set formula parameter
      */
-    public Object setFormulaParameter(String access_token, String id_token, FormulaParameterConfiguration parameter) throws ApiException {
+    public Object setFormulaParameter(String access_token, String id_token, PricingManagerFormulaParameterConfiguration parameter) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -237,7 +237,7 @@ public class PricingManager {
     /*
      *   PUT /pricingManager/price/setformulawithdefaultconfiguration  -  Set Formula with default values for constants and parameters
      */
-    public Object setFormulaWithDefaultConfiguration(String access_token, String id_token, FormulaWithConfiguration parameter) throws ApiException {
+    public Object setFormulaWithDefaultConfiguration(String access_token, String id_token, PricingManagerFormulaWithConfiguration parameter) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 

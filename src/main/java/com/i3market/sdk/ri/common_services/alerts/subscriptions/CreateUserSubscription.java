@@ -35,8 +35,8 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.SubscriptionsApi;
-import com.i3m.model.backplane.CreateSubscription;
-import com.i3m.model.backplane.Subscription;
+import com.i3m.model.backplane.NotificationManagerOasCreateSubscription;
+import com.i3m.model.backplane.NotificationManagerOasSubscription;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -50,7 +50,7 @@ public class CreateUserSubscription {
     public CreateUserSubscription() {
     }
 
-    public ApiResponse<Subscription> createUserSubscription (String access_token, String id_token, String user_id, CreateSubscription sub) throws ApiException {
+    public ApiResponse<NotificationManagerOasSubscription> createUserSubscription (String access_token, String id_token, String user_id, NotificationManagerOasCreateSubscription sub) throws ApiException {
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
         ApiClient apiClient = Configuration.getDefaultApiClient();

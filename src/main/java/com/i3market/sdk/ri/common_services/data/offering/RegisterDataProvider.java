@@ -34,7 +34,7 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataProvider;
+import com.i3m.model.backplane.SemanticEngineDataProvider;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -55,7 +55,7 @@ public class RegisterDataProvider {
     public RegisterDataProvider() {
     }
 
-    public ApiResponse saveDataProviderInfo (String access_token, String id_token, DataProvider dataProvider) throws ApiException {
+    public ApiResponse saveDataProviderInfo (String access_token, String id_token, SemanticEngineDataProvider dataProvider) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

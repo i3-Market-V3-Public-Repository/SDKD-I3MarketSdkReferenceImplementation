@@ -40,12 +40,11 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataProvider;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 public class DeleteDataProvider {
 	
-	private static final Logger _log = LoggerFactory.getLogger(RegisterDataProvider.class);
+	private static final Logger _log = LoggerFactory.getLogger(DeleteDataProvider.class);
     public DeleteDataProvider() {
     }
 

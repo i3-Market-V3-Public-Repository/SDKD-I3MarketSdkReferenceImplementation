@@ -34,11 +34,11 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.DataOffering;
-import com.i3m.model.backplane.DataOfferingDto;
-import com.i3m.model.backplane.DataOfferingId;
-import com.i3m.model.backplane.OfferingsList;
-import com.i3m.model.backplane.ProvidersList;
+import com.i3m.model.backplane.SemanticEngineDataOffering;
+import com.i3m.model.backplane.SemanticEngineDataOfferingDto;
+import com.i3m.model.backplane.SemanticEngineDataOfferingId;
+import com.i3m.model.backplane.SemanticEngineOfferingsList;
+import com.i3m.model.backplane.SemanticEngineProvidersList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import org.apache.http.HttpStatus;
@@ -53,7 +53,7 @@ public class CreateOffering {
 
     private static final Logger _log = LoggerFactory.getLogger(CreateOffering.class);
 
-    public  ApiResponse<DataOfferingDto> createOffering (String access_token, String id_token, DataOffering dataOfferingDto) throws ApiException {
+    public  ApiResponse<SemanticEngineDataOfferingDto> createOffering (String access_token, String id_token, SemanticEngineDataOffering dataOfferingDto) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

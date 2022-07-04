@@ -34,7 +34,7 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.NotificationsApi;
-import com.i3m.model.backplane.Notification;
+import com.i3m.model.backplane.NotificationManagerOasNotification;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
@@ -43,7 +43,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveNotifications {
 
-    public ApiResponse<List<Notification>> getAllNotifications(String access_token, String id_token) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasNotification>> getAllNotifications(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -63,7 +63,7 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getAllUnreadNotifications(String access_token, String id_token) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasNotification>> getAllUnreadNotifications(String access_token, String id_token) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -83,7 +83,7 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getUserNotifications(String access_token, String id_token, String user_id) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasNotification>> getUserNotifications(String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -103,7 +103,7 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<List<Notification>> getUserUnreadNotifications(String access_token, String id_token, String user_id) throws ApiException {
+    public ApiResponse<List<NotificationManagerOasNotification>> getUserUnreadNotifications(String access_token, String id_token, String user_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -123,7 +123,7 @@ public class RetrieveNotifications {
 
     }
 
-    public ApiResponse<Notification> getNotificationsByNotificationId(String access_token, String id_token, String notification_id) throws ApiException {
+    public ApiResponse<NotificationManagerOasNotification> getNotificationsByNotificationId(String access_token, String id_token, String notification_id) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

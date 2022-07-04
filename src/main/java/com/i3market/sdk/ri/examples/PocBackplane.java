@@ -41,7 +41,6 @@ import com.i3m.api.auth.HttpBasicAuth;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.HelloControllerApi;
 import com.i3m.api.backplane.PingControllerApi;
-import com.i3m.model.backplane.HelloResponse;
 import com.i3m.model.backplane.PingResponse;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 

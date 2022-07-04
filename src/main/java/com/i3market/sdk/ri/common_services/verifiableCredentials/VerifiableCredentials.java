@@ -92,7 +92,7 @@ VerifiableCredentials {
         return credentialApi.getRelease2VcCredentialIssueByDidByCredential(did, credential);
     }
 
-    public Object postRevokeCredentialByJWT(String access_token, String id_token, InlineObject credential) throws ApiException {
+    public Object postRevokeCredentialByJWT(String access_token, String id_token, InlineObject5 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -113,7 +113,7 @@ VerifiableCredentials {
 
     }
 
-    public Object postVerifyCredentialByJWT(String access_token, String id_token, InlineObject1 credential) throws ApiException {
+    public Object postVerifyCredentialByJWT(String access_token, String id_token, InlineObject6 credential) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

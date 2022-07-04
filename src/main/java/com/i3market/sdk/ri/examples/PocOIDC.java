@@ -44,7 +44,6 @@ import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.HelloControllerApi;
 import com.i3m.api.oidc.OidcCoreApi;
 import com.i3m.api.oidc.OidcDiscoveryApi;
-import com.i3m.model.backplane.HelloResponse;
 import com.i3m.model.oidc.JWKSet;
 import com.i3m.model.oidc.OpenIDProviderMetadata;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
@@ -80,7 +79,7 @@ public class PocOIDC {
 	    OidcCoreApi oidcController = new OidcCoreApi();
 		LOGGER.info(" ### ApiClient Base path: " + oidcController.getApiClient().getBasePath());
 		LOGGER.info(" ### JWT: " + ((HttpBearerAuth)defaultClient.getAuthentication("jwt")).getBearerToken());
-		return  oidcController.release2OidcJwksGetWithHttpInfo();
+		return  oidcController.oidcJwksGetWithHttpInfo();
 		
 	}
 

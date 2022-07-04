@@ -34,8 +34,8 @@ import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
-import com.i3m.model.backplane.OfferingsList;
-import com.i3m.model.backplane.ProvidersList;
+import com.i3m.model.backplane.SemanticEngineOfferingsList;
+import com.i3m.model.backplane.SemanticEngineProvidersList;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.List;
@@ -44,7 +44,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 public class RetrieveListOfProvider {
 
-    public List<ProvidersList> getProviderListByCategory(String access_token, String id_token, String category, Integer page, Integer size, List<String> sort) throws ApiException {
+    public List<SemanticEngineProvidersList> getProviderListByCategory(String access_token, String id_token, String category, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -64,7 +64,7 @@ public class RetrieveListOfProvider {
 
     }
 
-    public ApiResponse<List<ProvidersList>> getAllProviders(String access_token, String id_token, Integer page, Integer size, List<String> sort) throws ApiException {
+    public ApiResponse<List<SemanticEngineProvidersList>> getAllProviders(String access_token, String id_token, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

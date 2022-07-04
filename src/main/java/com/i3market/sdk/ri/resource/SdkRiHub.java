@@ -33,17 +33,13 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-
-
 import com.i3m.model.backplane.*;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -238,7 +234,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save offering")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<DataOfferingDto> registerDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataOffering dataOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<SemanticEngineDataOfferingDto> registerDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataOffering dataOffering) throws ApiException {
 		return new CreateOffering().createOffering(access_token, id_token, dataOffering);
 	}
 
@@ -425,7 +421,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Void> registerDataProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataProvider dataProvider) throws ApiException {
+	public com.i3m.api.ApiResponse<Void> registerDataProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataProvider dataProvider) throws ApiException {
 		return new RegisterDataProvider().saveDataProviderInfo(access_token, id_token, dataProvider);
 	}
 
@@ -445,7 +441,7 @@ public class SdkRiHub {
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataOfferingDto dataOffering) throws ApiException {
+    public com.i3m.api.ApiResponse updateDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataOfferingDto dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(access_token, id_token, dataOffering);
     }
 
@@ -539,8 +535,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to execute payment")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Payment payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DataProviderPayment inlineObject5) throws ApiException {
-		return new Token().payment(access_token, id_token, inlineObject5);
+	public InlineResponse2004 payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  TokenizationFeePay inlineObject) throws ApiException {
+		return new Token().payment(access_token, id_token, inlineObject);
 	}
 
 	@POST
@@ -549,8 +545,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ExchangeIn exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ExchangeMoneyForTokens inlineObject3) throws ApiException {
-		return new Token().exchangeIn(access_token, id_token, inlineObject3);
+	public InlineResponse2004 exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
+		return new Token().exchangeIn(access_token, id_token, inlineObject);
 	}
 
 	@POST
@@ -559,8 +555,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ExchangeOut exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ExchangeTokensForMoney inlineObject4) throws ApiException {
-		return new Token().exchangeOut(access_token, id_token, inlineObject4);
+	public InlineResponse2004 exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject1 inlineObject) throws ApiException {
+		return new Token().exchangeOut(access_token, id_token, inlineObject);
 	}
 
 	@POST
@@ -569,8 +565,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ClearingBalance clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ClearBalance inlineObject1) throws ApiException {
-		return new Token().clearing(access_token, id_token, inlineObject1);
+	public InlineResponse2003 clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+		return new Token().clearing(access_token, id_token);
 	}
 
 	@POST
@@ -579,8 +575,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public DeployedSignedTransaction deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody DeployTransactionToBesu inlineObject2) throws ApiException {
-		return new Token().deployTransaction(access_token, id_token, inlineObject2);
+	public InlineResponse2009 deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject4 inlineObject) throws ApiException {
+		return new Token().deployTransaction(access_token, id_token, inlineObject);
 	}
 
 	@POST
@@ -589,8 +585,8 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SetPaid setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody MarkTokenAsPaid inlineObject6) throws ApiException {
-		return new Token().setPaid(access_token, id_token, inlineObject6);
+	public InlineResponse2003 setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPay inlineObject) throws ApiException {
+		return new Token().setPaid(access_token, id_token, inlineObject);
 	}
 
 	@POST
@@ -599,7 +595,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public RegisterMarketplace1 addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody RegisterMarketplace inlineObject) throws ApiException {
+	public InlineResponse2006 addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject3 inlineObject) throws ApiException {
 		return new Token().createMarketplace(access_token, id_token, inlineObject);
 	}
 
@@ -608,7 +604,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace balance by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public Balances getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public InlineResponse2005 getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new Token().getBalanceByAddress(access_token, id_token, address);
 	}
 
@@ -617,7 +613,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get marketplace index by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public MarketplaceIndex getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public InlineResponse2007 getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new Token().getMarketplaceByAddress(access_token, id_token, address);
 	}
 
@@ -626,7 +622,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get transaction with transaction hash", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction with this transactionHash") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse2004 getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
+	public InlineResponse20010 getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
 		return new Token().getTransactionsByTransactionHash(access_token, id_token, transactionHash);
 	}
 
@@ -635,7 +631,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "get transaction status object with transfer identifier", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
 	@Produces({ "application/json", "application/xml" })
-	public InlineResponse2003 getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
+	public InlineResponse2008 getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
 		return new Token().getTokenTransfersByTransferId(access_token, id_token, transferId);
 	}
 
@@ -709,7 +705,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public Object setFormulaConstant(@HeaderParam("access_token") String access_token,
 									 @HeaderParam("id_token") String id_token,
-									 @RequestBody FormulaConstantConfiguration parameters) throws ApiException {
+									 @RequestBody PricingManagerFormulaConstantConfiguration parameters) throws ApiException {
 		return new PricingManager().setFormulaConstant(access_token, id_token, parameters);
 	}
 
@@ -720,7 +716,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public Object setFormulaJsonConfiguration(@HeaderParam("access_token") String access_token,
 											  @HeaderParam("id_token") String id_token,
-											  @RequestBody FormulaConfig parameters) throws ApiException {
+											  @RequestBody PricingManagerFormulaConfig parameters) throws ApiException {
 		return new PricingManager().setFormulajsonConfiguration(access_token, id_token, parameters);
 	}
 
@@ -731,7 +727,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public Object setFormulaParameter(@HeaderParam("access_token") String access_token,
 									 @HeaderParam("id_token") String id_token,
-									 @RequestBody FormulaParameterConfiguration parameters) throws ApiException {
+									 @RequestBody PricingManagerFormulaParameterConfiguration parameters) throws ApiException {
 		return new PricingManager().setFormulaParameter(access_token, id_token, parameters);
 	}
 
@@ -742,7 +738,7 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public Object setFormulaWithDefaultConfiguration(@HeaderParam("access_token") String access_token,
 									  @HeaderParam("id_token") String id_token,
-									  @RequestBody FormulaWithConfiguration parameters) throws ApiException {
+									  @RequestBody PricingManagerFormulaWithConfiguration parameters) throws ApiException {
 		return new PricingManager().setFormulaWithDefaultConfiguration(access_token, id_token, parameters);
 	}
 
@@ -772,7 +768,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object revokeVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject credential) throws ApiException {
+	public Object revokeVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject5 credential) throws ApiException {
 		return new VerifiableCredentials().postRevokeCredentialByJWT(access_token, id_token, credential);
 	}
 
@@ -782,7 +778,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object verifyVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject1 credential) throws ApiException {
+	public Object verifyVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject6 credential) throws ApiException {
 		return new VerifiableCredentials().postVerifyCredentialByJWT(access_token, id_token, credential);
 	}
 
@@ -832,7 +828,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createServiceNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ServiceNotification body) throws ApiException {
+	public com.i3m.api.ApiResponse<Object> createServiceNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody NotificationManagerOasServiceNotification body) throws ApiException {
 		return new CreateNotification().createServiceNotification(access_token, id_token, body);
 	}
 
@@ -842,7 +838,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to add notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> createUserNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody UserNotification body) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasNotification> createUserNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody NotificationManagerOasUserNotification body) throws ApiException {
 		return new CreateNotification().createUserNotification(access_token, id_token, body);
 	}
 
@@ -852,7 +848,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> deleteNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasNotification> deleteNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
 		return new DeleteNotification().deleteNotification(access_token, id_token, notification_id);
 	}
 
@@ -862,7 +858,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the stored notifications", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveAllNotifications(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasNotification>> retrieveAllNotifications(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 
 		return new RetrieveNotifications().getAllNotifications(access_token, id_token);
 
@@ -874,7 +870,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> getAllUnreadNotifications(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasNotification>> getAllUnreadNotifications(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 
 		return new RetrieveNotifications().getAllUnreadNotifications(access_token, id_token);
 
@@ -886,7 +882,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveNotificationsByUserId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasNotification>> retrieveNotificationsByUserId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
 
 		return new RetrieveNotifications().getUserNotifications(access_token, id_token, user_id);
 
@@ -898,7 +894,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<List<Notification>> retrieveUnreadNotificationsByUserId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasNotification>> retrieveUnreadNotificationsByUserId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
 
 		return new RetrieveNotifications().getUserUnreadNotifications(access_token, id_token, user_id);
 
@@ -910,7 +906,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve all the unread stored notifications for a user", tags="common-services: notification")
 	//@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<Notification> retrieveNotificationsByNotificationId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasNotification> retrieveNotificationsByNotificationId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
 
 		return new RetrieveNotifications().getNotificationsByNotificationId(access_token, id_token, notification_id);
 
@@ -922,7 +918,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> markAsReadNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasNotification> markAsReadNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
 		return new ModifyNotification().markAsReadNotification(access_token, id_token, notification_id);
 	}
 
@@ -932,7 +928,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to modify notification")})
 	@Produces({ "application/json", "application/xml" })
 	//@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Notification> markAsUnreadNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasNotification> markAsUnreadNotification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("notification_id") String notification_id) throws ApiException {
 		return new ModifyNotification().markAsUnreadNotification(access_token, id_token, notification_id);
 	}
 	
@@ -943,7 +939,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "application/json", "application/xml" })
-	public Template getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
+	public ScManagerOasTemplate getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
 		return new BackplaneClient().getTemplate(access_token, id_token, idOffering);
 	}
 	
@@ -953,7 +949,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to generate the notification")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @QueryParam("consumer_did") String consumer_did, @RequestBody Template contractualParameters) throws ApiException {
+	public com.i3m.api.ApiResponse<Object> createDataPurchase(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("origin_market_id") String origin_market_id, @QueryParam("consumer_did") String consumer_did, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
 		return new RequestingDataItemPurchase().requestDataItemPurchase(access_token, id_token, origin_market_id, consumer_did, contractualParameters);
 	}
 	
@@ -962,7 +958,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreement") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<com.i3m.model.backplane.AgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasAgreementTemplate> getAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
 		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
 	}
 	
@@ -971,7 +967,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
 		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id);
 	}
 	
@@ -980,7 +976,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
 		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id);
 	}
 	
@@ -989,7 +985,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the active agreements", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ActiveAgreements> checkActiveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkActiveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new BackplaneClient().checkActiveAgreements(access_token, id_token);
 	}
 	
@@ -998,7 +994,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the status", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the status") })
 	@Produces({"application/json"})
-	public  com.i3m.api.ApiResponse<State> getState(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+	public  com.i3m.api.ApiResponse<ScManagerOasState> getState(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
 		return new BackplaneClient().getState(access_token, id_token, agreement_id);
 	}
 	
@@ -1009,7 +1005,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "create agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to create agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public RawTransactionTemplate createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+	public ScManagerOasRawTransactionTemplate createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
 		return new BackplaneClient().createAgreement(access_token, id_token, senderAddress, contractualParameters);
 	}
 
@@ -1018,7 +1014,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "deploy signed transaction", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to deploy signed transaction") })
 	@Produces({ "application/json", "application/xml" })
-	public TransactionObject deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignedTransaction signedTransaction) throws ApiException {
+	public ScManagerOasTransactionObject deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedTransaction signedTransaction) throws ApiException {
 		return new BackplaneClient().deploySignedTransaction(access_token, id_token, signedTransaction);
 	}
 
@@ -1027,7 +1023,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public RawTransactionTemplate signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SignAgreement signAgreement) throws ApiException {
+	public ScManagerOasRawTransactionTemplate signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignAgreement signAgreement) throws ApiException {
 		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
 	}
 
@@ -1036,7 +1032,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "update agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public RawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody Template contractualParameters) throws ApiException {
+	public ScManagerOasRawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
 		return new BackplaneClient().updateAgreement(access_token, id_token, agreementId, senderAddress, contractualParameters);
 	}
 
@@ -1045,7 +1041,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve agreements", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve agreements") })
 	@Produces({ "application/json", "application/xml" })
-	public ActiveAgreements retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
+	public ScManagerOasActiveAgreements retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
 		return new BackplaneClient().retrieveAgreements(access_token, id_token, consumerPublicKey);
 	}
 
@@ -1057,7 +1053,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<UserSubscriptionList>> getSubscriptions(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasUserSubscriptionList>> getSubscriptions(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new GetSubscriptions().getSubscriptions(access_token, id_token);
 	}
 
@@ -1067,7 +1063,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<Subscription>> getSubscriptionsByUserID(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasSubscription>> getSubscriptionsByUserID(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id) throws ApiException {
 		return new GetSubscriptions().getSubscriptionByUserID(access_token, id_token, user_id);
 	}
 
@@ -1077,7 +1073,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> getSubscriptionsByUserIDSubscriptionID(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> getSubscriptionsByUserIDSubscriptionID(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new GetSubscriptions().getSubscriptionByUserIDSubscriptionId(access_token, id_token, user_id, subscription_id);
 	}
 
@@ -1091,7 +1087,7 @@ public class SdkRiHub {
 	})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> createUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @RequestBody CreateSubscription sub) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> createUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @RequestBody NotificationManagerOasCreateSubscription sub) throws ApiException {
 		return new CreateUserSubscription().createUserSubscription(access_token, id_token, user_id, sub);
 	}
 
@@ -1101,7 +1097,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> activateSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> activateSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new ModifyUserSubscription().activateUserSubscription(access_token, id_token, user_id, subscription_id);
 	}
 
@@ -1111,7 +1107,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deactivateSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> deactivateSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new ModifyUserSubscription().deactivateUserSubscription(access_token, id_token, user_id, subscription_id);
 	}
 
@@ -1121,7 +1117,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Incomplete request")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<Subscription> deleteUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
+	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> deleteUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new DeleteUserSubscription().deleteUserSubscription(access_token, id_token, user_id, subscription_id);
 	}
 

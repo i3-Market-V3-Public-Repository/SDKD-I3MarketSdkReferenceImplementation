@@ -37,70 +37,70 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
-import com.i3m.model.backplane.ActiveAgreements;
-import com.i3m.model.backplane.AgreementTemplate;
-import com.i3m.model.backplane.RawTransactionTemplate;
-import com.i3m.model.backplane.SignAgreement;
-import com.i3m.model.backplane.SignedTransaction;
-import com.i3m.model.backplane.State;
-import com.i3m.model.backplane.Template;
-import com.i3m.model.backplane.TransactionObject;
+import com.i3m.model.backplane.ScManagerOasActiveAgreements;
+import com.i3m.model.backplane.ScManagerOasAgreementTemplate;
+import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
+import com.i3m.model.backplane.ScManagerOasSignAgreement;
+import com.i3m.model.backplane.ScManagerOasSignedTransaction;
+import com.i3m.model.backplane.ScManagerOasState;
+import com.i3m.model.backplane.ScManagerOasTemplate;
+import com.i3m.model.backplane.ScManagerOasTransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import java.util.Map;
 
 public class BackplaneClient {
 	
-	public Template getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
+	public ScManagerOasTemplate getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
 		handleAuthentication(access_token, id_token);
 		
 		AgreementApi controller = new AgreementApi();
 		return controller.getTemplateByOfferingId(idTemplate);
 	}
 
-	public RawTransactionTemplate createAgreement (String access_token, String id_token, String senderAddress, Template template) throws ApiException {
+	public ScManagerOasRawTransactionTemplate createAgreement (String access_token, String id_token, String senderAddress, ScManagerOasTemplate template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.postCreateAgreementRawTransactionBySenderAddress(template, senderAddress);
 	}
 
-	public TransactionObject deploySignedTransaction (String access_token, String id_token, SignedTransaction signedTransaction) throws ApiException {
+	public ScManagerOasTransactionObject deploySignedTransaction (String access_token, String id_token, ScManagerOasSignedTransaction signedTransaction) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.postDeploySignedTransaction(signedTransaction);
 	}
 
-	public RawTransactionTemplate signAgreement (String access_token, String id_token, SignAgreement signAgreement) throws ApiException {
+	public ScManagerOasRawTransactionTemplate signAgreement (String access_token, String id_token, ScManagerOasSignAgreement signAgreement) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.putSignAgreementRawTransaction(signAgreement);
 	}
 
-	public RawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, Template template) throws ApiException {
+	public ScManagerOasRawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, ScManagerOasTemplate template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
 	}
 
-	public ActiveAgreements retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
+	public ScManagerOasActiveAgreements retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.getRetrieveAgreementsByConsumerPublicKey(consumerPublicKey);
 	}
 
-	public ApiResponse<AgreementTemplate> getAgreement (String access_token, String id_token, Long agreement_id) throws ApiException {
+	public ApiResponse<ScManagerOasAgreementTemplate> getAgreement (String access_token, String id_token, Long agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
 		return controller.getGetAgreementByAgreementIdWithHttpInfo(agreement_id);
 	}
 
-	public ApiResponse<ActiveAgreements> checkAgreementsByConsumer(String access_token,
+	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(String access_token,
 			String id_token, String consumer_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -108,7 +108,7 @@ public class BackplaneClient {
 		return controller.getCheckAgreementsByConsumerByConsumerIdWithHttpInfo(consumer_id);
 	}
 
-	public ApiResponse<ActiveAgreements> checkAgreementsByProvider(String access_token,
+	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(String access_token,
 			String id_token, String provider_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -116,7 +116,7 @@ public class BackplaneClient {
 		return controller.getCheckAgreementsByProviderByProviderIdWithHttpInfo(provider_id);
 	}
 
-	public ApiResponse<ActiveAgreements> checkActiveAgreements(String access_token,
+	public ApiResponse<ScManagerOasActiveAgreements> checkActiveAgreements(String access_token,
 			String id_token) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -124,7 +124,7 @@ public class BackplaneClient {
 		return controller.getCheckActiveAgreementsWithHttpInfo();
 	}
 
-	public ApiResponse<State> getState(String access_token,
+	public ApiResponse<ScManagerOasState> getState(String access_token,
 			String id_token, String agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
