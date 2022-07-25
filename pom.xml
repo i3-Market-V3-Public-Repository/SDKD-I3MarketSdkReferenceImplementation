@@ -108,6 +108,12 @@
 			<artifactId>jetty-jsp</artifactId>
 			<version>9.2.7.v20150116</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.el</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.sun.jersey.contribs/jersey-multipart -->
