@@ -40,7 +40,10 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import java.util.List;
 
 import javax.ws.rs.core.HttpHeaders;
-
+/**
+ * Implemented by: J. Eleazar Escudero
+ * @email: eleazar@hopu.org
+ */
 public class RetrieveNotifications {
 
     public ApiResponse<List<NotificationManagerOasNotification>> getAllNotifications(String access_token, String id_token) throws ApiException {

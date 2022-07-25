@@ -41,7 +41,10 @@ import javax.ws.rs.core.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Implemented by: J. Eleazar Escudero
+ * @email: eleazar@hopu.org
+ */
 public class DeleteNotification {
     private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.notification.DeleteNotification.class);
 
