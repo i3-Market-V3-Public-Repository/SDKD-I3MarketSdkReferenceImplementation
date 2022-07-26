@@ -38,6 +38,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.i3m.model.backplane.*;
+import com.i3market.sdk.ri.common_services.notification.services.*;
 import com.i3market.sdk.ri.common_services.tokenizer.TokenizerController;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,10 +68,10 @@ import com.i3market.sdk.ri.common_services.data.offering.DeleteDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
 import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
 import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
-import com.i3market.sdk.ri.common_services.notification.CreateNotification;
-import com.i3market.sdk.ri.common_services.notification.DeleteNotification;
-import com.i3market.sdk.ri.common_services.notification.ModifyNotification;
-import com.i3market.sdk.ri.common_services.notification.RetrieveNotifications;
+import com.i3market.sdk.ri.common_services.notification.notifications.CreateNotification;
+import com.i3market.sdk.ri.common_services.notification.notifications.DeleteNotification;
+import com.i3market.sdk.ri.common_services.notification.notifications.ModifyNotification;
+import com.i3market.sdk.ri.common_services.notification.notifications.RetrieveNotifications;
 import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
 import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
@@ -1124,5 +1125,61 @@ public class SdkRiHub {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> deleteUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new DeleteUserSubscription().deleteUserSubscription(access_token, id_token, user_id, subscription_id);
+	}
+	/////// SERVICES & QUEUES FOR NOTIFICATIONS ///////
+
+	@GET
+	@Path("/services/{service_id}")
+	@ApiOperation(value = "Get service by ServiceId", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasService> getServiceById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id) throws ApiException {
+		return new GetService().getServiceById(access_token, id_token, service_id);
+	}
+	@GET
+	@Path("/services/{service_id}/queues/{queue_id}")
+	@ApiOperation(value = "Get service queue by ServiceId and QueueId", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasQueue> getServiceQueuesById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id, @PathParam("queue_id") String queue_id) throws ApiException {
+		return new GetServiceQueue().getServiceQueueByQueueId(access_token, id_token, service_id, queue_id);
+	}
+	@POST
+	@Path("/services")
+	@ApiOperation(value = "Register new service", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Validation error")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasService> registerService(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody NotificationManagerOasServiceInput data) throws ApiException {
+		return new RegisterService().registerService(access_token, id_token, data);
+	}
+	@POST
+	@Path("/services/{service_id}/queues")
+	@ApiOperation(value = "Register new service queue", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "Validation error")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasQueue> registerServiceQueue(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id, @RequestBody NotificationManagerOasQueueInput data) throws ApiException {
+		return new RegisterServiceQueue().registerServiceQueue(access_token, id_token, service_id, data);
+	}
+	@DELETE
+	@Path("/services/{service_id}")
+	@ApiOperation(value = "Delete service by ServiceId and all it's queues", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasService> deleteServiceById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id) throws ApiException {
+		return new DeleteService().deleteServiceById(access_token, id_token, service_id);
+	}
+	@DELETE
+	@Path("/services/{service_id}/queues/{queue_id}")
+	@ApiOperation(value = "Delete a Queue by queue_id", tags="common-services: Services and Queues")
+	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<NotificationManagerOasQueue> deleteServiceQueueById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id, @PathParam("queue_id") String queue_id) throws ApiException {
+		return new DeleteServiceQueue().deleteServiceQueueByQueueId(access_token, id_token, service_id, queue_id);
 	}
 }
