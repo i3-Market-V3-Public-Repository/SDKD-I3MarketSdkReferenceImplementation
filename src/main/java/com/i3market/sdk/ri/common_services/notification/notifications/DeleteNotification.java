@@ -27,7 +27,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-package com.i3market.sdk.ri.common_services.notification;
+package com.i3market.sdk.ri.common_services.notification.notifications;
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
@@ -35,8 +35,6 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.NotificationsApi;
 import com.i3m.model.backplane.NotificationManagerOasNotification;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
-import javax.ws.rs.core.HttpHeaders;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @email: eleazar@hopu.org
  */
 public class DeleteNotification {
-    private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.notification.DeleteNotification.class);
+    private static final Logger _log = LoggerFactory.getLogger(DeleteNotification.class);
 
     public ApiResponse<NotificationManagerOasNotification> deleteNotification (String access_token, String id_token, String notification_id) throws ApiException {
 
@@ -60,7 +58,7 @@ public class DeleteNotification {
         
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
 
         _log.debug("Deleting notification {}", notification_id);
         NotificationsApi notificationsApi = new NotificationsApi();

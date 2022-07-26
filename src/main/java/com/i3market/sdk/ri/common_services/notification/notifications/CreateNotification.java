@@ -27,28 +27,52 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-package com.i3market.sdk.ri.common_services.notification;
+package com.i3market.sdk.ri.common_services.notification.notifications;
+
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
 import com.i3m.api.backplane.NotificationsApi;
+import com.i3m.model.backplane.NotificationManagerOasServiceNotification;
+import com.i3m.model.backplane.NotificationManagerOasUserNotification;
 import com.i3m.model.backplane.NotificationManagerOasNotification;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
-import javax.ws.rs.core.HttpHeaders;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * Implemented by: J. Eleazar Escudero
  * @email: eleazar@hopu.org
  */
-public class ModifyNotification {
-    private static final Logger _log = LoggerFactory.getLogger(com.i3market.sdk.ri.common_services.notification.ModifyNotification.class);
+public class CreateNotification {
 
-    public ApiResponse<NotificationManagerOasNotification> markAsReadNotification (String access_token, String id_token, String notification_id) throws ApiException {
+    private static final Logger _log = LoggerFactory.getLogger(CreateNotification.class);
+
+    //public CreateNotification() {
+    //}
+
+    public ApiResponse<Object> createServiceNotification (String access_token, String id_token, NotificationManagerOasServiceNotification body) throws ApiException {
+
+        String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+        
+        ApiClient apiClient = Configuration.getDefaultApiClient();
+
+        apiClient.setBasePath(backPlanePath);
+
+        apiClient.setServerIndex(null);
+        
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
+
+        _log.debug("creating a service notification {}", body);
+        NotificationsApi notificationsApi = new NotificationsApi();
+        return notificationsApi.postApiV1NotificationServiceWithHttpInfo(body);
+
+    }
+
+    public ApiResponse<NotificationManagerOasNotification> createUserNotification (String access_token, String id_token, NotificationManagerOasUserNotification body) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         
@@ -62,28 +86,12 @@ public class ModifyNotification {
         apiClient.addDefaultHeader("access_token", access_token);
         apiClient.addDefaultHeader("id_token", access_token);
 
-        _log.debug("Marking notification {} as read", notification_id);
+        _log.debug("creating a user notification {}", body);
         NotificationsApi notificationsApi = new NotificationsApi();
-        return notificationsApi.patchApiV1NotificationByNotificationIdReadWithHttpInfo(notification_id);
+        return notificationsApi.postApiV1NotificationWithHttpInfo(body);
 
     }
-    public ApiResponse<NotificationManagerOasNotification> markAsUnreadNotification (String access_token, String id_token, String notification_id) throws ApiException {
 
-        String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
-        
-        ApiClient apiClient = Configuration.getDefaultApiClient();
 
-        apiClient.setBasePath(backPlanePath);
-
-        apiClient.setServerIndex(null);
-        
-        //Add token as headers
-        apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
-
-        _log.debug("Marking notification {} as unread", notification_id);
-        NotificationsApi notificationsApi = new NotificationsApi();
-        return notificationsApi.patchApiV1NotificationByNotificationIdUnreadWithHttpInfo(notification_id);
-
-    }
 }
+

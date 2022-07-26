@@ -27,7 +27,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-package com.i3market.sdk.ri.common_services.notification;
+package com.i3market.sdk.ri.common_services.notification.notifications;
 
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
@@ -58,7 +58,7 @@ public class RetrieveNotifications {
         
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
 
         NotificationsApi notificationsApi = new NotificationsApi();
 
