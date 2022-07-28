@@ -975,8 +975,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id) throws ApiException {
-		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id, active);
 	}
 	
 	@GET
@@ -984,9 +984,19 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id) throws ApiException {
-		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id, active);
 	}
+	
+	@GET
+	@Path("/contract/check_agreements_by_data_offering/{provider_id}")
+	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("offering_id") String offering_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByDataOffering(access_token, id_token, offering_id);
+	}
+	
 	
 	@GET
 	@Path("/contract/check_active_agreements")

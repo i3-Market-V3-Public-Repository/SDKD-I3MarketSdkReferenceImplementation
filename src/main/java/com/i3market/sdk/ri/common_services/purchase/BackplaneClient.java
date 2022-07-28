@@ -101,19 +101,27 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(String access_token,
-			String id_token, String consumer_id) throws ApiException {
+			String id_token, String consumer_id, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getCheckAgreementsByConsumerByConsumerIdWithHttpInfo(consumer_id);
+		return controller.getCheckAgreementsByConsumerByConsumerIdByActiveWithHttpInfo(consumer_id, active);
+	}
+	
+	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(String access_token, String id_token,
+			String offering_id) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.getCheckAgreementsByDataOfferingByOfferingIdWithHttpInfo(offering_id);
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(String access_token,
-			String id_token, String provider_id) throws ApiException {
+			String id_token, String provider_id, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getCheckAgreementsByProviderByProviderIdWithHttpInfo(provider_id);
+		return controller.getCheckAgreementsByProviderByProviderIdByActiveWithHttpInfo(provider_id, active);
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkActiveAgreements(String access_token,
