@@ -14,11 +14,12 @@
 		<jdk.version>1.8</jdk.version>
 		<rest.version>4.3.3</rest.version>
 	</properties>
-	
+<!--	http://95.211.3.251:8081/#browse/browse:i3m-maven-snapshots -->
+<!--http://95.211.3.251:8081/repository/i3m-maven-snapshots	-->
 	<repositories>
 		<repository>
 			<id>i3m-nexus</id>
-			<url>http://95.211.3.251:8081/repository/i3m-maven-snapshots</url>
+			<url>http://95.211.3.251:8081/#browse/browse:i3m-maven-snapshots</url>
 			<snapshots>
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
@@ -70,11 +71,11 @@
 		</dependency>
 
 <!--		// https://gitlab.com/i3-market/code/wp3/t3.3/non-repudiable-exchange/non-repudiable-proofs-java/-/packages/3043423-->
-		<dependency>
-			<groupId>non-repudiable-protocol</groupId>
-			<artifactId>lib</artifactId>
-			<version>0.1.2</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>non-repudiable-protocol</groupId>-->
+<!--			<artifactId>lib</artifactId>-->
+<!--			<version>0.1.2</version>-->
+<!--		</dependency>-->
 
 
 

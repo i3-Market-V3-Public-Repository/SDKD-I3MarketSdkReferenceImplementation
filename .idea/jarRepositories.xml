@@ -9,6 +9,11 @@
     <remote-repository>
       <option name="id" value="i3m-nexus" />
       <option name="name" value="i3m-nexus" />
+      <option name="url" value="http://95.211.3.251:8081/#browse/browse:i3m-maven-snapshots" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="i3m-nexus" />
+      <option name="name" value="i3m-nexus" />
       <option name="url" value="http://95.211.3.251:8081/repository/i3m-maven-snapshots" />
     </remote-repository>
     <remote-repository>
