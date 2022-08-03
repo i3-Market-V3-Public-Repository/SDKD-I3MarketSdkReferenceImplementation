@@ -77,6 +77,9 @@ import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingById;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingByCategory;
+import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -444,6 +447,45 @@ public class SdkRiHub {
     public com.i3m.api.ApiResponse updateDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataOfferingDto dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(access_token, id_token, dataOffering);
     }
+    
+    @GET
+	@Path("/federated-offering/{id}/offeringId")
+	@ApiOperation(value = "retrieve a data offering by offering id using a federated query", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+										   @PathParam("id") String id,
+										   @QueryParam("page") @DefaultValue("0") Integer page,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		return new RetrieveFederatedOfferingById().getDataOfferingById(access_token, id_token, id, page, size, sort);
+	}
+    
+    @GET
+	@Path("/federated-offering/{category}")
+	@ApiOperation(value = "retrieve a data offering by category using a federated query", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingByCategory(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+										   @PathParam("category") String category,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		return new RetrieveFederatedOfferingByCategory().getOfferingByCategory(access_token, id_token, category, sort);
+	}
+    
+    @GET
+	@Path("/federated-offerings-list")
+	@ApiOperation(value = "retrieve a data offering list using a federated query", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering list")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+										   @QueryParam("page") @DefaultValue("0") Integer page,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		return new RetrieveFederatedOfferingList().getDataOfferingList(access_token, id_token, page, size, sort);
+	}
 
 /**
  * Chi commented out from here to avoid issue with  the "non-repudiable-protocol" library

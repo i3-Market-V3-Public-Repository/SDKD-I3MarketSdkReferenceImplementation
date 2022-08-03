@@ -30,12 +30,13 @@
 package com.i3market.sdk.ri.common_services.data.exchange.fromNonRepudiableProtocol;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
 import java.util.Date;
 
 import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.i3market.sdk.ri.common_services.data.exchange.interfaces.PoO;
-
+import com.i3market.sdk.ri.common_services.data.exchange.interfaces.PoR;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -44,14 +45,11 @@ import com.nimbusds.jose.JWSObject;
 import com.nimbusds.jose.JWSSigner;
 //import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.Payload;
-import com.nimbusds.jose.jwk.ECKey;
-import java.text.ParseException;
-import com.nimbusds.jose.crypto.ECDSAVerifier;
 import com.nimbusds.jose.crypto.DirectDecrypter;
 import com.nimbusds.jose.crypto.ECDSASigner;
+import com.nimbusds.jose.crypto.ECDSAVerifier;
+import com.nimbusds.jose.jwk.ECKey;
 import com.nimbusds.jose.jwk.JWK;
-
-import interfaces.PoR;
 
 public class FromNonRepudiableProtocol {
     //From non-repudiable library-------------------- To be removed after library is updated ---------------
@@ -114,7 +112,7 @@ public class FromNonRepudiableProtocol {
     	PoR.Exchange exchange = new PoR.Exchange();
     	exchange.setPoo_dgst(hashPooDgst);
     	exchange.setHash_alg("sha256");
-    	exchange.setExchangeId(exchangeId);
+    	exchange.setId(exchangeId);
     	poR.setExchange(exchange);
 
     	JWSSigner signer = null;

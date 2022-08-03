@@ -7,6 +7,7 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.SemanticEngineDataOfferingDto;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
