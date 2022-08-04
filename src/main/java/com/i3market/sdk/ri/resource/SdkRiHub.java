@@ -448,6 +448,8 @@ public class SdkRiHub {
           return new UpdateOffering().updateOffering(access_token, id_token, dataOffering);
     }
     
+    // Federated queries related methods
+    
     @GET
 	@Path("/federated-offering/{id}/offeringId")
 	@ApiOperation(value = "retrieve a data offering by offering id using a federated query", tags="common-services: offering")
