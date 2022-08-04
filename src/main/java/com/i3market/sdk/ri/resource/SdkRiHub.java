@@ -452,6 +452,7 @@ public class SdkRiHub {
     
     @GET
 	@Path("/federated-offering/{id}/offeringId")
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@ApiOperation(value = "retrieve a data offering by offering id using a federated query", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
@@ -461,7 +462,8 @@ public class SdkRiHub {
 										   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
 
-		return new RetrieveFederatedOfferingById().getDataOfferingById(access_token, id_token, id, page, size, sort);
+		
+    	return new RetrieveFederatedOfferingById().getDataOfferingById(access_token, id_token, id, page, size, sort);
 	}
     
     @GET
