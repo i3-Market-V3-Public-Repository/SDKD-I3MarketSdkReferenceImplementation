@@ -1152,7 +1152,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 404, message = "Not found")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<List<NotificationManagerOasQueue>> getServiceQueuesByServiceId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id, @PathParam("queue_id") String queue_id) throws ApiException {
+	public com.i3m.api.ApiResponse<List<NotificationManagerOasQueue>> getServiceQueuesByServiceId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id) throws ApiException {
 		return new GetServiceQueue().getServiceQueuesByServiceId(access_token, id_token, service_id);
 	}
 
