@@ -63,6 +63,8 @@ public class RetrieveCategoryList {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
+
+
         return  registrationOfferingApi.getCategoriesListUsingGETWithHttpInfo(page, size, sort);
 
     }
