@@ -38,6 +38,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.i3m.model.backplane.*;
+import com.i3market.sdk.ri.common_services.data.discovery.*;
 import com.i3market.sdk.ri.common_services.notification.services.*;
 import com.i3market.sdk.ri.common_services.tokenizer.TokenizerController;
 import org.json.JSONObject;
@@ -53,15 +54,6 @@ import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscr
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
 import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveCategoryList;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveContractParametersByOfferingId;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveListOfProvider;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByCategory;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingById;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingByProviderId;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingList;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveOfferingTemplate;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveTotalOfferingAndOfferingList;
 import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
 import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
 import com.i3market.sdk.ri.common_services.data.offering.DeleteDataProvider;
@@ -77,9 +69,6 @@ import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
 import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
 import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingById;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingByCategory;
-import com.i3market.sdk.ri.common_services.data.discovery.RetrieveFederatedOfferingList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -338,6 +327,31 @@ public class SdkRiHub {
 
 	}
 
+	@GET
+	@Path("textSearch/text/{text}")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve data offerings by text/keyword", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this text ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveDataOfferingByText(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+												 @PathParam("category") String text,
+												 @QueryParam("page") @DefaultValue("0") Integer page,
+												 @QueryParam("size") @DefaultValue("5") Integer size,
+												 @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingByText.getOfferingByText(access_token, id_token, text, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
+
 
 	@GET
 	@Path("/offering/offerings-list")
@@ -355,6 +369,30 @@ public class SdkRiHub {
 		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveOfferingList().getDataOfferingList(access_token, id_token, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
+	@GET
+	@Path("/offering/offerings-list/on-active")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve offering list on active state from internal database only", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering  ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveActiveDataOfferingList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+										   @QueryParam("page") @DefaultValue("0") Integer page,
+										   @QueryParam("size") @DefaultValue("5") Integer size,
+										   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveActiveOfferingList.getActiveDataOfferingList(access_token, id_token, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
@@ -390,6 +428,8 @@ public class SdkRiHub {
 		return strJson;
 
 	}
+
+
 
 	@GET
 	@Path("/offering/providers-list")
