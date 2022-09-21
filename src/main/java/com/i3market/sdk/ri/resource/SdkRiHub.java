@@ -1057,30 +1057,30 @@ public class SdkRiHub {
 	}
 	
 	@GET
-	@Path("/contract/check_agreements_by_consumer/{consumer_id}")
+	@Path("/contract/check_agreements_by_consumer/{consumer_public_key}/{active}")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_id") String consumer_id, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_id, active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumer_public_key, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_key, active);
 	}
 	
 	@GET
-	@Path("/contract/check_agreements_by_provider/{provider_id}")
-	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@Path("/contract/check_agreements_by_provider/{provider_public_key}/{active}")
+	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_id") String provider_id, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_id, active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_key") String provider_public_key, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_key, active);
 	}
 	
 	@GET
-	@Path("/contract/check_agreements_by_data_offering/{provider_id}")
-	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
+	@Path("/contract/check_agreements_by_data_offering/{data_offering_id}")
+	@ApiOperation(value = "retrieve the agreement by data offering id", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("offering_id") String offering_id) throws ApiException {
-		return new BackplaneClient().checkAgreementsByDataOffering(access_token, id_token, offering_id);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("data_offering_id") String data_offering_id) throws ApiException {
+		return new BackplaneClient().checkAgreementsByDataOffering(access_token, id_token, data_offering_id);
 	}
 	
 	
@@ -1129,14 +1129,14 @@ public class SdkRiHub {
 		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
 	}
 
-	@PUT
-	@Path("/contract/update_agreement_raw_transaction/{agreement_id}/{sender_address}")
-	@ApiOperation(value = "update agreement", tags = "common-services: contract")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
-	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasRawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
-		return new BackplaneClient().updateAgreement(access_token, id_token, agreementId, senderAddress, contractualParameters);
-	}
+//	@PUT
+//	@Path("/contract/update_agreement_raw_transaction/{agreement_id}/{sender_address}")
+//	@ApiOperation(value = "update agreement", tags = "common-services: contract")
+//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to update agreement") })
+//	@Produces({ "application/json", "application/xml" })
+//	public ScManagerOasRawTransactionTemplate updateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreementId, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
+//		return new BackplaneClient().updateAgreement(access_token, id_token, agreementId, senderAddress, contractualParameters);
+//	}
 
 	@GET
 	@Path("/contract/retrieve_agreements/{consumer_public_key}")
@@ -1147,6 +1147,33 @@ public class SdkRiHub {
 		return new BackplaneClient().retrieveAgreements(access_token, id_token, consumerPublicKey);
 	}
 
+	@PUT
+	@Path("/contract/terminate")
+	@ApiOperation(value = "terminate agreement", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to terminate agreement") })
+	@Produces({ "application/json", "application/xml" })
+	public ScManagerOasTransactionObject terminateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasTerminate terminateAgreement) throws ApiException {
+		return new BackplaneClient().terminateAgreement(access_token, id_token, terminateAgreement);
+	}
+	
+	@POST
+	@Path("/contract/evaluate_signed_resolution")
+	@ApiOperation(value = "evaluate signed resolution", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to evaluate signed resolution") })
+	@Produces({ "application/json", "application/xml" })
+	public ScManagerOasTransactionObject evaluateSignedResolution(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
+		return new BackplaneClient().evaluateSignedResolution(access_token, id_token, signedResolution);
+	}
+	
+	@GET
+	@Path("/contract/get_pricing_model/{agreement_id}")
+	@ApiOperation(value = "retrieve pricing model", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve pricing model") })
+	@Produces({"application/json"})
+	public ScManagerOasPricingModelTemplate getPricingModelByAgreementId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
+		return new BackplaneClient().getPricingModelByAgreementId(access_token, id_token, agreement_id);
+	}
+	
 	/////// Alerts Subscriptions ///////
 	
 	@GET
@@ -1301,4 +1328,25 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<NotificationManagerOasQueue> deleteServiceQueueById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("service_id") String service_id, @PathParam("queue_id") String queue_id) throws ApiException {
 		return new DeleteServiceQueue().deleteServiceQueueByQueueId(access_token, id_token, service_id, queue_id);
 	}
+	
+	/// Conflict Resolution ////
+	
+	@POST
+	@Path("/conflict-resolution/dispute")
+	@ApiOperation(value = "initiates a dispute", tags = "common-services: conflict-resolution")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to initiate a dispute") })
+	@Produces({ "application/json", "application/xml" })
+	public ConflictResolverServiceSignedResolution dispute(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceDisputeInput disputeInput) throws ApiException {
+		return new BackplaneClient().dispute(access_token, id_token, disputeInput);
+	}
+
+	@POST
+	@Path("/conflict-resolution/verification")
+	@ApiOperation(value = "data exchange verification", tags = "common-services: conflict-resolution")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to verify a data exchange") })
+	@Produces({ "application/json", "application/xml" })
+	public ConflictResolverServiceSignedResolution verification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceVerificationInput verificationInput) throws ApiException {
+		return new BackplaneClient().verification(access_token, id_token, verificationInput);
+	}
+
 }
