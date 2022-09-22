@@ -58,32 +58,32 @@ import java.util.Map;
 
 public class BackplaneClient {
 	
-	public ScManagerOasTemplate getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
+	public ApiResponse<ScManagerOasTemplate> getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
 		handleAuthentication(access_token, id_token);
 		
 		AgreementApi controller = new AgreementApi();
-		return controller.getTemplateByOfferingId(idTemplate);
+		return controller.getTemplateByOfferingIdWithHttpInfo(idTemplate);
 	}
 
-	public ScManagerOasRawTransactionTemplate createAgreement (String access_token, String id_token, String senderAddress, ScManagerOasTemplate template) throws ApiException {
+	public ApiResponse<ScManagerOasRawTransactionTemplate> createAgreement (String access_token, String id_token, String senderAddress, ScManagerOasTemplate template) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.postCreateAgreementRawTransactionBySenderAddress(template, senderAddress);
+		return controller.postCreateAgreementRawTransactionBySenderAddressWithHttpInfo(template, senderAddress);
 	}
 
-	public ScManagerOasTransactionObject deploySignedTransaction (String access_token, String id_token, ScManagerOasSignedTransaction signedTransaction) throws ApiException {
+	public ApiResponse<ScManagerOasTransactionObject> deploySignedTransaction (String access_token, String id_token, ScManagerOasSignedTransaction signedTransaction) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.postDeploySignedTransaction(signedTransaction);
+		return controller.postDeploySignedTransactionWithHttpInfo(signedTransaction);
 	}
 
-	public ScManagerOasRawTransactionTemplate signAgreement (String access_token, String id_token, ScManagerOasSignAgreement signAgreement) throws ApiException {
+	public ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement (String access_token, String id_token, ScManagerOasSignAgreement signAgreement) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.putSignAgreementRawTransaction(signAgreement);
+		return controller.putSignAgreementRawTransactionWithHttpInfo(signAgreement);
 	}
 
 //	public ScManagerOasRawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, ScManagerOasTemplate template) throws ApiException {
@@ -93,11 +93,11 @@ public class BackplaneClient {
 //		return controller.putUpdateAgreementRawTransactionByAgreementIdBySenderAddress(template, agreementId, senderAddress);
 //	}
 
-	public ScManagerOasActiveAgreements retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
+	public ApiResponse<ScManagerOasActiveAgreements> retrieveAgreements (String access_token, String id_token, String consumerPublicKey) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getRetrieveAgreementsByConsumerPublicKey(consumerPublicKey);
+		return controller.getRetrieveAgreementsByConsumerPublicKeyWithHttpInfo(consumerPublicKey);
 	}
 
 	public ApiResponse<ScManagerOasAgreementTemplate> getAgreement (String access_token, String id_token, Long agreement_id) throws ApiException {
@@ -178,44 +178,44 @@ public class BackplaneClient {
 		authentications.put("jwtAccess", jwtAccess);
 	}
 
-	public ScManagerOasTransactionObject terminateAgreement(String access_token, String id_token,
+	public ApiResponse<ScManagerOasTransactionObject> terminateAgreement(String access_token, String id_token,
 			ScManagerOasTerminate terminateAgreement) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.putTerminate(terminateAgreement);
+		return controller.putTerminateWithHttpInfo(terminateAgreement);
 	}
 
-	public ScManagerOasTransactionObject evaluateSignedResolution(String access_token, String id_token,
+	public ApiResponse<ScManagerOasTransactionObject> evaluateSignedResolution(String access_token, String id_token,
 			ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.postEvaluateSignedResolution(signedResolution);
+		return controller.postEvaluateSignedResolutionWithHttpInfo(signedResolution);
 	}
 
-	public ScManagerOasPricingModelTemplate getPricingModelByAgreementId(String access_token, String id_token,
+	public ApiResponse<ScManagerOasPricingModelTemplate> getPricingModelByAgreementId(String access_token, String id_token,
 			Long agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getGetPricingModelByAgreementId(agreement_id);
+		return controller.getGetPricingModelByAgreementIdWithHttpInfo(agreement_id);
 	}
 
-	public ConflictResolverServiceSignedResolution dispute(String access_token, String id_token,
+	public ApiResponse<ConflictResolverServiceSignedResolution> dispute(String access_token, String id_token,
 			ConflictResolverServiceDisputeInput disputeInput) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		ConflictResolverServiceApi controller = new ConflictResolverServiceApi();
-		return controller.postDispute(disputeInput);
+		return controller.postDisputeWithHttpInfo(disputeInput);
 	}
 
-	public ConflictResolverServiceSignedResolution verification(String access_token, String id_token,
+	public ApiResponse<ConflictResolverServiceSignedResolution> verification(String access_token, String id_token,
 			ConflictResolverServiceVerificationInput verificationInput) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		ConflictResolverServiceApi controller = new ConflictResolverServiceApi();
-		return controller.postVerification(verificationInput);
+		return controller.postVerificationWithHttpInfo(verificationInput);
 	}
 
 }

@@ -1033,7 +1033,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the contract template", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the contract template") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasTemplate getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasTemplate> getContractTemplate(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("idOffering") String idOffering) throws ApiException {
 		return new BackplaneClient().getTemplate(access_token, id_token, idOffering);
 	}
 	
@@ -1107,7 +1107,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "create agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to create agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasRawTransactionTemplate createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> createAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("sender_address") String senderAddress, @RequestBody ScManagerOasTemplate contractualParameters) throws ApiException {
 		return new BackplaneClient().createAgreement(access_token, id_token, senderAddress, contractualParameters);
 	}
 
@@ -1116,7 +1116,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "deploy signed transaction", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to deploy signed transaction") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasTransactionObject deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedTransaction signedTransaction) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> deploySignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedTransaction signedTransaction) throws ApiException {
 		return new BackplaneClient().deploySignedTransaction(access_token, id_token, signedTransaction);
 	}
 
@@ -1125,7 +1125,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasRawTransactionTemplate signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignAgreement signAgreement) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignAgreement signAgreement) throws ApiException {
 		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
 	}
 
@@ -1143,7 +1143,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve agreements", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve agreements") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasActiveAgreements retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> retrieveAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumerPublicKey) throws ApiException {
 		return new BackplaneClient().retrieveAgreements(access_token, id_token, consumerPublicKey);
 	}
 
@@ -1152,7 +1152,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "terminate agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to terminate agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasTransactionObject terminateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasTerminate terminateAgreement) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> terminateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasTerminate terminateAgreement) throws ApiException {
 		return new BackplaneClient().terminateAgreement(access_token, id_token, terminateAgreement);
 	}
 	
@@ -1161,7 +1161,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "evaluate signed resolution", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to evaluate signed resolution") })
 	@Produces({ "application/json", "application/xml" })
-	public ScManagerOasTransactionObject evaluateSignedResolution(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> evaluateSignedResolution(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
 		return new BackplaneClient().evaluateSignedResolution(access_token, id_token, signedResolution);
 	}
 	
@@ -1170,7 +1170,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve pricing model", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to retrieve pricing model") })
 	@Produces({"application/json"})
-	public ScManagerOasPricingModelTemplate getPricingModelByAgreementId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasPricingModelTemplate> getPricingModelByAgreementId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") Long agreement_id) throws ApiException {
 		return new BackplaneClient().getPricingModelByAgreementId(access_token, id_token, agreement_id);
 	}
 	
@@ -1336,7 +1336,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "initiates a dispute", tags = "common-services: conflict-resolution")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to initiate a dispute") })
 	@Produces({ "application/json", "application/xml" })
-	public ConflictResolverServiceSignedResolution dispute(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceDisputeInput disputeInput) throws ApiException {
+	public com.i3m.api.ApiResponse<ConflictResolverServiceSignedResolution> dispute(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceDisputeInput disputeInput) throws ApiException {
 		return new BackplaneClient().dispute(access_token, id_token, disputeInput);
 	}
 
@@ -1345,7 +1345,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "data exchange verification", tags = "common-services: conflict-resolution")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to verify a data exchange") })
 	@Produces({ "application/json", "application/xml" })
-	public ConflictResolverServiceSignedResolution verification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceVerificationInput verificationInput) throws ApiException {
+	public com.i3m.api.ApiResponse<ConflictResolverServiceSignedResolution> verification(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ConflictResolverServiceVerificationInput verificationInput) throws ApiException {
 		return new BackplaneClient().verification(access_token, id_token, verificationInput);
 	}
 
