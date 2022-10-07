@@ -568,6 +568,18 @@ public class SdkRiHub {
 	}
 
 	@GET
+	@Path("/federated-offering/textSearch/text/{text}")
+	@ApiOperation(value = "retrieve a data offering by category using a federated query", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingByText(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+																		   @PathParam("text") String text,
+																		   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		return new RetrieveFederatedOfferingByText().getFederatedOfferingByText(access_token, id_token, text, sort);
+	}
+
+	@GET
 	@Path("/federated-activeOffering/{category}")
 	@ApiOperation(value = "retrieve a active data offering by category using a federated query", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
