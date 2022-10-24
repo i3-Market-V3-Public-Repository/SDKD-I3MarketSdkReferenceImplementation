@@ -83,4 +83,25 @@ public class RetrieveListOfProvider {
         return  registrationOfferingApi.getProvidersListUsingGETWithHttpInfo(page, size, sort);
 
     }
+    public ApiResponse<List<SemanticEngineProvidersList>> getFederatedProvidersList(String access_token, String id_token, List<String> sort) throws ApiException {
+
+        String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
+
+        ApiClient apiClient = Configuration.getDefaultApiClient();
+
+        apiClient.setBasePath(backPlanePath);
+
+        apiClient.setServerIndex(null);
+
+        //Add token as headers
+        apiClient.addDefaultHeader("access_token", access_token);
+        apiClient.addDefaultHeader("id_token", access_token);
+
+        RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
+
+//        registrationOfferingApi.getAllFederatedRegisteredOfferingsByTextUsingGET()
+      return  registrationOfferingApi.getFederatedProvidersListUsingGETWithHttpInfo(sort);
+
+
+    }
 }

@@ -400,6 +400,53 @@ public class SdkRiHub {
 		return strJson;
 
 	}
+	@GET
+	@Path("getActiveOfferingByText/{text}/text")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve data offerings by text/keyword", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this text ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveActiveDataOfferingByText(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+											 @PathParam("text") String text,
+											 @QueryParam("page") @DefaultValue("0") Integer page,
+											 @QueryParam("size") @DefaultValue("5") Integer size,
+											 @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveActiveOfferingByText().getActiveOfferingByText(access_token, id_token, text, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return strJson;
+	}
+	@GET
+	@Path("federated-Offering/getActiveOfferingByText/{text}/text")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve data offerings by text/keyword", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this text ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveFederatedActiveDataOfferingByText(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+												   @PathParam("text") String text,
+												   @QueryParam("page") @DefaultValue("0") Integer page,
+												   @QueryParam("size") @DefaultValue("5") Integer size,
+												   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveFederatedActiveOfferingByText().getFederatedActiveOfferingByText(access_token, id_token, text, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return strJson;
+	}
+
 
 
 	@GET
@@ -449,7 +496,32 @@ public class SdkRiHub {
 		return strJson;
 
 	}
+//	getFederatedActiveDataOfferingList
 
+	@GET
+	@Path("/offering/federated-offerings-list/on-active")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve offering list on active state from internal database only", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering  ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveFederatedActiveDataOfferingList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+												 @QueryParam("page") @DefaultValue("0") Integer page,
+												 @QueryParam("size") @DefaultValue("5") Integer size,
+												 @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveFederatedActiveOfferingList().getFederatedActiveDataOfferingList(access_token, id_token, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
 
 	@GET
 	@Path("/offering/providers/{category}/category")
@@ -505,9 +577,34 @@ public class SdkRiHub {
 		return strJson;
 
 	}
+	//getFederatedProvidersList
+	@GET
+	@Path("/offering/federated-providers-list")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve  data provider list from internal database", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveFederatedAllProviders(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+									   @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+
+		try {
+			strJson = mapper.writerWithDefaultPrettyPrinter().
+					writeValueAsString(new RetrieveListOfProvider().
+							getFederatedProvidersList(access_token, id_token, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+	}
 
 
-	@POST
+
+		@POST
 	@Path("/registration/data-provider")
 	@ApiOperation(value = "register a data provider", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
@@ -566,6 +663,7 @@ public class SdkRiHub {
 
 		return new RetrieveFederatedOfferingByCategory().getFederatedOfferingByCategory(access_token, id_token, category, sort);
 	}
+	// RetrieveActiveOfferingByText
 
 	@GET
 	@Path("/federated-offering/textSearch/text/{text}")
