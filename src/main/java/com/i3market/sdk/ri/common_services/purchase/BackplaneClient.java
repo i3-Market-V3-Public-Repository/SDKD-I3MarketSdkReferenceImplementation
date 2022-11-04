@@ -30,14 +30,16 @@
 
 package com.i3market.sdk.ri.common_services.purchase;
 
+import java.util.Map;
+
 import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
-import com.i3m.api.backplane.ConflictResolverServiceApi;
-import com.i3m.api.backplane.AgreementApi;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
+import com.i3m.api.backplane.AgreementApi;
+import com.i3m.api.backplane.ConflictResolverServiceApi;
 import com.i3m.model.backplane.ConflictResolverServiceDisputeInput;
 import com.i3m.model.backplane.ConflictResolverServiceSignedResolution;
 import com.i3m.model.backplane.ConflictResolverServiceVerificationInput;
@@ -45,7 +47,6 @@ import com.i3m.model.backplane.ScManagerOasActiveAgreements;
 import com.i3m.model.backplane.ScManagerOasAgreementTemplate;
 import com.i3m.model.backplane.ScManagerOasPricingModelTemplate;
 import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
-import com.i3m.model.backplane.ScManagerOasSignAgreement;
 import com.i3m.model.backplane.ScManagerOasSignedResolutionScm;
 import com.i3m.model.backplane.ScManagerOasSignedTransaction;
 import com.i3m.model.backplane.ScManagerOasState;
@@ -53,8 +54,6 @@ import com.i3m.model.backplane.ScManagerOasTemplate;
 import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasTransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
-
-import java.util.Map;
 
 public class BackplaneClient {
 	
@@ -79,12 +78,12 @@ public class BackplaneClient {
 		return controller.postDeploySignedTransactionWithHttpInfo(signedTransaction);
 	}
 
-	public ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement (String access_token, String id_token, ScManagerOasSignAgreement signAgreement) throws ApiException {
-		handleAuthentication(access_token, id_token);
-
-		AgreementApi controller = new AgreementApi();
-		return controller.putSignAgreementRawTransactionWithHttpInfo(signAgreement);
-	}
+//	public ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement (String access_token, String id_token, ScManagerOasSignAgreement signAgreement) throws ApiException {
+//		handleAuthentication(access_token, id_token);
+//
+//		AgreementApi controller = new AgreementApi();
+//		return controller.putSignAgreementRawTransactionWithHttpInfo(signAgreement);
+//	}
 
 //	public ScManagerOasRawTransactionTemplate updateAgreement (String access_token, String id_token, Long agreementId, String senderAddress, ScManagerOasTemplate template) throws ApiException {
 //		handleAuthentication(access_token, id_token);
@@ -178,7 +177,7 @@ public class BackplaneClient {
 		authentications.put("jwtAccess", jwtAccess);
 	}
 
-	public ApiResponse<ScManagerOasTransactionObject> terminateAgreement(String access_token, String id_token,
+	public ApiResponse<ScManagerOasRawTransactionTemplate> terminateAgreement(String access_token, String id_token,
 			ScManagerOasTerminate terminateAgreement) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -186,7 +185,7 @@ public class BackplaneClient {
 		return controller.putTerminateWithHttpInfo(terminateAgreement);
 	}
 
-	public ApiResponse<ScManagerOasTransactionObject> evaluateSignedResolution(String access_token, String id_token,
+	public ApiResponse<ScManagerOasRawTransactionTemplate> evaluateSignedResolution(String access_token, String id_token,
 			ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
 		handleAuthentication(access_token, id_token);
 

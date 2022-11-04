@@ -1306,14 +1306,14 @@ public class SdkRiHub {
 		return new BackplaneClient().deploySignedTransaction(access_token, id_token, signedTransaction);
 	}
 
-	@PUT
-	@Path("/contract/sign_agreement_raw_transaction")
-	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
-	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignAgreement signAgreement) throws ApiException {
-		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
-	}
+//	@PUT
+//	@Path("/contract/sign_agreement_raw_transaction")
+//	@ApiOperation(value = "sign agreement", tags = "common-services: contract")
+//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to sign agreement") })
+//	@Produces({ "application/json", "application/xml" })
+//	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> signAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignAgreement signAgreement) throws ApiException {
+//		return new BackplaneClient().signAgreement(access_token, id_token, signAgreement);
+//	}
 
 //	@PUT
 //	@Path("/contract/update_agreement_raw_transaction/{agreement_id}/{sender_address}")
@@ -1338,7 +1338,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "terminate agreement", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to terminate agreement") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> terminateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasTerminate terminateAgreement) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> terminateAgreement(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasTerminate terminateAgreement) throws ApiException {
 		return new BackplaneClient().terminateAgreement(access_token, id_token, terminateAgreement);
 	}
 	
@@ -1347,7 +1347,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "evaluate signed resolution", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to evaluate signed resolution") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> evaluateSignedResolution(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> evaluateSignedResolution(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedResolutionScm signedResolution) throws ApiException {
 		return new BackplaneClient().evaluateSignedResolution(access_token, id_token, signedResolution);
 	}
 	
