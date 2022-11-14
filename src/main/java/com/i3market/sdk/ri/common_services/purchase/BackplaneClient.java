@@ -39,14 +39,21 @@ import com.i3m.api.Configuration;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.AgreementApi;
+import com.i3m.api.backplane.ExplicitUserConsentApi;
 import com.i3m.api.backplane.ConflictResolverServiceApi;
 import com.i3m.model.backplane.ConflictResolverServiceDisputeInput;
 import com.i3m.model.backplane.ConflictResolverServiceSignedResolution;
 import com.i3m.model.backplane.ConflictResolverServiceVerificationInput;
 import com.i3m.model.backplane.ScManagerOasActiveAgreements;
 import com.i3m.model.backplane.ScManagerOasAgreementTemplate;
+import com.i3m.model.backplane.ScManagerOasChoosePenalty;
+import com.i3m.model.backplane.ScManagerOasConsent;
+import com.i3m.model.backplane.ScManagerOasConsentStatus;
+import com.i3m.model.backplane.ScManagerOasEnforcePenalty;
 import com.i3m.model.backplane.ScManagerOasPricingModelTemplate;
 import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
+import com.i3m.model.backplane.ScManagerOasRequestTermination;
+import com.i3m.model.backplane.ScManagerOasRevokeConsent;
 import com.i3m.model.backplane.ScManagerOasSignedResolutionScm;
 import com.i3m.model.backplane.ScManagerOasSignedTransaction;
 import com.i3m.model.backplane.ScManagerOasState;
@@ -215,6 +222,62 @@ public class BackplaneClient {
 
 		ConflictResolverServiceApi controller = new ConflictResolverServiceApi();
 		return controller.postVerificationWithHttpInfo(verificationInput);
+	}
+
+	public ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(String access_token, String id_token,
+			ScManagerOasRequestTermination requestTermination) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putRequestTerminationWithHttpInfo(requestTermination);
+	}
+
+	public ApiResponse<ScManagerOasRawTransactionTemplate> enforcePenalty(String access_token, String id_token,
+			ScManagerOasEnforcePenalty enforcePenalty) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.putEnforcePenaltyWithHttpInfo(enforcePenalty);
+	}
+
+	public ApiResponse<ScManagerOasRawTransactionTemplate> revokeConsent(String access_token, String id_token,
+			ScManagerOasRevokeConsent revokeConsent) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		ExplicitUserConsentApi controller = new ExplicitUserConsentApi();
+		return controller.putRevokeConsentWithHttpInfo(revokeConsent);
+	}
+
+	public ApiResponse<ScManagerOasConsentStatus> checkConsentStatus(String access_token, String id_token,
+			String dataOfferingId, String consentSubject) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		ExplicitUserConsentApi controller = new ExplicitUserConsentApi();
+		return controller.getCheckConsentStatusByDataOfferingIdByConsentSubjectWithHttpInfo(dataOfferingId, consentSubject);
+	}
+
+	public ApiResponse<ScManagerOasChoosePenalty> proposePenalty(String access_token, String id_token,
+			ScManagerOasChoosePenalty proposePenalty) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postProposePenaltyWithHttpInfo(proposePenalty);
+	}
+
+	public ApiResponse<ScManagerOasTransactionObject> deployConsentSignedTransaction(String access_token,
+			String id_token, ScManagerOasSignedTransaction deployConsentSignedTransaction) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		AgreementApi controller = new AgreementApi();
+		return controller.postDeploySignedTransactionWithHttpInfo(deployConsentSignedTransaction);
+	}
+
+	public ApiResponse<ScManagerOasRawTransactionTemplate> giveConsent(String access_token, String id_token,
+			ScManagerOasConsent giveConsent) throws ApiException {
+		handleAuthentication(access_token, id_token);
+
+		ExplicitUserConsentApi controller = new ExplicitUserConsentApi();
+		return controller.postGiveConsentWithHttpInfo(giveConsent);
 	}
 
 }

@@ -805,7 +805,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get list of operations", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<Object> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") Date fromdate, @QueryParam("todate") Date todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationGenericListToken> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") Date fromdate, @QueryParam("todate") Date todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
 		return new TokenizerController().getOperations(access_token, id_token, transferId, type, status, user, fromdate, todate, page, page_size);
 	}
 
@@ -815,7 +815,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to execute payment")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2004> payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  TokenizationFeePay inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2007> payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  TokenizationFeePayToken inlineObject) throws ApiException {
 		return new TokenizerController().feePayment(access_token, id_token, inlineObject);
 	}
 
@@ -825,7 +825,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2004> exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2007> exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
 		return new TokenizerController().exchangeIn(access_token, id_token, inlineObject);
 	}
 
@@ -835,7 +835,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2004> exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject1 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2007> exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject1 inlineObject) throws ApiException {
 		return new TokenizerController().exchangeOut(access_token, id_token, inlineObject);
 	}
 
@@ -845,7 +845,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2007> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new TokenizerController().clearingOperation(access_token, id_token);
 	}
 
@@ -855,7 +855,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2009> deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject4 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse20012> deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject4 inlineObject) throws ApiException {
 		return new TokenizerController().deploySignedTransaction(access_token, id_token, inlineObject);
 	}
 
@@ -865,7 +865,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPay inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2007> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPayToken inlineObject) throws ApiException {
 		return new TokenizerController().setPaid(access_token, id_token, inlineObject);
 	}
 
@@ -875,7 +875,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2006> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject2 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2009> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject2 inlineObject) throws ApiException {
 		return new TokenizerController().modifyCommunityWallet(access_token, id_token, inlineObject);
 	}
 
@@ -885,7 +885,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2006> addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject3 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2009> addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject3 inlineObject) throws ApiException {
 		return new TokenizerController().registerMarketplace(access_token, id_token, inlineObject);
 	}
 
@@ -894,7 +894,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the balance for a specific account", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2005> getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse2008> getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new TokenizerController().getBalanceByAddress(access_token, id_token, address);
 	}
 
@@ -903,7 +903,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get marketplace index by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2007> getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse20010> getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new TokenizerController().getMarketplaceIndex(access_token, id_token, address);
 	}
 
@@ -912,7 +912,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the receipt of a transaction given a TransactionHash", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction with this transactionHash") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse20010> getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse20013> getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
 		return new TokenizerController().getReceiptByTransactionHash(access_token, id_token, transactionHash);
 	}
 
@@ -921,7 +921,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the token transfer given a TransferId", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2008> getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
+	public com.i3m.api.ApiResponse<InlineResponse20011> getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
 		return new TokenizerController().getTokenTransferByTransferId(access_token, id_token, transferId);
 	}
 
@@ -1360,6 +1360,69 @@ public class SdkRiHub {
 		return new BackplaneClient().getPricingModelByAgreementId(access_token, id_token, agreement_id);
 	}
 	
+	@PUT
+	@Path("/contract/request_termination")
+	@ApiOperation(value = "request termination", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed request termination") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasRequestTermination requestTermination) throws ApiException {
+		return new BackplaneClient().requestTermination(access_token, id_token, requestTermination);
+	}
+	
+	@PUT
+	@Path("/contract/enforce_penalty")
+	@ApiOperation(value = "enforce penalty", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed enforce penalty") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> enforcePenalty(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasEnforcePenalty enforcePenalty) throws ApiException {
+		return new BackplaneClient().enforcePenalty(access_token, id_token, enforcePenalty);
+	}
+	
+	@PUT
+	@Path("/contract/revoke_consent")
+	@ApiOperation(value = "revoke consent", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed revoke consent") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> revokeConsent(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasRevokeConsent revokeConsent) throws ApiException {
+		return new BackplaneClient().revokeConsent(access_token, id_token, revokeConsent);
+	}
+	
+	@GET
+	@Path("/contract/check_consent_status/{dataOfferingId}/{consentSubject}")
+	@ApiOperation(value = "check consent status", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to check consent status") })
+	@Produces({"application/json"})
+	public com.i3m.api.ApiResponse<ScManagerOasConsentStatus> checkConsentStatus(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("dataOfferingId") String dataOfferingId, @PathParam("consentSubject") String consentSubject) throws ApiException {
+		return new BackplaneClient().checkConsentStatus(access_token, id_token, dataOfferingId, consentSubject);
+	}
+	
+	@POST
+	@Path("/contract/propose_penalty")
+	@ApiOperation(value = "propose penalty", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to propose penalty") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasChoosePenalty> proposePenalty(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasChoosePenalty proposePenalty) throws ApiException {
+		return new BackplaneClient().proposePenalty(access_token, id_token, proposePenalty);
+	}
+	
+	@POST
+	@Path("/contract/deploy_consent_signed_transaction")
+	@ApiOperation(value = "deploy consent signed transaction", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to deploy consent signed transaction") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasTransactionObject> deployConsentSignedTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasSignedTransaction deployConsentSignedTransaction) throws ApiException {
+		return new BackplaneClient().deployConsentSignedTransaction(access_token, id_token, deployConsentSignedTransaction);
+	}
+	
+	@POST
+	@Path("/contract/give_consent")
+	@ApiOperation(value = "give consent", tags = "common-services: contract")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to give consent") })
+	@Produces({ "application/json", "application/xml" })
+	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> giveConsent(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasConsent giveConsent) throws ApiException {
+		return new BackplaneClient().giveConsent(access_token, id_token, giveConsent);
+	}
+	
 	/////// Alerts Subscriptions ///////
 	
 	@GET
@@ -1435,6 +1498,7 @@ public class SdkRiHub {
 	public com.i3m.api.ApiResponse<NotificationManagerOasSubscription> deleteUserSubscription(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("user_id") String user_id, @PathParam("subscription_id") String subscription_id) throws ApiException {
 		return new DeleteUserSubscription().deleteUserSubscription(access_token, id_token, user_id, subscription_id);
 	}
+	
 	/////// SERVICES & QUEUES FOR NOTIFICATIONS ///////
 	@GET
 	@Path("/services")

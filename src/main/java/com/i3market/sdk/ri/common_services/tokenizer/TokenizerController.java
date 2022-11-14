@@ -22,67 +22,67 @@ import java.util.Map;
  */
 public class TokenizerController {
     private static final Logger _log = LoggerFactory.getLogger(TokenizerController.class);
-    public ApiResponse<InlineResponse2003> clearingOperation(String access_token, String id_token) throws ApiException {
+    public ApiResponse<InlineResponse2007> clearingOperation(String access_token, String id_token) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsClearingWithHttpInfo();
     }
-    public ApiResponse<InlineResponse2004> exchangeIn(String access_token, String id_token, InlineObject inlineObject) throws ApiException {
+    public ApiResponse<InlineResponse2007> exchangeIn(String access_token, String id_token, InlineObject inlineObject) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsExchangeInWithHttpInfo(inlineObject);
     }
-    public ApiResponse<InlineResponse2004> exchangeOut(String access_token, String id_token, InlineObject1 inlineObject) throws ApiException {
+    public ApiResponse<InlineResponse2007> exchangeOut(String access_token, String id_token, InlineObject1 inlineObject) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsExchangeOutWithHttpInfo(inlineObject);
     }
-    public ApiResponse<InlineResponse2004> feePayment(String access_token, String id_token, TokenizationFeePay tokenizationFeePay) throws ApiException {
+    public ApiResponse<InlineResponse2007> feePayment(String access_token, String id_token, TokenizationFeePayToken tokenizationFeePay) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsFeePaymentWithHttpInfo(tokenizationFeePay);
     }
-    public ApiResponse<InlineResponse2003> setPaid(String access_token, String id_token, TokenizationPay tokenizationPay) throws ApiException {
+    public ApiResponse<InlineResponse2007> setPaid(String access_token, String id_token, TokenizationPayToken tokenizationPay) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsSetPaidWithHttpInfo(tokenizationPay);
     }
-    public ApiResponse<Object> getOperations(String access_token, String id_token, String transferId, String type, String status, String user, Date fromdate, Date todate, BigDecimal page, BigDecimal pageSize) throws ApiException {
+    public ApiResponse<TokenizationGenericListToken> getOperations(String access_token, String id_token, String transferId, String type, String status, String user, Date fromdate, Date todate, BigDecimal page, BigDecimal pageSize) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1OperationsWithHttpInfo(transferId, type, status, user, fromdate, todate, page, pageSize);
     }
-    public ApiResponse<InlineResponse2005> getBalanceByAddress(String access_token, String id_token, String address) throws ApiException {
+    public ApiResponse<InlineResponse2008> getBalanceByAddress(String access_token, String id_token, String address) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryBalancesByAddressWithHttpInfo(address);
     }
-    public ApiResponse<InlineResponse2006> modifyCommunityWallet(String access_token, String id_token, InlineObject2 inlineObject) throws ApiException {
+    public ApiResponse<InlineResponse2009> modifyCommunityWallet(String access_token, String id_token, InlineObject2 inlineObject) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1TreasuryCommunityWalletWithHttpInfo(inlineObject);
     }
-    public ApiResponse<InlineResponse2007> getMarketplaceIndex(String access_token, String id_token, String address) throws ApiException {
+    public ApiResponse<InlineResponse20010> getMarketplaceIndex(String access_token, String id_token, String address) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryMarketplacesByAddressWithHttpInfo(address);
     }
-    public ApiResponse<InlineResponse2006> registerMarketplace(String access_token, String id_token, InlineObject3 inlineObject) throws ApiException {
+    public ApiResponse<InlineResponse2009> registerMarketplace(String access_token, String id_token, InlineObject3 inlineObject) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1TreasuryMarketplacesWithHttpInfo(inlineObject);
     }
-    public ApiResponse<InlineResponse2008> getTokenTransferByTransferId(String access_token, String id_token, String transferId) throws ApiException {
+    public ApiResponse<InlineResponse20011> getTokenTransferByTransferId(String access_token, String id_token, String transferId) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryTokenTransfersByTransferIdWithHttpInfo(transferId);
     }
-    public ApiResponse<InlineResponse2009> deploySignedTransaction(String access_token, String id_token, InlineObject4 inlineObject) throws ApiException {
+    public ApiResponse<InlineResponse20012> deploySignedTransaction(String access_token, String id_token, InlineObject4 inlineObject) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1TreasuryTransactionsDeploySignedTransactionWithHttpInfo(inlineObject);
     }
-    public ApiResponse<InlineResponse20010> getReceiptByTransactionHash(String access_token, String id_token, String transactionHash) throws ApiException {
+    public ApiResponse<InlineResponse20013> getReceiptByTransactionHash(String access_token, String id_token, String transactionHash) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryTransactionsByTransactionHashWithHttpInfo(transactionHash);
