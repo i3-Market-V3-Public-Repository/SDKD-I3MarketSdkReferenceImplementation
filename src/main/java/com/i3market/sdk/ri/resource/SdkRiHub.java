@@ -36,11 +36,20 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-
 import com.i3m.model.backplane.*;
+import com.i3market.sdk.ri.common_services.alerts.subscriptions.*;
 import com.i3market.sdk.ri.common_services.data.discovery.*;
+import com.i3market.sdk.ri.common_services.data.exchange.*;
+import com.i3market.sdk.ri.common_services.data.offering.*;
+import com.i3market.sdk.ri.common_services.notification.notifications.*;
 import com.i3market.sdk.ri.common_services.notification.services.*;
-import com.i3market.sdk.ri.common_services.tokenizer.TokenizerController;
+import com.i3market.sdk.ri.common_services.pricingManager.*;
+import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
+import com.i3market.sdk.ri.common_services.purchase.*;
+import com.i3market.sdk.ri.common_services.tokenizer.*;
+import com.i3market.sdk.ri.common_services.verifiableCredentials.*;
+import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
+
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -50,25 +59,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.i3m.api.ApiException;
 import com.i3m.model.data_access.InlineObject;
 import com.i3m.model.data_access.Invoice;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.CreateUserSubscription;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.DeleteUserSubscription;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.GetSubscriptions;
-import com.i3market.sdk.ri.common_services.alerts.subscriptions.ModifyUserSubscription;
-import com.i3market.sdk.ri.common_services.data.exchange.AccountDataBlock;
-import com.i3market.sdk.ri.common_services.data.offering.CreateOffering;
-import com.i3market.sdk.ri.common_services.data.offering.DeleteDataProvider;
-import com.i3market.sdk.ri.common_services.data.offering.DeleteOfferingById;
-import com.i3market.sdk.ri.common_services.data.offering.RegisterDataProvider;
-import com.i3market.sdk.ri.common_services.data.offering.UpdateOffering;
-import com.i3market.sdk.ri.common_services.notification.notifications.CreateNotification;
-import com.i3market.sdk.ri.common_services.notification.notifications.DeleteNotification;
-import com.i3market.sdk.ri.common_services.notification.notifications.ModifyNotification;
-import com.i3market.sdk.ri.common_services.notification.notifications.RetrieveNotifications;
-import com.i3market.sdk.ri.common_services.purchase.BackplaneClient;
-import com.i3market.sdk.ri.common_services.purchase.RequestingDataItemPurchase;
-import com.i3market.sdk.ri.common_services.verifiableCredentials.VerifiableCredentials;
-import com.i3market.sdk.ri.common_services.pricingManager.PricingManager;
-import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -805,7 +795,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get list of operations", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<TokenizationGenericListToken> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") Date fromdate, @QueryParam("todate") Date todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationOperationsResponse> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") Date fromdate, @QueryParam("todate") Date todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
 		return new TokenizerController().getOperations(access_token, id_token, transferId, type, status, user, fromdate, todate, page, page_size);
 	}
 
@@ -815,7 +805,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to execute payment")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2007> payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  TokenizationFeePayToken inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> payment(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  TokenizationFeePayToken inlineObject) throws ApiException {
 		return new TokenizerController().feePayment(access_token, id_token, inlineObject);
 	}
 
@@ -825,7 +815,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange in tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2007> exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> exchangeIn(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationExchangeinBody inlineObject) throws ApiException {
 		return new TokenizerController().exchangeIn(access_token, id_token, inlineObject);
 	}
 
@@ -835,7 +825,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to exchange out tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2007> exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject1 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> exchangeOut(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationExchangeOutBody inlineObject) throws ApiException {
 		return new TokenizerController().exchangeOut(access_token, id_token, inlineObject);
 	}
 
@@ -845,7 +835,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2007> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new TokenizerController().clearingOperation(access_token, id_token);
 	}
 
@@ -855,7 +845,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "deploy failed")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse20012> deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject4 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationDeploySignedTransactionResponse> deployTransaction(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationDeploySignedTransactionBody inlineObject) throws ApiException {
 		return new TokenizerController().deploySignedTransaction(access_token, id_token, inlineObject);
 	}
 
@@ -865,7 +855,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2007> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPayToken inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPayToken inlineObject) throws ApiException {
 		return new TokenizerController().setPaid(access_token, id_token, inlineObject);
 	}
 
@@ -875,7 +865,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2009> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject2 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectTokenStrResponse> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationCommunityWalletBody inlineObject) throws ApiException {
 		return new TokenizerController().modifyCommunityWallet(access_token, id_token, inlineObject);
 	}
 
@@ -885,7 +875,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2009> addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody InlineObject3 inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationMarketplaceResponse> addMarketplace(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationMarketplaceBody inlineObject) throws ApiException {
 		return new TokenizerController().registerMarketplace(access_token, id_token, inlineObject);
 	}
 
@@ -894,7 +884,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the balance for a specific account", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace balance with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2008> getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationBalanceResponse> getBalanceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new TokenizerController().getBalanceByAddress(access_token, id_token, address);
 	}
 
@@ -903,7 +893,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get marketplace index by marketplace address", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get marketplace index with this address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse20010> getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationMarketplaceIndexResponse> getMarketplaceByAddress(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("address") String address) throws ApiException {
 		return new TokenizerController().getMarketplaceIndex(access_token, id_token, address);
 	}
 
@@ -912,7 +902,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the receipt of a transaction given a TransactionHash", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction with this transactionHash") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse20013> getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTreasuryTransactionResponse> getTransactionsByTransactionHash(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transactionHash") String transactionHash) throws ApiException {
 		return new TokenizerController().getReceiptByTransactionHash(access_token, id_token, transactionHash);
 	}
 
@@ -921,7 +911,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get the token transfer given a TransferId", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get transaction object with this transferId") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse20011> getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTokenTransfersResponse> getTokenTransfersByTransferId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId) throws ApiException {
 		return new TokenizerController().getTokenTransferByTransferId(access_token, id_token, transferId);
 	}
 
@@ -1058,7 +1048,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to revoke the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object revokeVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject5 credential) throws ApiException {
+	public Object revokeVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject credential) throws ApiException {
 		return new VerifiableCredentials().postRevokeCredentialByJWT(access_token, id_token, credential);
 	}
 
@@ -1068,7 +1058,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to verify the credential")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Object verifyVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject6 credential) throws ApiException {
+	public Object verifyVerifiableCredentialByJWT(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody com.i3m.model.backplane.InlineObject1 credential) throws ApiException {
 		return new VerifiableCredentials().postVerifyCredentialByJWT(access_token, id_token, credential);
 	}
 
