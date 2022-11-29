@@ -30,6 +30,7 @@
 
 package com.i3market.sdk.ri.common_services.purchase;
 
+import java.util.List;
 import java.util.Map;
 
 import com.i3m.api.ApiClient;
@@ -114,11 +115,11 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(String access_token,
-			String id_token, String consumer_public_key, boolean active) throws ApiException {
+			String id_token, List<String> consumer_public_keys, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getCheckAgreementsByConsumerByConsumerPublicKeyByActiveWithHttpInfo(consumer_public_key, active);
+		return controller.getCheckAgreementsByConsumerByConsumerPublicKeysByActiveWithHttpInfo(consumer_public_keys, active);
 	}
 	
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(String access_token, String id_token,
@@ -130,11 +131,11 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(String access_token,
-			String id_token, String provider_public_key, boolean active) throws ApiException {
+			String id_token, List<String> provider_public_keys, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		return controller.getCheckAgreementsByProviderByProviderPublicKeyByActiveWithHttpInfo(provider_public_key, active);
+		return controller.getCheckAgreementsByProviderByProviderPublicKeysByActiveWithHttpInfo(provider_public_keys, active);
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkActiveAgreements(String access_token,
@@ -253,7 +254,7 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 
 		ExplicitUserConsentApi controller = new ExplicitUserConsentApi();
-		return controller.getCheckConsentStatusByDataOfferingIdByConsentSubjectWithHttpInfo(dataOfferingId, consentSubject);
+		return controller.getCheckConsentStatusByDataOfferingIdWithHttpInfo(dataOfferingId, consentSubject);
 	}
 
 	public ApiResponse<ScManagerOasChoosePenalty> proposePenalty(String access_token, String id_token,

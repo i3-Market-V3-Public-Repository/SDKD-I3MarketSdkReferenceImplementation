@@ -1233,21 +1233,21 @@ public class SdkRiHub {
 	}
 	
 	@GET
-	@Path("/contract/check_agreements_by_consumer/{consumer_public_key}/{active}")
+	@Path("/contract/check_agreements_by_consumer/{consumer_public_keys}/{active}")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_key") String consumer_public_key, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_key, active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") List<String> consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_keys, active);
 	}
 	
 	@GET
-	@Path("/contract/check_agreements_by_provider/{provider_public_key}/{active}")
+	@Path("/contract/check_agreements_by_provider/{provider_public_keys}/{active}")
 	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_key") String provider_public_key, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_key, active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") List<String> provider_public_keys, @PathParam("active") boolean active) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_keys, active);
 	}
 	
 	@GET
@@ -1378,11 +1378,11 @@ public class SdkRiHub {
 	}
 	
 	@GET
-	@Path("/contract/check_consent_status/{dataOfferingId}/{consentSubject}")
+	@Path("/contract/check_consent_status/{dataOfferingId}")
 	@ApiOperation(value = "check consent status", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to check consent status") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasConsentStatus> checkConsentStatus(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("dataOfferingId") String dataOfferingId, @PathParam("consentSubject") String consentSubject) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasConsentStatus> checkConsentStatus(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("dataOfferingId") String dataOfferingId, @QueryParam("consentSubject") String consentSubject) throws ApiException {
 		return new BackplaneClient().checkConsentStatus(access_token, id_token, dataOfferingId, consentSubject);
 	}
 	
