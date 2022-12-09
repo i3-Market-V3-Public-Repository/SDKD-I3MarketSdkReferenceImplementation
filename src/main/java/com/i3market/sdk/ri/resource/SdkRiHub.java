@@ -31,6 +31,8 @@ package com.i3market.sdk.ri.resource;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -795,7 +797,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Get list of operations", tags = "common-services: token")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid address") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<TokenizationOperationsResponse> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") Date fromdate, @QueryParam("todate") Date todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationOperationsResponse> getOperations(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @QueryParam("transferId") String transferId, @QueryParam("type") String type, @QueryParam("status") String status, @QueryParam("user") String user, @QueryParam("fromdate") String fromdate, @QueryParam("todate") String todate, @QueryParam("page") BigDecimal page, @QueryParam("page_size") BigDecimal page_size) throws ApiException {
 		return new TokenizerController().getOperations(access_token, id_token, transferId, type, status, user, fromdate, todate, page, page_size);
 	}
 

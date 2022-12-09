@@ -4,6 +4,7 @@ import com.i3m.api.ApiClient;
 import com.i3m.api.ApiException;
 import com.i3m.api.ApiResponse;
 import com.i3m.api.Configuration;
+import com.i3m.api.Pair;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.TokenizerControllerApi;
@@ -29,8 +30,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.ws.rs.core.GenericType;
 
 /**
  * Implemented by: J. Eleazar Escudero
@@ -44,9 +52,10 @@ public class TokenizerController {
         return controller.postApiV1OperationsClearingWithHttpInfo();
     }
     public ApiResponse<TokenizationTransactionObjectResponse> exchangeIn(String access_token, String id_token, TokenizationExchangeinBody  tokenizationExchangeinBody) throws ApiException {
-        handleAuthentication(access_token, id_token);
+        ApiResponse<String> result;
+    	handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
-        return controller.postApiV1OperationsExchangeInWithHttpInfo(tokenizationExchangeinBody);
+        return controller.postApiV1OperationsExchangeInWithHttpInfo(tokenizationExchangeinBody);    
     }
     public ApiResponse<TokenizationTransactionObjectResponse> exchangeOut(String access_token, String id_token, TokenizationExchangeOutBody tokenizationExchangeOutBody) throws ApiException {
         handleAuthentication(access_token, id_token);
@@ -63,7 +72,7 @@ public class TokenizerController {
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsSetPaidWithHttpInfo(tokenizationPayToken);
     }
-    public ApiResponse<TokenizationOperationsResponse> getOperations(String access_token, String id_token, String transferId, String type, String status, String user, Date fromdate, Date todate, BigDecimal page, BigDecimal pageSize) throws ApiException {
+    public ApiResponse<TokenizationOperationsResponse> getOperations(String access_token, String id_token, String transferId, String type, String status, String user, String fromdate, String todate, BigDecimal page, BigDecimal pageSize) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1OperationsWithHttpInfo(transferId, type, status, user, fromdate, todate, page, pageSize);
@@ -109,6 +118,10 @@ public class TokenizerController {
 
         // Get default client from Configuration
         ApiClient defaultClient = Configuration.getDefaultApiClient();
+        
+        //Set data format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        defaultClient.setDateFormat(sdf);
 
         // Set basePath to http request
         defaultClient.setBasePath(basePath);
