@@ -23,7 +23,7 @@ public class RetrieveActiveOfferingByText {
 
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 

@@ -31,9 +31,6 @@ package com.i3market.sdk.ri.resource;
 
 import java.io.FileInputStream;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.*;
@@ -192,22 +189,22 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve contract parameters by offeringId", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to retrieve this offering")})
 	@Produces({ "application/json", "application/xml" })
-	public String retrieveOfferingContractParametersByOfferingId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
-										   @PathParam("offeringId") String offeringId,
-										   @QueryParam("page") @DefaultValue("0") Integer page,
-										   @QueryParam("size") @DefaultValue("5") Integer size,
-										   @QueryParam("sort") List<String> sort) throws ApiException {
+	public com.i3m.api.ApiResponse<SemanticEngineContractsParametersForOfferings> retrieveOfferingContractParametersByOfferingId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+																																 @PathParam("offeringId") String offeringId,
+																																 @QueryParam("page") @DefaultValue("0") Integer page,
+																																 @QueryParam("size") @DefaultValue("5") Integer size,
+																																 @QueryParam("sort") List<String> sort) throws ApiException {
 
-		String strJson = "{}";
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		try {
-			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveContractParametersByOfferingId()
-					.getOfferingContractsByOfferingId(access_token, id_token, offeringId, page, size, sort));
-		} catch (ProcessingException | JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return strJson;
+//		String strJson = "{}";
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.enable(DeserializationFeature. ACCEPT_SINGLE_VALUE_AS_ARRAY);
+//		try {
+//			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveContractParametersByOfferingId()
+//					.getOfferingContractsByOfferingId(access_token, id_token, offeringId, page, size, sort));
+//		} catch (ProcessingException | JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+		return new RetrieveContractParametersByOfferingId().getOfferingContractsByOfferingId(access_token,id_token,offeringId,page,size,sort);
 	}
 
 
