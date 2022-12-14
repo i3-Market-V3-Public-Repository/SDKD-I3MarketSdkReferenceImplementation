@@ -30,7 +30,7 @@ public class RetrieveFederatedOfferingById {
 
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
 
         _log.debug("parameters to get offering by id are: provider_id {} page {} size {} sort {} ", id, page, size, sort);
 

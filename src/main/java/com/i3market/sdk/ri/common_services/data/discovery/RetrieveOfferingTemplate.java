@@ -60,7 +60,7 @@ public class RetrieveOfferingTemplate {
         
         //Add token as headers
         apiClient.addDefaultHeader("access_token", access_token);
-        apiClient.addDefaultHeader("id_token", access_token);
+        apiClient.addDefaultHeader("id_token", id_token);
 
         _log.debug("getting data offering template");
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
