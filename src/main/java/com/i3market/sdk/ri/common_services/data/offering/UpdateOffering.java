@@ -36,6 +36,7 @@ import com.i3m.api.Configuration;
 import com.i3m.api.backplane.RegistrationOfferingApi;
 import com.i3m.model.backplane.SemanticEngineDataOffering;
 import com.i3m.model.backplane.SemanticEngineDataOfferingDto;
+import com.i3m.model.backplane.SemanticEngineDataOfferingUpdate;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -49,7 +50,7 @@ import org.apache.http.HttpStatus;
  */
 public class UpdateOffering {
 
-    public ApiResponse updateOffering(String access_token, String id_token, SemanticEngineDataOfferingDto dataOffering) throws ApiException {
+    public ApiResponse updateOffering(String access_token, String id_token, SemanticEngineDataOfferingUpdate dataOffering) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
         

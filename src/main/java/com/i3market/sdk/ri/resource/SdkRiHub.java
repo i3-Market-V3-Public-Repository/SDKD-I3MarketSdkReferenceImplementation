@@ -619,7 +619,7 @@ public class SdkRiHub {
     @ApiOperation(value = "update an offering", tags="common-services: offering")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "failed to update offering")})
 	@Produces({ "application/json", "application/xml" })
-    public com.i3m.api.ApiResponse updateDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataOfferingDto dataOffering) throws ApiException {
+    public com.i3m.api.ApiResponse updateDataOffering(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody SemanticEngineDataOfferingUpdate dataOffering) throws ApiException {
           return new UpdateOffering().updateOffering(access_token, id_token, dataOffering);
     }
     
