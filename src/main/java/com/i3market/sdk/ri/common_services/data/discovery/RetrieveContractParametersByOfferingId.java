@@ -67,6 +67,7 @@ public class RetrieveContractParametersByOfferingId {
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
 //
+
         return registrationOfferingApi.getOfferingContractsByOfferingIdUsingGETWithHttpInfo(offeringId, page, size, sort);
 
     }
