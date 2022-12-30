@@ -11,7 +11,7 @@ import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 import java.util.List;
 
 public class RetrieveFederatedOfferingByText {
-    public ApiResponse<List<SemanticEngineDataOfferingDto>> getFederatedOfferingByText(String access_token, String id_token, String text, List<String> sort) throws ApiException {
+    public ApiResponse<List<SemanticEngineDataOfferingDto>> getFederatedOfferingByText(String access_token, String id_token, String text,int page , int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -27,7 +27,7 @@ public class RetrieveFederatedOfferingByText {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return registrationOfferingApi.getAllFederatedRegisteredOfferingsByTextUsingGETWithHttpInfo(text,sort);
+        return registrationOfferingApi.getAllFederatedRegisteredOfferingsByTextUsingGETWithHttpInfo(text,page,size,sort);
 
     }
 }

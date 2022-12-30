@@ -28,7 +28,7 @@ public class RetrieveFederatedActiveOfferingByText {
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
         //getFederatedOfferingsListOnActiveUsingGET()
-       return registrationOfferingApi.getFederatedActiveOfferingsByTextUsingGETWithHttpInfo(text,sort);
+       return registrationOfferingApi.getFederatedActiveOfferingsByTextUsingGETWithHttpInfo(text,page ,size,sort);
 
     }
 }
