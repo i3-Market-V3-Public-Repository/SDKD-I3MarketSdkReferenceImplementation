@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RetrieveFederatedActiveOfferingByProvider {
 
-    public ApiResponse<List<SemanticEngineDataOfferingDto>> getFederatedActiveOfferingByProvider(String access_token, String id_token, String id, List<String> sort) throws ApiException {
+    public ApiResponse<List<SemanticEngineDataOfferingDto>> getFederatedActiveOfferingByProvider(String access_token, String id_token, String id,int page , int size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -28,7 +28,7 @@ public class RetrieveFederatedActiveOfferingByProvider {
 
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
-        return registrationOfferingApi.getAllFederatedRegisteredActiveOfferingsByProviderUsingGETWithHttpInfo(id,sort);
+        return registrationOfferingApi.getAllFederatedRegisteredActiveOfferingsByProviderUsingGETWithHttpInfo(id,page ,size,sort);
 
     }
 }

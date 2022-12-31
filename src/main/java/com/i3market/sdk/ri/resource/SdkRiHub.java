@@ -490,7 +490,7 @@ public class SdkRiHub {
 	@GET
 	@Path("/offering/federated-offerings-list/on-active")
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-	@ApiOperation(value = "retrieve offering list on active state from internal database only", tags="common-services: offering")
+	@ApiOperation(value = "retrieve offering list on active state ", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering  ")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveFederatedActiveDataOfferingList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
@@ -504,6 +504,30 @@ public class SdkRiHub {
 		try {
 
 			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveFederatedActiveOfferingList().getFederatedActiveDataOfferingList(access_token, id_token, page, size, sort));
+		} catch (JsonProcessingException | ProcessingException e) {
+
+			e.printStackTrace();
+		}
+		return strJson;
+
+	}
+	@GET
+	@Path("/offering/federated-offerings-list/on-shared")
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@ApiOperation(value = "retrieve offering list on shared state", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering  ")})
+	@Produces({ "application/json", "application/xml" })
+	public String retrieveFederatedSharedDataOfferingList(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
+														  @QueryParam("page") @DefaultValue("0") Integer page,
+														  @QueryParam("size") @DefaultValue("5") Integer size,
+														  @QueryParam("sort") List<String> sort) throws ApiException {
+
+		String strJson = "{}";
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		try {
+
+			strJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(new RetrieveFederatedSharedNetworkOfferingList().getFederatedSharedDataOfferingList(access_token, id_token, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
@@ -648,9 +672,11 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingByCategory(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
 										   @PathParam("category") String category,
+																		   @QueryParam("page") @DefaultValue("0") Integer page,
+																		   @QueryParam("size") @DefaultValue("5") Integer size,
 										   @QueryParam("sort") List<String> sort) throws ApiException {
 
-		return new RetrieveFederatedOfferingByCategory().getFederatedOfferingByCategory(access_token, id_token, category, sort);
+		return new RetrieveFederatedOfferingByCategory().getFederatedOfferingByCategory(access_token, id_token, category,page,size, sort);
 	}
 	// RetrieveActiveOfferingByText
 
@@ -661,9 +687,11 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse retrieveFederatedDataOfferingByText(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
 																		   @PathParam("text") String text,
+																	   @QueryParam("page") @DefaultValue("0") Integer page,
+																	   @QueryParam("size") @DefaultValue("5") Integer size,
 																		   @QueryParam("sort") List<String> sort) throws ApiException {
 
-		return new RetrieveFederatedOfferingByText().getFederatedOfferingByText(access_token, id_token, text, sort);
+		return new RetrieveFederatedOfferingByText().getFederatedOfferingByText(access_token, id_token, text, page,size, sort);
 	}
 
 	@GET
@@ -673,9 +701,11 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse retrieveFederatedActiveDataOfferingByCategory(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
 																		   @PathParam("category") String category,
+																				 @QueryParam("page") @DefaultValue("0") Integer page,
+																				 @QueryParam("size") @DefaultValue("5") Integer size,
 																		   @QueryParam("sort") List<String> sort) throws ApiException {
 
-		return new RetrieveFederatedActiveOfferingByCategory().getFederatedActiveOfferingByCategory(access_token, id_token, category, sort);
+		return new RetrieveFederatedActiveOfferingByCategory().getFederatedActiveOfferingByCategory(access_token, id_token, category,page ,size, sort);
 	}
 
 	@GET
@@ -685,9 +715,11 @@ public class SdkRiHub {
 	@Produces({ "application/json", "application/xml" })
 	public com.i3m.api.ApiResponse retrieveFederatedActiveDataOfferingByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
 																				 @PathParam("id") String id,
+																				 @QueryParam("page") @DefaultValue("0") Integer page,
+																				 @QueryParam("size") @DefaultValue("5") Integer size,
 																				 @QueryParam("sort") List<String> sort) throws ApiException {
 
-		return new RetrieveFederatedActiveOfferingByProvider().getFederatedActiveOfferingByProvider(access_token,id_token,id,sort);
+		return new RetrieveFederatedActiveOfferingByProvider().getFederatedActiveOfferingByProvider(access_token,id_token,id,page ,size,sort);
 	}
 
 
