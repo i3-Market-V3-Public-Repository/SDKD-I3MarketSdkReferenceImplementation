@@ -83,7 +83,7 @@ public class RetrieveListOfProvider {
         return  registrationOfferingApi.getProvidersListUsingGETWithHttpInfo(page, size, sort);
 
     }
-    public ApiResponse<List<SemanticEngineProvidersList>> getFederatedProvidersList(String access_token, String id_token, List<String> sort) throws ApiException {
+    public ApiResponse<List<SemanticEngineProvidersList>> getFederatedProvidersList(String access_token, String id_token, Integer page, Integer size, List<String> sort) throws ApiException {
 
         String backPlanePath = SdkRiConstants.BACKPLANE_ENDPOINT;
 
@@ -100,7 +100,7 @@ public class RetrieveListOfProvider {
         RegistrationOfferingApi registrationOfferingApi = new RegistrationOfferingApi();
 
 //        registrationOfferingApi.getAllFederatedRegisteredOfferingsByTextUsingGET()
-      return  registrationOfferingApi.getFederatedProvidersListUsingGETWithHttpInfo(sort);
+      return  registrationOfferingApi.getFederatedProvidersListUsingGETWithHttpInfo(page, size, sort);
 
 
     }

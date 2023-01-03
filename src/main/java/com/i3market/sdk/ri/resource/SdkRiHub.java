@@ -598,7 +598,9 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to search offering with this category ")})
 	@Produces({ "application/json", "application/xml" })
 	public String retrieveFederatedAllProviders(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token,
-									   @QueryParam("sort") List<String> sort) throws ApiException {
+			   @QueryParam("page") @DefaultValue("0") Integer page,
+			   @QueryParam("size") @DefaultValue("5") Integer size,
+			   @QueryParam("sort") List<String> sort) throws ApiException {
 
 		String strJson = "{}";
 		ObjectMapper mapper = new ObjectMapper();
@@ -607,7 +609,7 @@ public class SdkRiHub {
 		try {
 			strJson = mapper.writerWithDefaultPrettyPrinter().
 					writeValueAsString(new RetrieveListOfProvider().
-							getFederatedProvidersList(access_token, id_token, sort));
+							getFederatedProvidersList(access_token, id_token, page, size, sort));
 		} catch (JsonProcessingException | ProcessingException e) {
 
 			e.printStackTrace();
