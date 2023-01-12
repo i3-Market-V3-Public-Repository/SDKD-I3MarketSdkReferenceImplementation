@@ -1383,14 +1383,14 @@ public class SdkRiHub {
 		return new BackplaneClient().getPricingModelByAgreementId(access_token, id_token, agreement_id);
 	}
 	
-	@PUT
-	@Path("/contract/request_termination")
-	@ApiOperation(value = "request termination", tags = "common-services: contract")
-	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed request termination") })
-	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasRequestTermination requestTermination) throws ApiException {
-		return new BackplaneClient().requestTermination(access_token, id_token, requestTermination);
-	}
+//	@PUT
+//	@Path("/contract/request_termination")
+//	@ApiOperation(value = "request termination", tags = "common-services: contract")
+//	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed request termination") })
+//	@Produces({ "application/json", "application/xml" })
+//	public com.i3m.api.ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody ScManagerOasRequestTermination requestTermination) throws ApiException {
+//		return new BackplaneClient().requestTermination(access_token, id_token, requestTermination);
+//	}
 	
 	@PUT
 	@Path("/contract/enforce_penalty")

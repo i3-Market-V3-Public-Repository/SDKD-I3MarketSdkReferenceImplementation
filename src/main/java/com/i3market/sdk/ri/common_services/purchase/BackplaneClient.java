@@ -53,13 +53,12 @@ import com.i3m.model.backplane.ScManagerOasConsentStatus;
 import com.i3m.model.backplane.ScManagerOasEnforcePenalty;
 import com.i3m.model.backplane.ScManagerOasPricingModelTemplate;
 import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
-import com.i3m.model.backplane.ScManagerOasRequestTermination;
+import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasRevokeConsent;
 import com.i3m.model.backplane.ScManagerOasSignedResolutionScm;
 import com.i3m.model.backplane.ScManagerOasSignedTransaction;
 import com.i3m.model.backplane.ScManagerOasState;
 import com.i3m.model.backplane.ScManagerOasTemplate;
-import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasTransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
@@ -225,13 +224,13 @@ public class BackplaneClient {
 		return controller.postVerificationWithHttpInfo(verificationInput);
 	}
 
-	public ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(String access_token, String id_token,
-			ScManagerOasRequestTermination requestTermination) throws ApiException {
-		handleAuthentication(access_token, id_token);
-
-		AgreementApi controller = new AgreementApi();
-		return controller.putRequestTerminationWithHttpInfo(requestTermination);
-	}
+//	public ApiResponse<ScManagerOasRawTransactionTemplate> requestTermination(String access_token, String id_token,
+//			ScManagerOasRequestTermination requestTermination) throws ApiException {
+//		handleAuthentication(access_token, id_token);
+//
+//		AgreementApi controller = new AgreementApi();
+//		return controller.putRequestTerminationWithHttpInfo(requestTermination);
+//	}
 
 	public ApiResponse<ScManagerOasRawTransactionTemplate> enforcePenalty(String access_token, String id_token,
 			ScManagerOasEnforcePenalty enforcePenalty) throws ApiException {
