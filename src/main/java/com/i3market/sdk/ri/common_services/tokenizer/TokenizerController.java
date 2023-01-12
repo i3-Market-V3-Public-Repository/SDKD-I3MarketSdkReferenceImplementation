@@ -22,7 +22,7 @@ import com.i3m.model.backplane.TokenizationOperationsResponse;
 import com.i3m.model.backplane.TokenizationPayToken;
 import com.i3m.model.backplane.TokenizationTokenTransfersResponse;
 import com.i3m.model.backplane.TokenizationTransactionObjectResponse;
-import com.i3m.model.backplane.TokenizationTransactionObjectTokenStrResponse;
+import com.i3m.model.backplane.TokenizationTransactionObjectToken;
 import com.i3m.model.backplane.TokenizationTreasuryTransactionResponse;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
@@ -82,7 +82,7 @@ public class TokenizerController {
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryBalancesByAddressWithHttpInfo(address);
     }
-    public ApiResponse<TokenizationTransactionObjectTokenStrResponse> modifyCommunityWallet(String access_token, String id_token, TokenizationCommunityWalletBody tokenizationCommunityWalletBody) throws ApiException {
+    public ApiResponse<TokenizationTransactionObjectToken> modifyCommunityWallet(String access_token, String id_token, TokenizationCommunityWalletBody tokenizationCommunityWalletBody) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1TreasuryCommunityWalletWithHttpInfo(tokenizationCommunityWalletBody);

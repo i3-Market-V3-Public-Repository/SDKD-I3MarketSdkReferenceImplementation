@@ -898,7 +898,7 @@ public class SdkRiHub {
 	//@ApiResponses(value = {@ApiResponse(code = 500, message = "failed to add marketplace")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<TokenizationTransactionObjectTokenStrResponse> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationCommunityWalletBody inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationTransactionObjectToken> modifyWallet(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationCommunityWalletBody inlineObject) throws ApiException {
 		return new TokenizerController().modifyCommunityWallet(access_token, id_token, inlineObject);
 	}
 
