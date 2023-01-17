@@ -10,10 +10,12 @@ import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.TokenizerControllerApi;
 import com.i3m.model.backplane.TokenizationBalanceResponse;
 import com.i3m.model.backplane.TokenizationCommunityWalletBody;
+import com.i3m.model.backplane.TokenizationCommunityWalletResponse;
 import com.i3m.model.backplane.TokenizationDeploySignedTransactionBody;
 import com.i3m.model.backplane.TokenizationDeploySignedTransactionResponse;
 import com.i3m.model.backplane.TokenizationExchangeOutBody;
 import com.i3m.model.backplane.TokenizationExchangeinBody;
+import com.i3m.model.backplane.TokenizationFeePayResponse;
 import com.i3m.model.backplane.TokenizationFeePayToken;
 import com.i3m.model.backplane.TokenizationMarketplaceBody;
 import com.i3m.model.backplane.TokenizationMarketplaceIndexResponse;
@@ -62,7 +64,7 @@ public class TokenizerController {
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsExchangeOutWithHttpInfo(tokenizationExchangeOutBody);
     }
-    public ApiResponse<TokenizationTransactionObjectResponse> feePayment(String access_token, String id_token, TokenizationFeePayToken tokenizationFeePayToken) throws ApiException {
+    public ApiResponse<TokenizationFeePayResponse> feePayment(String access_token, String id_token, TokenizationFeePayToken tokenizationFeePayToken) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsFeePaymentWithHttpInfo(tokenizationFeePayToken);
@@ -82,7 +84,7 @@ public class TokenizerController {
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.getApiV1TreasuryBalancesByAddressWithHttpInfo(address);
     }
-    public ApiResponse<TokenizationTransactionObjectToken> modifyCommunityWallet(String access_token, String id_token, TokenizationCommunityWalletBody tokenizationCommunityWalletBody) throws ApiException {
+    public ApiResponse<TokenizationCommunityWalletResponse> modifyCommunityWallet(String access_token, String id_token, TokenizationCommunityWalletBody tokenizationCommunityWalletBody) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1TreasuryCommunityWalletWithHttpInfo(tokenizationCommunityWalletBody);
