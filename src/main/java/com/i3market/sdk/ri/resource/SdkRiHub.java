@@ -868,7 +868,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to clearing tokens")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationClearingResponse> clearing(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new TokenizerController().clearingOperation(access_token, id_token);
 	}
 
@@ -888,7 +888,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to set paid on transaction operation")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<TokenizationTransactionObjectResponse> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPayToken inlineObject) throws ApiException {
+	public com.i3m.api.ApiResponse<TokenizationSetPaidResponse> setPaid(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody TokenizationPayToken inlineObject) throws ApiException {
 		return new TokenizerController().setPaid(access_token, id_token, inlineObject);
 	}
 

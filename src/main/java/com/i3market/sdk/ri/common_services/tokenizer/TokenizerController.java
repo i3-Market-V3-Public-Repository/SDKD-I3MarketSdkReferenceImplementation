@@ -9,6 +9,7 @@ import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.TokenizerControllerApi;
 import com.i3m.model.backplane.TokenizationBalanceResponse;
+import com.i3m.model.backplane.TokenizationClearingResponse;
 import com.i3m.model.backplane.TokenizationCommunityWalletBody;
 import com.i3m.model.backplane.TokenizationCommunityWalletResponse;
 import com.i3m.model.backplane.TokenizationDeploySignedTransactionBody;
@@ -22,6 +23,7 @@ import com.i3m.model.backplane.TokenizationMarketplaceIndexResponse;
 import com.i3m.model.backplane.TokenizationMarketplaceResponse;
 import com.i3m.model.backplane.TokenizationOperationsResponse;
 import com.i3m.model.backplane.TokenizationPayToken;
+import com.i3m.model.backplane.TokenizationSetPaidResponse;
 import com.i3m.model.backplane.TokenizationTokenTransfersResponse;
 import com.i3m.model.backplane.TokenizationTransactionObjectResponse;
 import com.i3m.model.backplane.TokenizationTransactionObjectToken;
@@ -48,7 +50,7 @@ import javax.ws.rs.core.GenericType;
  */
 public class TokenizerController {
     private static final Logger _log = LoggerFactory.getLogger(TokenizerController.class);
-    public ApiResponse<TokenizationTransactionObjectResponse> clearingOperation(String access_token, String id_token) throws ApiException {
+    public ApiResponse<TokenizationClearingResponse> clearingOperation(String access_token, String id_token) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsClearingWithHttpInfo();
@@ -69,7 +71,7 @@ public class TokenizerController {
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsFeePaymentWithHttpInfo(tokenizationFeePayToken);
     }
-    public ApiResponse<TokenizationTransactionObjectResponse> setPaid(String access_token, String id_token, TokenizationPayToken tokenizationPayToken) throws ApiException {
+    public ApiResponse<TokenizationSetPaidResponse> setPaid(String access_token, String id_token, TokenizationPayToken tokenizationPayToken) throws ApiException {
         handleAuthentication(access_token, id_token);
         TokenizerControllerApi controller = new TokenizerControllerApi();
         return controller.postApiV1OperationsSetPaidWithHttpInfo(tokenizationPayToken);
