@@ -129,6 +129,7 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
+		consumer_public_keys.forEach(item -> System.out.println("### PK: " + item));
 		return controller.getCheckAgreementsByConsumerByConsumerPublicKeysByActiveWithHttpInfo(consumer_public_keys, active);
 	}
 	
@@ -145,6 +146,7 @@ public class BackplaneClient {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
+		provider_public_keys.forEach(item -> System.out.println("### PK: " + item));
 		return controller.getCheckAgreementsByProviderByProviderPublicKeysByActiveWithHttpInfo(provider_public_keys, active);
 	}
 
