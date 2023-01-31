@@ -1277,10 +1277,9 @@ public class SdkRiHub {
  
 		for(String str : consumer_public_keys)
 		{
-		    System.out.println(" ### str: " + str);
-		    String[] pks = str.split(".");
-		    System.out.println(" ---> PKS list: " + Arrays.toString(pks));
-		    pkList.addAll(Arrays.asList(pks));
+		    String[] pks = str.split("\\.");
+	        pkList.addAll(Arrays.asList(pks));
+		    pkList.removeIf(item -> item == null || "".equals(item));
 		}
 		
 		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
@@ -1294,8 +1293,14 @@ public class SdkRiHub {
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") List<String> provider_public_keys, @PathParam("active") boolean active) throws ApiException {
 		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
-		String[] pks = provider_public_keys.get(0).split(".");
-		pkList.addAll(Arrays.asList(pks));
+		
+		for(String str : provider_public_keys)
+		{
+		    String[] pks = str.split("\\.");
+	        pkList.addAll(Arrays.asList(pks));
+		    pkList.removeIf(item -> item == null || "".equals(item));
+		}
+		
 		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByProvider): " + item));
 		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, pkList , active);
 	}
