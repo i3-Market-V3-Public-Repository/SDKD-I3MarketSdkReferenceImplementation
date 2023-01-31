@@ -40,20 +40,21 @@ import com.i3m.api.Configuration;
 import com.i3m.api.auth.Authentication;
 import com.i3m.api.auth.HttpBearerAuth;
 import com.i3m.api.backplane.AgreementApi;
+import com.i3m.api.backplane.ConflictResolverServiceApi;
 import com.i3m.api.backplane.ExplicitUserConsentApi;
 import com.i3m.api.backplane.RatingServiceApi;
-import com.i3m.api.backplane.ConflictResolverServiceApi;
 import com.i3m.model.backplane.ConflictResolverServiceDisputeInput;
 import com.i3m.model.backplane.ConflictResolverServiceSignedResolution;
 import com.i3m.model.backplane.ConflictResolverServiceVerificationInput;
-import com.i3m.model.backplane.InlineResponse2003;
-import com.i3m.model.backplane.InlineResponse2004;
-import com.i3m.model.backplane.InlineResponse2005;
-import com.i3m.model.backplane.InlineResponse2006;
-import com.i3m.model.backplane.RatingBodyPutRating;
+import com.i3m.model.backplane.RatingAgreementsResponse;
+import com.i3m.model.backplane.RatingEditRatingBody;
 import com.i3m.model.backplane.RatingQuestionnaire;
 import com.i3m.model.backplane.RatingRating;
-import com.i3m.model.backplane.RatingRespondPost;
+import com.i3m.model.backplane.RatingRatingBody;
+import com.i3m.model.backplane.RatingRatingResponse;
+import com.i3m.model.backplane.RatingRatingsResponse;
+import com.i3m.model.backplane.RatingRespondBody;
+import com.i3m.model.backplane.RatingTotalRatingResponse;
 import com.i3m.model.backplane.ScManagerOasActiveAgreements;
 import com.i3m.model.backplane.ScManagerOasAgreementTemplate;
 import com.i3m.model.backplane.ScManagerOasChoosePenalty;
@@ -61,13 +62,14 @@ import com.i3m.model.backplane.ScManagerOasConsent;
 import com.i3m.model.backplane.ScManagerOasConsentStatus;
 import com.i3m.model.backplane.ScManagerOasEnforcePenalty;
 import com.i3m.model.backplane.ScManagerOasPricingModelTemplate;
+import com.i3m.model.backplane.ScManagerOasPublicKeysArray;
 import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
-import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasRevokeConsent;
 import com.i3m.model.backplane.ScManagerOasSignedResolutionScm;
 import com.i3m.model.backplane.ScManagerOasSignedTransaction;
 import com.i3m.model.backplane.ScManagerOasState;
 import com.i3m.model.backplane.ScManagerOasTemplate;
+import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasTransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
@@ -123,7 +125,7 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(String access_token,
-			String id_token, List<String> consumer_public_keys, boolean active) throws ApiException {
+			String id_token, ScManagerOasPublicKeysArray consumer_public_keys, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
@@ -139,7 +141,7 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(String access_token,
-			String id_token, List<String> provider_public_keys, boolean active) throws ApiException {
+			String id_token, ScManagerOasPublicKeysArray provider_public_keys, boolean active) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
@@ -297,14 +299,14 @@ public class BackplaneClient {
 		return controller.getApiAgreementsByIdIsRatedWithHttpInfo(agreement_id);
 	}
 
-	public ApiResponse<InlineResponse2003> getApiAgreementsByIdRating(String access_token, String id_token, String agreement_id) throws ApiException {
+	public ApiResponse<RatingRatingResponse> getApiAgreementsByIdRating(String access_token, String id_token, String agreement_id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.getApiAgreementsByIdRatingWithHttpInfo(agreement_id);
 	}
 
-	public ApiResponse<InlineResponse2004> getApiConsumersByPkAgreements(String access_token, String id_token,
+	public  ApiResponse<RatingAgreementsResponse> getApiConsumersByPkAgreements(String access_token, String id_token,
 			String publicKey) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -312,7 +314,7 @@ public class BackplaneClient {
 		return controller.getApiConsumersByPkAgreementsWithHttpInfo(publicKey);
 	}
 
-	public ApiResponse<InlineResponse2005> getApiConsumersByDidRatings(String access_token, String id_token,
+	public  ApiResponse<RatingRatingsResponse> getApiConsumersByDidRatings(String access_token, String id_token,
 			String did) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -320,7 +322,7 @@ public class BackplaneClient {
 		return controller.getApiConsumersByDidRatingsWithHttpInfo(did);
 	}
 
-	public ApiResponse<InlineResponse2004> getApiProvidersByPkAgreements(String access_token, String id_token,
+	public ApiResponse<RatingAgreementsResponse> getApiProvidersByPkAgreements(String access_token, String id_token,
 			String pk) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -328,7 +330,7 @@ public class BackplaneClient {
 		return controller.getApiProvidersByPkAgreementsWithHttpInfo(pk);
 	}
 
-	public ApiResponse<InlineResponse2005> getApiProvidersByDidRatings(String access_token, String id_token,
+	public  ApiResponse<RatingRatingsResponse> getApiProvidersByDidRatings(String access_token, String id_token,
 			String did) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -336,7 +338,7 @@ public class BackplaneClient {
 		return controller.getApiProvidersByDidRatingsWithHttpInfo(did);
 	}
 
-	public ApiResponse<InlineResponse2006> getApiProvidersByDidTotalRating(String access_token, String id_token,
+	public  ApiResponse<RatingTotalRatingResponse> getApiProvidersByDidTotalRating(String access_token, String id_token,
 			String did) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
@@ -351,45 +353,45 @@ public class BackplaneClient {
 		return controller.getApiQuestionsWithHttpInfo();
 	}
 
-	public ApiResponse<InlineResponse2005> getApiRatings(String access_token, String id_token) throws ApiException {
+	public  ApiResponse<RatingRatingsResponse> getApiRatings(String access_token, String id_token) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.getApiRatingsWithHttpInfo();
 	}
 
-	public ApiResponse<InlineResponse2003> getApiRatingsById(String access_token, String id_token, String id) throws ApiException {
+	public  ApiResponse<RatingRatingResponse> getApiRatingsById(String access_token, String id_token, String id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.getApiRatingsByIdWithHttpInfo(id);
 	}
 
-	public ApiResponse<InlineResponse2003> postApiRatingsByIdRespond(String access_token, String id_token,
-			String id, RatingRespondPost ratingRespond) throws ApiException {
+	public  ApiResponse<RatingRatingResponse> postApiRatingsByIdRespond(String access_token, String id_token,
+			String id, RatingRespondBody ratingRespond) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.postApiRatingsByIdRespondWithHttpInfo(ratingRespond, id);
 	}
 
-	public ApiResponse<InlineResponse2003> putApiRatingsById(String access_token, String id_token, String id,
-			RatingBodyPutRating newRating) throws ApiException {
+	public  ApiResponse<RatingRatingResponse> putApiRatingsById(String access_token, String id_token, String id,
+			RatingEditRatingBody newRating) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.putApiRatingsByIdWithHttpInfo(newRating, id);
 	}
 
-	public ApiResponse<InlineResponse2003> deleteApiRatingsById(String access_token, String id_token, String id) throws ApiException {
+	public ApiResponse<RatingRatingResponse> deleteApiRatingsById(String access_token, String id_token, String id) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();
 		return controller.deleteApiRatingsByIdWithHttpInfo(id);
 	}
 
-	public ApiResponse<InlineResponse2003> postApiRatings(String access_token, String id_token, String id,
-			RatingRating rating) throws ApiException {
+	public ApiResponse<RatingRatingResponse> postApiRatings(String access_token, String id_token, String id,
+			RatingRatingBody rating) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();

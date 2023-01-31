@@ -1270,7 +1270,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") List<String> consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") ScManagerOasPublicKeysArray consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
 		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_keys, active);
 	}
 	
@@ -1279,7 +1279,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") List<String> provider_public_keys, @PathParam("active") boolean active) throws ApiException {
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") ScManagerOasPublicKeysArray provider_public_keys, @PathParam("active") boolean active) throws ApiException {
 		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_keys, active);
 	}
 	
@@ -1464,7 +1464,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed checking agreement rating")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> getApiAgreementsByIdRating(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingRatingResponse> getApiAgreementsByIdRating(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("agreement_id") String agreement_id) throws ApiException {
 		return new BackplaneClient().getApiAgreementsByIdRating(access_token, id_token, agreement_id);
 	}
 	
@@ -1474,7 +1474,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed checking consumer terminated agreements")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2004> getApiConsumersByPkAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("pk") String publicKey) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingAgreementsResponse> getApiConsumersByPkAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("pk") String publicKey) throws ApiException {
 		return new BackplaneClient().getApiConsumersByPkAgreements(access_token, id_token, publicKey);
 	}
 	
@@ -1484,7 +1484,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed checking consumer rating")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2005> getApiConsumersByDidRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingRatingsResponse> getApiConsumersByDidRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
 		return new BackplaneClient().getApiConsumersByDidRatings(access_token, id_token, did);
 	}
 	
@@ -1494,7 +1494,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed checking provider terminated agreements")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2004> getApiProvidersByPkAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("pk") String publicKey) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingAgreementsResponse> getApiProvidersByPkAgreements(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("pk") String publicKey) throws ApiException {
 		return new BackplaneClient().getApiProvidersByPkAgreements(access_token, id_token, publicKey);
 	}
 	
@@ -1504,7 +1504,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed checking provider rating")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2005> getApiProvidersByDidRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingRatingsResponse> getApiProvidersByDidRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
 		return new BackplaneClient().getApiProvidersByDidRatings(access_token, id_token, did);
 	}
 	
@@ -1514,7 +1514,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed calculating average rating of the provider")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2006> getApiProvidersByDidTotalRating(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingTotalRatingResponse> getApiProvidersByDidTotalRating(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("did") String did) throws ApiException {
 		return new BackplaneClient().getApiProvidersByDidTotalRating(access_token, id_token, did);
 	}
 	
@@ -1534,7 +1534,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed getting all ratings")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2005> getApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingRatingsResponse> getApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token) throws ApiException {
 		return new BackplaneClient().getApiRatings(access_token, id_token);
 	}
 	
@@ -1544,7 +1544,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed getting rating by id")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> getApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id) throws ApiException {
+	public  com.i3m.api.ApiResponse<RatingRatingResponse> getApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id) throws ApiException {
 		return new BackplaneClient().getApiRatingsById(access_token, id_token, id);
 	}
 	
@@ -1553,7 +1553,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Respond to a rating object", tags = "common-services: ratings")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed responding to a rating object") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2003> postApiRatingsByIdRespond(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingRespondPost ratingRespond) throws ApiException {
+	public com.i3m.api.ApiResponse<RatingRatingResponse> postApiRatingsByIdRespond(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingRespondBody ratingRespond) throws ApiException {
 		return new BackplaneClient().postApiRatingsByIdRespond(access_token, id_token, id, ratingRespond);
 	}
 	
@@ -1563,7 +1563,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed editing rating by id")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> putApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingBodyPutRating newRating) throws ApiException {
+	public com.i3m.api.ApiResponse<RatingRatingResponse>  putApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingEditRatingBody newRating) throws ApiException {
 		return new BackplaneClient().putApiRatingsById(access_token, id_token, id, newRating);
 	}
 	
@@ -1573,7 +1573,7 @@ public class SdkRiHub {
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "Failed deleting rating by id")})
 	@Produces({ "application/json", "application/xml" })
 	@Consumes(MediaType.APPLICATION_JSON)
-	public com.i3m.api.ApiResponse<InlineResponse2003> deleteApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id) throws ApiException {
+	public com.i3m.api.ApiResponse<RatingRatingResponse> deleteApiRatingsById(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id) throws ApiException {
 		return new BackplaneClient().deleteApiRatingsById(access_token, id_token, id);
 	}
 	
@@ -1582,7 +1582,7 @@ public class SdkRiHub {
 	@ApiOperation(value = "Create a new rating", tags = "common-services: ratings")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed creating a new rating object") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<InlineResponse2003> postApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingRating rating) throws ApiException {
+	public com.i3m.api.ApiResponse<RatingRatingResponse> postApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingRatingBody rating) throws ApiException {
 		return new BackplaneClient().postApiRatings(access_token, id_token, id, rating);
 	}
 	
