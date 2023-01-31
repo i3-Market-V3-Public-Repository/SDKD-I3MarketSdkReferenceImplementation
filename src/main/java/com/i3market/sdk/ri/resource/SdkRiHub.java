@@ -32,6 +32,7 @@ package com.i3market.sdk.ri.resource;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.*;
@@ -1268,27 +1269,27 @@ public class SdkRiHub {
 	
 	@GET
 	@Path("/contract/check_agreements_by_consumer/{consumer_public_keys}/{active}")
-	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") List<String> consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
 		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
-		pkList.addAll(consumer_public_keys);
-		pkList.forEach(item -> System.out.println("### PK: " + item));
+		String[] pks = consumer_public_keys.get(0).split(".");
+		pkList.addAll(Arrays.asList(pks));
+		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
 		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, pkList, active);
 	}
 	
 	@GET
 	@Path("/contract/check_agreements_by_provider/{provider_public_keys}/{active}")
-	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") List<String> provider_public_keys, @PathParam("active") boolean active) throws ApiException {
 		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
-		pkList.addAll(provider_public_keys);
-		pkList.forEach(item -> System.out.println("### PK: " + item));
+		String[] pks = provider_public_keys.get(0).split(".");
+		pkList.addAll(Arrays.asList(pks));
+		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByProvider): " + item));
 		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, pkList , active);
 	}
 	
