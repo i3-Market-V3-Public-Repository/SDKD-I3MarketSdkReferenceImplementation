@@ -1272,7 +1272,9 @@ public class SdkRiHub {
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") List<String> consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, (ScManagerOasPublicKeysArray) consumer_public_keys, active);
+		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
+		pkList.addAll(consumer_public_keys);
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, pkList, active);
 	}
 	
 	@GET
@@ -1281,7 +1283,9 @@ public class SdkRiHub {
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") List<String> provider_public_keys, @PathParam("active") boolean active) throws ApiException {
-		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, (ScManagerOasPublicKeysArray) provider_public_keys, active);
+		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
+		pkList.addAll(provider_public_keys);
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, pkList , active);
 	}
 	
 	@GET
