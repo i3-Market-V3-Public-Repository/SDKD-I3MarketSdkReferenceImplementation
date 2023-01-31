@@ -1279,6 +1279,7 @@ public class SdkRiHub {
 		{
 		    System.out.println(" ### str: " + str);
 		    String[] pks = str.split(".");
+		    System.out.println(" ---> PKS list: " + Arrays.toString(pks));
 		    pkList.addAll(Arrays.asList(pks));
 		}
 		
