@@ -1274,6 +1274,11 @@ public class SdkRiHub {
 	@Produces({"application/json"})
 	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") List<String> consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
 		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
+		for(String str : consumer_public_keys)
+		{
+		    
+		    System.out.println(" ### str: " + str);
+		}
 		String[] pks = consumer_public_keys.get(0).split(".");
 		pkList.addAll(Arrays.asList(pks));
 		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
