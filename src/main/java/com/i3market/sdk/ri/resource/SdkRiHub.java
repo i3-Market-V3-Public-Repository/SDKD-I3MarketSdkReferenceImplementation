@@ -1277,9 +1277,10 @@ public class SdkRiHub {
  
 		for(String str : consumer_public_keys)
 		{
-		    String[] pks = str.split("\\.");
-	        pkList.addAll(Arrays.asList(pks));
-		    pkList.removeIf(item -> item == null || "".equals(item));
+		    //String[] pks = str.split("\\.");
+	        //pkList.addAll(Arrays.asList(pks));
+			pkList.add(str);
+		    //pkList.removeIf(item -> item == null || "".equals(item));
 		}
 		
 		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
@@ -1296,9 +1297,10 @@ public class SdkRiHub {
 		
 		for(String str : provider_public_keys)
 		{
-		    String[] pks = str.split("\\.");
-	        pkList.addAll(Arrays.asList(pks));
-		    pkList.removeIf(item -> item == null || "".equals(item));
+		    //String[] pks = str.split("\\.");
+	        //pkList.addAll(Arrays.asList(pks));
+		    pkList.add(str);
+		    //pkList.removeIf(item -> item == null || "".equals(item));
 		}
 		
 		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByProvider): " + item));
