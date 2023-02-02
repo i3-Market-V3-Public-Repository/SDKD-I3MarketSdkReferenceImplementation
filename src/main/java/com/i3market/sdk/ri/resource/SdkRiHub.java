@@ -1268,7 +1268,7 @@ public class SdkRiHub {
 	}
 	
 	@POST
-	@Path("/contract/check_agreements_by_consumer/{consumer_public_keys}/{active}")
+	@Path("/contract/check_agreements_by_consumer")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
@@ -1277,7 +1277,7 @@ public class SdkRiHub {
 	}
 	
 	@POST
-	@Path("/contract/check_agreements_by_provider/{provider_public_keys}/{active}")
+	@Path("/contract/check_agreements_by_provider")
 	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
