@@ -62,7 +62,7 @@ import com.i3m.model.backplane.ScManagerOasConsent;
 import com.i3m.model.backplane.ScManagerOasConsentStatus;
 import com.i3m.model.backplane.ScManagerOasEnforcePenalty;
 import com.i3m.model.backplane.ScManagerOasPricingModelTemplate;
-import com.i3m.model.backplane.ScManagerOasPublicKeysArray;
+import com.i3m.model.backplane.ScManagerOasPublicKeysActive;
 import com.i3m.model.backplane.ScManagerOasRawTransactionTemplate;
 import com.i3m.model.backplane.ScManagerOasRevokeConsent;
 import com.i3m.model.backplane.ScManagerOasSignedResolutionScm;
@@ -73,7 +73,7 @@ import com.i3m.model.backplane.ScManagerOasTerminate;
 import com.i3m.model.backplane.ScManagerOasTransactionObject;
 import com.i3market.sdk.ri.execution_patterns.SdkRiConstants;
 
-public class BackplaneClient {
+public class BackplaneClient<ScManagerOasPublicKeysArray> {
 	
 	public ApiResponse<ScManagerOasTemplate> getTemplate (String access_token, String id_token, String idTemplate) throws ApiException {
 		handleAuthentication(access_token, id_token);
@@ -125,12 +125,11 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(String access_token,
-			String id_token, ScManagerOasPublicKeysArray consumer_public_keys, boolean active) throws ApiException {
+			String id_token, ScManagerOasPublicKeysActive consumer_public_keys) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		consumer_public_keys.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
-		return controller.getCheckAgreementsByConsumerByConsumerPublicKeysByActiveWithHttpInfo(consumer_public_keys, active);
+		return controller.postCheckAgreementsByConsumerWithHttpInfo(consumer_public_keys);
 	}
 	
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByDataOffering(String access_token, String id_token,
@@ -142,12 +141,11 @@ public class BackplaneClient {
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(String access_token,
-			String id_token, ScManagerOasPublicKeysArray provider_public_keys, boolean active) throws ApiException {
+			String id_token, ScManagerOasPublicKeysActive provider_public_keys) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		AgreementApi controller = new AgreementApi();
-		provider_public_keys.forEach(item -> System.out.println("### PK (checkAgreementsByProvider): " + item));
-		return controller.getCheckAgreementsByProviderByProviderPublicKeysByActiveWithHttpInfo(provider_public_keys, active);
+		return controller.postCheckAgreementsByProviderWithHttpInfo(provider_public_keys);
 	}
 
 	public ApiResponse<ScManagerOasActiveAgreements> checkActiveAgreements(String access_token,

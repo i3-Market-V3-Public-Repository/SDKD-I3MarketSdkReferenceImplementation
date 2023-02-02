@@ -1267,44 +1267,22 @@ public class SdkRiHub {
 		return new BackplaneClient().getAgreement(access_token, id_token, agreement_id);
 	}
 	
-	@GET
+	@POST
 	@Path("/contract/check_agreements_by_consumer/{consumer_public_keys}/{active}")
 	@ApiOperation(value = "retrieve the agreement by consumer", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("consumer_public_keys") ScManagerOasPublicKeysArray consumer_public_keys, @PathParam("active") boolean active) throws ApiException {
-		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
- 
-//		for(String str : consumer_public_keys)
-//		{
-//		    //String[] pks = str.split("\\.");
-//	        //pkList.addAll(Arrays.asList(pks));
-//			pkList.add(str);
-//		    //pkList.removeIf(item -> item == null || "".equals(item));
-//		}
-//		
-//		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByConsumer): " + item));
-		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_keys, active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByConsumer(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasPublicKeysActive consumer_public_keys) throws ApiException {
+		return new BackplaneClient().checkAgreementsByConsumer(access_token, id_token, consumer_public_keys);
 	}
 	
-	@GET
+	@POST
 	@Path("/contract/check_agreements_by_provider/{provider_public_keys}/{active}")
 	@ApiOperation(value = "retrieve the agreement by provider", tags = "common-services: contract")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed to get the agreements") })
 	@Produces({"application/json"})
-	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("provider_public_keys") ScManagerOasPublicKeysArray provider_public_keys, @PathParam("active") boolean active) throws ApiException {
-//		ScManagerOasPublicKeysArray pkList = new ScManagerOasPublicKeysArray();
-//		
-//		for(String str : provider_public_keys)
-//		{
-//		    //String[] pks = str.split("\\.");
-//	        //pkList.addAll(Arrays.asList(pks));
-//		    pkList.add(str);
-//		    //pkList.removeIf(item -> item == null || "".equals(item));
-//		}
-//		
-//		pkList.forEach(item -> System.out.println("### PK (checkAgreementsByProvider): " + item));
-		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_keys , active);
+	public com.i3m.api.ApiResponse<ScManagerOasActiveAgreements> checkAgreementsByProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody  ScManagerOasPublicKeysActive provider_public_keys) throws ApiException {
+		return new BackplaneClient().checkAgreementsByProvider(access_token, id_token, provider_public_keys);
 	}
 	
 	@GET
