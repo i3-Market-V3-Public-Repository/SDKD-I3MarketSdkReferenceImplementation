@@ -390,8 +390,7 @@ public class BackplaneClient<ScManagerOasPublicKeysArray> {
 		return controller.deleteApiRatingsByIdWithHttpInfo(id);
 	}
 
-	public ApiResponse<RatingRatingResponse> postApiRatings(String access_token, String id_token, String id,
-			RatingRatingBody rating) throws ApiException {
+	public ApiResponse<RatingRatingResponse> postApiRatings(String access_token, String id_token, RatingRatingBody rating) throws ApiException {
 		handleAuthentication(access_token, id_token);
 
 		RatingServiceApi controller = new RatingServiceApi();

@@ -1584,8 +1584,8 @@ public class SdkRiHub {
 	@ApiOperation(value = "Create a new rating", tags = "common-services: ratings")
 	@ApiResponses(value = { @ApiResponse(code = 400, message = "failed creating a new rating object") })
 	@Produces({ "application/json", "application/xml" })
-	public com.i3m.api.ApiResponse<RatingRatingResponse> postApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String id, @RequestBody RatingRatingBody rating) throws ApiException {
-		return new BackplaneClient().postApiRatings(access_token, id_token, id, rating);
+	public com.i3m.api.ApiResponse<RatingRatingResponse> postApiRatings(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @RequestBody RatingRatingBody rating) throws ApiException {
+		return new BackplaneClient().postApiRatings(access_token, id_token, rating);
 	}
 	
 	/////// Alerts Subscriptions ///////
