@@ -621,7 +621,7 @@ public class SdkRiHub {
 
 
 
-		@POST
+	@POST
 	@Path("/registration/data-provider")
 	@ApiOperation(value = "register a data provider", tags="common-services: offering")
 	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed to save provider info")})
@@ -640,6 +640,16 @@ public class SdkRiHub {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public com.i3m.api.ApiResponse<Void> deleteDataProvider(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("providerId") String dataProviderId) throws ApiException {
 		return new DeleteDataProvider().deleteProvider(access_token, id_token, dataProviderId);
+	}
+	
+	@GET
+	@Path("/registration/federated-contract-parameter/{id}/offeringId")
+	@ApiOperation(value = "get contract parameter by offering id in federated search", tags="common-services: offering")
+	@ApiResponses(value = {@ApiResponse(code = 400, message = "failed federated search")})
+	@Produces({ "application/json", "application/xml" })
+	@Consumes(MediaType.APPLICATION_JSON)
+	public com.i3m.api.ApiResponse<SemanticEngineContractsParametersForOfferings> getFederatedContractParameterByOfferingId(@HeaderParam("access_token") String access_token, @HeaderParam("id_token") String id_token, @PathParam("id") String offeringId, @QueryParam("page") @DefaultValue("0") Integer page, @QueryParam("size") @DefaultValue("5") Integer size, @QueryParam("sort") List<String> sort) throws ApiException {
+		return new RetrieveContractParametersByOfferingIdFederatedSearch().retrieveContractParameter(access_token, id_token, offeringId, page, size, sort);
 	}
 	
     @PATCH
